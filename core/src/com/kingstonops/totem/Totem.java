@@ -2,6 +2,8 @@ package com.kingstonops.totem;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,6 +23,7 @@ public class Totem extends Game {
 	}
 
 	private Engine m_engine;
+	private RawInput m_raw_input;
 	private Batch m_batch;
 	private BitmapFont m_font;
 
@@ -28,10 +31,19 @@ public class Totem extends Game {
 	public void create(){
 		m_engine = new Engine();
 		m_engine.addSystem(new MovementSystem());
+		m_engine.addSystem(new PlayerControllerSystem(m_engine));
+		InputSystem input = new InputSystem();
+
+		Gdx.input.setInputProcessor(input);
+		m_engine.addSystem(input);
+		RenderSystem r = new RenderSystem();
+		r.setProcessing(true);
+		m_engine.addSystem(r);
 
 		m_font = new BitmapFont();
 		m_batch = new SpriteBatch();
 		setScreen(new GameScreen(this));
+		System.out.println("created Totem!");
 	}
 
 	@Override
