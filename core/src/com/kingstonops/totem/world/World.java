@@ -12,15 +12,15 @@ import com.kingstonops.totem.rendering.RenderSystem;
 public class World {
 
 
-    private static final int WIDTH = 20;
+    private static final int WIDTH = 10;
     private static final int HEIGHT = WIDTH;
 
     private Totem m_game;
 
     public World(Totem game){
         m_game = game;
-        for(int x =0;x<WIDTH;x++){
-            for(int y =0;y<HEIGHT;y++){
+        for(int x =-WIDTH/2;x<WIDTH/2;x++){
+            for(int y =-HEIGHT/2;y<HEIGHT/2;y++){
                 Entity e = m_game.engine().createEntity();
                 m_game.engine().addEntity(e);
                 TransformComponent p = new TransformComponent();

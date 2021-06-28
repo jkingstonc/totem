@@ -51,12 +51,10 @@ public class Totem extends Game {
 		m_batch = new SpriteBatch();
 		setScreen(new GameScreen(this));
 		System.out.println("created Totem!");
-		//ImGui.styleColorsDark();
 	}
 
 	@Override
 	public void dispose(){}
-
 
 }
 

@@ -79,7 +79,7 @@ public class RenderSystem extends EntitySystem {
     }
 
     @Override
-    public void addedToEngine(Engine engine) {c
+    public void addedToEngine(Engine engine) {
         m_entities = engine.getEntitiesFor(Family.all(TransformComponent.class, RenderComponent.class).get());
     }
 

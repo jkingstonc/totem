@@ -60,9 +60,7 @@ public class GameScreen extends ScreenAdapter {
 
         // set the camera target
 
-        ImmutableArray<Entity> entities = m_game.engine().getEntitiesFor(Family.one(CameraComponent.class).get());
-        Entity cam_e = entities.get(0);
-        CameraComponent cam = cam_e.getComponent(CameraComponent.class);
+        CameraComponent cam = CameraComponent.getInstance(m_game.engine());
         System.out.println("camera = "+cam);
         cam.target = t.position;
         cam.follow_target=true;
@@ -89,6 +87,12 @@ public class GameScreen extends ScreenAdapter {
     private ImGuiImplGlfw m_imgui_glfw;
     private ImGuiImplGl3 m_imgui_gl3;
     private long m_win_handle;
+
+
+    @Override
+    public void resize(int w, int h){
+        CameraComponent.getInstance(m_game.engine()).resize(w, h);
+    }
 
     private void update(float dt){
 
