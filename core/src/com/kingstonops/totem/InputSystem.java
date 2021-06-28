@@ -8,26 +8,29 @@ import com.badlogic.gdx.InputProcessor;
 public class InputSystem extends EntitySystem implements InputProcessor {
     private ImmutableArray<Entity> m_entities;
 
+
+    public int key_up = -1;
+    public int key_held = -1;
+
     @Override
     public void addedToEngine(Engine engine) {
     }
 
     @Override
     public void update(float dt){
-
+        key_up=-1;
+        key_held=-1;
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.F) {
-            System.out.println("pressed F to pay respect...");
-            return true;
-        }
+        key_held=keycode;
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
+        key_up = keycode;
         return false;
     }
 

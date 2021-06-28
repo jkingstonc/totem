@@ -1,13 +1,9 @@
 package com.kingstonops.totem;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -26,9 +22,15 @@ public class GameScreen extends ScreenAdapter {
         System.out.println("init");
         m_player = m_game.engine().createEntity();
         m_game.engine().addEntity(m_player);
-        m_player.add(new PositionComponent());
+        TransformComponent p = new TransformComponent();
+        p.x = RenderSystem.unit_to_pixel(0);
+        p.y = RenderSystem.unit_to_pixel(0);
+        m_player.add(p);
+        MovementComponent v = new MovementComponent();
+        m_player.add(v);
+        m_player.add(new PlayerComponent());
         RenderComponent r = new RenderComponent();
-        r.texture = new Texture("badlogic.jpg");
+        r.texture = new TextureRegion(new Texture("badlogic.jpg"));
         m_player.add(r);
         m_initialised = true;
     }
