@@ -5,14 +5,24 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.kingstonops.totem.*;
 import com.kingstonops.totem.rendering.CameraComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.World;
+import imgui.ImGui;
+import imgui.ImGuiIO;
+import imgui.gl3.ImGuiImplGl3;
+import imgui.glfw.ImGuiImplGlfw;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.opengl.GL;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -57,13 +67,51 @@ public class GameScreen extends ScreenAdapter {
         cam.target = t.position;
         cam.follow_target=true;
 
+
+
+        m_imgui_glfw = new ImGuiImplGlfw();
+        m_imgui_gl3 = new ImGuiImplGl3();
+        GLFWErrorCallback.createPrint(System.err).set();
+        if(!GLFW.glfwInit()){
+            System.out.println("failed to init GLFW!");
+        }
+        ImGui.createContext();
+        final ImGuiIO io = ImGui.getIO();
+        io.setIniFilename(null);
+
+        m_win_handle = ((Lwjgl3Graphics) Gdx.graphics).getWindow().getWindowHandle();
+
+        m_imgui_glfw.init(m_win_handle, true);
+        m_imgui_gl3.init();
+
         m_initialised = true;
     }
-
+    private ImGuiImplGlfw m_imgui_glfw;
+    private ImGuiImplGl3 m_imgui_gl3;
+    private long m_win_handle;
 
     private void update(float dt){
+
+//        Gdx.gl.glClearColor(0,255,0,100);
+//        Gdx.gl.glClear(Gdx.gl20.GL_COLOR_BUFFER_BIT | Gdx.gl20.GL_DEPTH_BUFFER_BIT);
+
+
         m_game.engine().update(dt);
         Gdx.graphics.setTitle("fps "+1/dt);
+
+        m_imgui_glfw.newFrame();
+
+        ImGui.newFrame();
+        ImGui.text("version "+Totem.VERSION);
+        ImGui.text("fps "+(1/dt));
+        ImGui.text("entities "+m_game.engine().getEntities().size());
+        ImGui.endFrame();
+
+        ImGui.render();
+        m_imgui_gl3.renderDrawData(ImGui.getDrawData());
+
+
+
     }
 
     @Override

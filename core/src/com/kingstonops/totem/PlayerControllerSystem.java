@@ -7,6 +7,7 @@ import com.kingstonops.totem.input.InputSystem;
 
 public class PlayerControllerSystem extends EntitySystem {
 
+    private final float SPEED = 250f;
 
     private Engine m_engine;
     private ImmutableArray<Entity> m_entities;
@@ -35,14 +36,14 @@ public class PlayerControllerSystem extends EntitySystem {
             InputSystem input = m_engine.getSystem(InputSystem.class);
 
             if(input.key_held== Input.Keys.W){
-                v.acceleration.y=100;
+                v.acceleration.y=SPEED;
             }else if(input.key_held== Input.Keys.S){
-                v.acceleration.y=-100;
+                v.acceleration.y=-SPEED;
             }
             if(input.key_held== Input.Keys.A){
-                v.acceleration.x=-100;
+                v.acceleration.x=-SPEED;
             }else if(input.key_held== Input.Keys.D){
-                v.acceleration.x=100;
+                v.acceleration.x=SPEED;
             }
         }
     }

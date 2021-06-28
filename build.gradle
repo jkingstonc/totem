@@ -7,6 +7,9 @@ buildscript {
         gradlePluginPortal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         google()
+        maven { url "https://dl.bintray.com/kotlin/kotlin-dev" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath 'org.wisepersist:gwt-gradle-plugin:1.0.13'
@@ -22,7 +25,8 @@ allprojects {
     version = '1.0'
     ext {
         appName = "Totem"
-        gdxVersion = '1.9.14'
+        //gdxVersion = '1.9.14'
+        gdxVersion = '1.10.0'
         roboVMVersion = '2.3.12'
         box2DLightsVersion = '1.5'
         ashleyVersion = '1.7.3'
@@ -46,10 +50,11 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
-        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        //api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        //api 'com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion'
+        implementation group: 'com.badlogicgames.gdx', name: 'gdx-backend-lwjgl3', version: '1.10.0'
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-        compile "com.badlogicgames.ashley:ashley:1.7.3"
     }
 }
 
@@ -70,7 +75,7 @@ project(":html") {
         compile "com.badlogicgames.ashley:ashley:1.7.3:sources"
     }
 }
-
+import org.gradle.internal.os.OperatingSystem
 project(":core") {
     apply plugin: "java-library"
 
@@ -79,5 +84,18 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.ashley:ashley:1.7.3"
+
+        implementation group: 'com.badlogicgames.gdx', name: 'gdx-backend-lwjgl3', version: '1.10.0'
+
+        implementation "io.github.spair:imgui-java-app:1.83.1"
+        "io.github.spair:imgui-java-binding:<version>"
+        "io.github.spair:imgui-java-lwjgl3:<version>"
+        "io.github.spair:imgui-java-natives-linux:<version>"
+        "io.github.spair:imgui-java-natives-macos:<version>"
+        "io.github.spair:imgui-java-natives-windows:<version>"
+        
+        
+
+
     }
 }

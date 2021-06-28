@@ -10,11 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.kingstonops.totem.TransformComponent;
 
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class RenderSystem extends EntitySystem {
-
     private static class ZComparator implements Comparator<Entity>{
         private ComponentMapper<TransformComponent> m_pos_mapper;
         public ZComparator(){
@@ -71,17 +71,22 @@ public class RenderSystem extends EntitySystem {
 
 
         System.out.println("creating RenderSystem");
+
+
+/*        m_imgui_glfw = new ImGuiImplGlfw();
+        m_imgui_gl3 = new ImGuiImplGl3();
+        ImGui.createContext();*/
     }
 
     @Override
-    public void addedToEngine(Engine engine) {
+    public void addedToEngine(Engine engine) {c
         m_entities = engine.getEntitiesFor(Family.all(TransformComponent.class, RenderComponent.class).get());
     }
 
     @Override
     public void update(float dt){
 
-        ScreenUtils.clear(1, 0, 0, 1);
+        ScreenUtils.clear(0, 0, 0, 1);
 
         for(int i = 0;i<m_entities.size();i++){
             Entity e = m_entities.get(i);

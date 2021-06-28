@@ -14,6 +14,7 @@ import com.kingstonops.totem.screens.GameScreen;
 
 public class Totem extends Game {
 
+	public static String VERSION = "a0_0_1";
 	public Batch batch() {
 		return m_batch;
 	}
@@ -50,6 +51,7 @@ public class Totem extends Game {
 		m_batch = new SpriteBatch();
 		setScreen(new GameScreen(this));
 		System.out.println("created Totem!");
+		//ImGui.styleColorsDark();
 	}
 
 	@Override
