@@ -1,17 +1,19 @@
 package com.kingstonops.totem.screens;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.kingstonops.totem.*;
+import com.kingstonops.totem.items.InventoryComponent;
+import com.kingstonops.totem.items.Item;
+import com.kingstonops.totem.items.ItemStack;
+import com.kingstonops.totem.physics.MovementComponent;
+import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.CameraComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
@@ -22,7 +24,6 @@ import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.opengl.GL;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -41,6 +42,18 @@ public class GameScreen extends ScreenAdapter {
         System.out.println("init");
         m_player = m_game.engine().createEntity();
         m_game.engine().addEntity(m_player);
+
+        Item.register(new Item.ItemDescriptor("pickaxe"));
+        Item.register(new Item.ItemDescriptor("shovel"));
+        Item.register(new Item.ItemDescriptor("axe"));
+
+        InventoryComponent i = new InventoryComponent();
+        i.put(Item.instance("pickaxe"));
+        i.put(Item.instance("pickaxe"));
+        i.put(Item.instance("shovel"));
+        i.put(Item.instance("axe"));
+        m_player.add(i);
+
         TransformComponent t = new TransformComponent();
         t.position = new Vector3(
             RenderSystem.unit_to_pixel(0),
@@ -52,7 +65,7 @@ public class GameScreen extends ScreenAdapter {
         m_player.add(v);
         m_player.add(new PlayerComponent());
         RenderComponent r = new RenderComponent();
-        r.texture = new TextureRegion(new Texture("badlogic.jpg"));
+        r.texture = new TextureRegion(new Texture("guy.png"));
         m_player.add(r);
 
         // create a world
@@ -83,7 +96,11 @@ public class GameScreen extends ScreenAdapter {
         m_imgui_gl3.init();
 
         m_initialised = true;
+
+        m_profiler = new GLProfiler(Gdx.graphics);
+        m_profiler.enable();
     }
+    private GLProfiler m_profiler;
     private ImGuiImplGlfw m_imgui_glfw;
     private ImGuiImplGl3 m_imgui_gl3;
     private long m_win_handle;
@@ -99,23 +116,25 @@ public class GameScreen extends ScreenAdapter {
 //        Gdx.gl.glClearColor(0,255,0,100);
 //        Gdx.gl.glClear(Gdx.gl20.GL_COLOR_BUFFER_BIT | Gdx.gl20.GL_DEPTH_BUFFER_BIT);
 
+        m_imgui_glfw.newFrame();
+        ImGui.newFrame();
 
         m_game.engine().update(dt);
-        Gdx.graphics.setTitle("fps "+1/dt);
 
-        m_imgui_glfw.newFrame();
 
-        ImGui.newFrame();
+        ImGui.begin("debug info");
         ImGui.text("version "+Totem.VERSION);
         ImGui.text("fps "+(1/dt));
         ImGui.text("entities "+m_game.engine().getEntities().size());
-        ImGui.endFrame();
+        ImGui.text("draw calls "+ m_profiler.getDrawCalls());
+        ImGui.text("vertex count "+ m_profiler.getVertexCount());
+        ImGui.text("shader switches "+ m_profiler.getShaderSwitches());
+        ImGui.end();
 
+
+        ImGui.endFrame();
         ImGui.render();
         m_imgui_gl3.renderDrawData(ImGui.getDrawData());
-
-
-
     }
 
     @Override

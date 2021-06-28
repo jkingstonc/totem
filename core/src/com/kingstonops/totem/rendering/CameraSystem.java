@@ -3,16 +3,10 @@ package com.kingstonops.totem.rendering;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.kingstonops.totem.TransformComponent;
+import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.Utils;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class CameraSystem extends EntitySystem {
 

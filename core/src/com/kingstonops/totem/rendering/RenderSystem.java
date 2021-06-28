@@ -3,13 +3,11 @@ package com.kingstonops.totem.rendering;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.kingstonops.totem.TransformComponent;
-
+import com.kingstonops.totem.physics.TransformComponent;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -52,6 +50,15 @@ public class RenderSystem extends EntitySystem {
     }
     public static final float unit_to_pixel(float unit){
         return unit/PIXEL_TO_UNIT;
+    }
+
+    public Vector3 un_project(Vector3 coords){
+        Vector3 p = m_camera.cam.unproject(coords);
+        System.out.println("unprojected "+coords+" -> "+p);
+        p.x = (int)pix_to_unit(p.x - Gdx.graphics.getWidth()/2);
+        p.y = (int)pix_to_unit(p.y - Gdx.graphics.getHeight()/2);
+        p.z = (int)pix_to_unit(p.z);
+        return new Vector3(p.x, p.y, p.z);
     }
 
     public RenderSystem(Engine engine){

@@ -1,8 +1,7 @@
-package com.kingstonops.totem;
+package com.kingstonops.totem.physics;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.math.Vector3;
 
 public class MovementSystem extends EntitySystem {
     private ImmutableArray<Entity> m_entities;
@@ -23,14 +22,15 @@ public class MovementSystem extends EntitySystem {
             MovementComponent v = m_vel_mapper.get(e);
             v.velocity.set(0,0,0);
             // add acceleration
-            v.velocity.x+=v.acceleration.x*dt;
-            v.velocity.y+=v.acceleration.y*dt;
+            v.velocity.x+=v.acceleration.x;
+            v.velocity.y+=v.acceleration.y;
             //v.velocity.add(v.acceleration.mulAdd(new Vector3(1, 1, 1), dt));
 
             // add to position
             //p.x+=v.v_x;
             // p.y+=v.v_y;
-            p.position.add(v.velocity);
+            p.position.x += (v.velocity.x*dt);
+            p.position.y += (v.velocity.y*dt);
 
 
 
