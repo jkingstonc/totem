@@ -3,10 +3,13 @@ package com.kingstonops.totem;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kingstonops.totem.input.InputSystem;
+import com.kingstonops.totem.input.RawInput;
+import com.kingstonops.totem.rendering.RenderSystem;
+import com.kingstonops.totem.screens.GameScreen;
 
 public class Totem extends Game {
 

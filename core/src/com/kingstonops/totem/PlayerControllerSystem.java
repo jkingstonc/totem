@@ -3,6 +3,7 @@ package com.kingstonops.totem;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Input;
+import com.kingstonops.totem.input.InputSystem;
 
 public class PlayerControllerSystem extends EntitySystem {
 
@@ -34,14 +35,14 @@ public class PlayerControllerSystem extends EntitySystem {
             InputSystem input = m_engine.getSystem(InputSystem.class);
 
             if(input.key_held== Input.Keys.W){
-                v.a_y=100;
+                v.acceleration.y=100;
             }else if(input.key_held== Input.Keys.S){
-                v.a_y=-100;
+                v.acceleration.y=-100;
             }
             if(input.key_held== Input.Keys.A){
-                v.a_x=-100;
+                v.acceleration.x=-100;
             }else if(input.key_held== Input.Keys.D){
-                v.a_x=100;
+                v.acceleration.x=100;
             }
         }
     }

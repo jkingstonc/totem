@@ -1,9 +1,10 @@
-package com.kingstonops.totem;
+package com.kingstonops.totem.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.kingstonops.totem.Totem;
 
 public class EndScreen extends ScreenAdapter {
 

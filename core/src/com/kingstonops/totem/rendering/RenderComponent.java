@@ -1,4 +1,4 @@
-package com.kingstonops.totem;
+package com.kingstonops.totem.rendering;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.graphics.Texture;

@@ -1,4 +1,4 @@
-package com.kingstonops.totem;
+package com.kingstonops.totem.input;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;

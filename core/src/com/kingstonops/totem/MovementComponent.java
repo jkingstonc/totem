@@ -1,10 +1,10 @@
 package com.kingstonops.totem;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class MovementComponent implements Component {
-    public double v_x = 0.0f;
-    public double v_y = 0.0f;
-    public double a_x = 0.0f;
-    public double a_y = 0.0f;
+    public Vector3 velocity = new Vector3();
+    public Vector3 acceleration = new Vector3();
 }

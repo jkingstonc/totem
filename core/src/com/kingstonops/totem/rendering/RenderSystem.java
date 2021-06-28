@@ -1,4 +1,4 @@
-package com.kingstonops.totem;
+package com.kingstonops.totem.rendering;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.kingstonops.totem.TransformComponent;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -23,9 +24,9 @@ public class RenderSystem extends EntitySystem {
             TransformComponent p1 = m_pos_mapper.get(o1);
             TransformComponent p2 = m_pos_mapper.get(o2);
             int result = 0;
-            if(p1.z > p2.z)
+            if(p1.position.z > p2.position.z)
                 result = 1;
-            else if(p1.z < p2.z)
+            else if(p1.position.z < p2.position.z)
                 result = -1;
             return result;
         }
@@ -40,7 +41,7 @@ public class RenderSystem extends EntitySystem {
     private Batch m_batch;
     private OrthographicCamera m_camera;
 
-    public static final float UNIT_SIZE = 50f; // pixels per unit
+    public static final float UNIT_SIZE = 100f; // pixels per unit
     public static final float PIXEL_TO_UNIT = 1/UNIT_SIZE;
 
     public static final float pix_to_unit(float pixels){
@@ -103,7 +104,7 @@ public class RenderSystem extends EntitySystem {
 
             //System.out.println("x = "+(t.x + origin_x)+",y = "+(t.y + origin_y));
 
-            m_batch.draw(r.texture, t.x + origin_x, t.y + origin_y, w, h);
+            m_batch.draw(r.texture, t.position.x + origin_x, t.position.y + origin_y, w, h);
         }
 
         m_batch.end();

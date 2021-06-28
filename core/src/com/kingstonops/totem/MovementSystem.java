@@ -2,6 +2,7 @@ package com.kingstonops.totem;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.math.Vector3;
 
 public class MovementSystem extends EntitySystem {
     private ImmutableArray<Entity> m_entities;
@@ -20,30 +21,30 @@ public class MovementSystem extends EntitySystem {
             Entity e = m_entities.get(i);
             TransformComponent p = m_pos_mapper.get(e);
             MovementComponent v = m_vel_mapper.get(e);
-            v.v_x=0;
-            v.v_y=0;
-
+            v.velocity.set(0,0,0);
             // add acceleration
-            v.v_x+=v.a_x*dt;
-            v.v_y+=v.a_y*dt;
+            v.velocity.x+=v.acceleration.x*dt;
+            v.velocity.y+=v.acceleration.y*dt;
+            //v.velocity.add(v.acceleration.mulAdd(new Vector3(1, 1, 1), dt));
 
-            // add to velocity
-            p.x+=v.v_x;
-            p.y+=v.v_y;
+            // add to position
+            //p.x+=v.v_x;
+            // p.y+=v.v_y;
+            p.position.add(v.velocity);
 
 
 
             // slow down acceleration
             float THRESH = 0.00001f;
             float DAMPER = .95f;
-            if(v.a_x>THRESH || v.a_x<-THRESH)
-                v.a_x*=(DAMPER);
+            if(v.acceleration.x>THRESH || v.acceleration.x<-THRESH)
+                v.acceleration.x*=(DAMPER);
             else
-                v.a_x=0;
-            if(v.a_y>THRESH || v.a_y<-THRESH)
-                v.a_y*=(DAMPER);
+                v.acceleration.x=0;
+            if(v.acceleration.y>THRESH || v.acceleration.y<-THRESH)
+                v.acceleration.y*=(DAMPER);
             else
-                v.a_y=0;
+                v.acceleration.y=0;
 
 
 

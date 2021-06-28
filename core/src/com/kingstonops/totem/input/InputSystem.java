@@ -1,4 +1,4 @@
-package com.kingstonops.totem;
+package com.kingstonops.totem.input;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
@@ -9,6 +9,7 @@ public class InputSystem extends EntitySystem implements InputProcessor {
     private ImmutableArray<Entity> m_entities;
 
 
+    public int key_down = -1;
     public int key_up = -1;
     public int key_held = -1;
 
@@ -19,17 +20,21 @@ public class InputSystem extends EntitySystem implements InputProcessor {
     @Override
     public void update(float dt){
         key_up=-1;
-        key_held=-1;
+        key_down=-1;
     }
 
     @Override
     public boolean keyDown(int keycode) {
+        key_down=keycode;
         key_held=keycode;
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
+        if(keycode==key_held){
+            key_held=-1;
+        }
         key_up = keycode;
         return false;
     }
