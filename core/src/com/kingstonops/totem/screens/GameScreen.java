@@ -1,12 +1,15 @@
 package com.kingstonops.totem.screens;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.*;
+import com.kingstonops.totem.rendering.CameraComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.World;
@@ -28,13 +31,13 @@ public class GameScreen extends ScreenAdapter {
         System.out.println("init");
         m_player = m_game.engine().createEntity();
         m_game.engine().addEntity(m_player);
-        TransformComponent p = new TransformComponent();
-        p.position = new Vector3(
+        TransformComponent t = new TransformComponent();
+        t.position = new Vector3(
             RenderSystem.unit_to_pixel(0),
             RenderSystem.unit_to_pixel(0),
             1
         );
-        m_player.add(p);
+        m_player.add(t);
         MovementComponent v = new MovementComponent();
         m_player.add(v);
         m_player.add(new PlayerComponent());
@@ -44,6 +47,15 @@ public class GameScreen extends ScreenAdapter {
 
         // create a world
         new World(m_game);
+
+        // set the camera target
+
+        ImmutableArray<Entity> entities = m_game.engine().getEntitiesFor(Family.one(CameraComponent.class).get());
+        Entity cam_e = entities.get(0);
+        CameraComponent cam = cam_e.getComponent(CameraComponent.class);
+        System.out.println("camera = "+cam);
+        cam.target = t.position;
+        cam.follow_target=true;
 
         m_initialised = true;
     }

@@ -3,6 +3,7 @@ package com.kingstonops.totem.rendering;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -39,7 +40,9 @@ public class RenderSystem extends EntitySystem {
     private ComponentMapper<RenderComponent> m_render_mapper = ComponentMapper.getFor(RenderComponent.class);
 
     private Batch m_batch;
-    private OrthographicCamera m_camera;
+    private CameraComponent m_camera;
+
+    private Engine m_engine;
 
     public static final float UNIT_SIZE = 100f; // pixels per unit
     public static final float PIXEL_TO_UNIT = 1/UNIT_SIZE;
@@ -51,13 +54,22 @@ public class RenderSystem extends EntitySystem {
         return unit/PIXEL_TO_UNIT;
     }
 
-    public RenderSystem(){
+    public RenderSystem(Engine engine){
+        m_engine = engine;
         m_batch = new SpriteBatch();
         m_render_queue = new ArrayList<Entity>();
-        float cam_w = Gdx.graphics.getWidth(); //*UNIT_SIZE
-        float cam_h = Gdx.graphics.getHeight(); //*UNIT_SIZE
-        m_camera = new OrthographicCamera(cam_w, cam_h);
-        m_camera.position.set(cam_w/2f, cam_h/2f, 0);
+
+        Entity e = engine.createEntity();
+        engine.addEntity(e);
+
+        CameraComponent c = new CameraComponent();
+        e.add(c);
+        m_camera = c;
+        TransformComponent t = new TransformComponent();
+        e.add(t);
+
+
+
         System.out.println("creating RenderSystem");
     }
 
@@ -72,16 +84,14 @@ public class RenderSystem extends EntitySystem {
         ScreenUtils.clear(1, 0, 0, 1);
 
         for(int i = 0;i<m_entities.size();i++){
-            System.out.println("entity!");
             Entity e = m_entities.get(i);
             m_render_queue.add(e);
         }
 
-
         m_render_queue.sort(new ZComparator());
 
-        m_camera.update();
-        m_batch.setProjectionMatrix(m_camera.combined);
+        m_camera.cam.update();
+        m_batch.setProjectionMatrix(m_camera.cam.combined);
         m_batch.enableBlending();
         m_batch.begin();
 
@@ -98,11 +108,8 @@ public class RenderSystem extends EntitySystem {
             w = UNIT_SIZE;
             h = UNIT_SIZE;
 
-
             float origin_x = Gdx.graphics.getWidth()/2;
             float origin_y = Gdx.graphics.getHeight()/2;
-
-            //System.out.println("x = "+(t.x + origin_x)+",y = "+(t.y + origin_y));
 
             m_batch.draw(r.texture, t.position.x + origin_x, t.position.y + origin_y, w, h);
         }

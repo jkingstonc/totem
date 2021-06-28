@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kingstonops.totem.input.InputSystem;
 import com.kingstonops.totem.input.RawInput;
+import com.kingstonops.totem.rendering.CameraSystem;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.screens.GameScreen;
 
@@ -39,9 +40,11 @@ public class Totem extends Game {
 
 		Gdx.input.setInputProcessor(input);
 		m_engine.addSystem(input);
-		RenderSystem r = new RenderSystem();
+		RenderSystem r = new RenderSystem(m_engine);
 		r.setProcessing(true);
 		m_engine.addSystem(r);
+
+		m_engine.addSystem(new CameraSystem());
 
 		m_font = new BitmapFont();
 		m_batch = new SpriteBatch();
