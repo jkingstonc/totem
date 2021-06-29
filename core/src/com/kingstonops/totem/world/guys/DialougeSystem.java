@@ -28,6 +28,7 @@ public class DialougeSystem extends EntitySystem {
 
     @Override
     public void update(float dt){
+        m_current_dialouge=null;
         for(int i =0;i<m_entities.size();i++){
             Entity e = m_entities.get(i);
             DialougeComponent d = m_dialouge_mapper.get(e);
@@ -37,7 +38,7 @@ public class DialougeSystem extends EntitySystem {
         }
 
         if(m_current_dialouge!=null){
-            m_current_dialouge.show();
+            m_current_dialouge.process();
         }
     }
 }

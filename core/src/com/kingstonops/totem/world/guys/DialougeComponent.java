@@ -11,15 +11,18 @@ public class DialougeComponent implements Component {
 
 
     public static DialougeComponent create_test(){
-
-        return new DialougeComponent(
-                new DialougePart.Single("hello player, welcome to lostock oak!", ()->{})
-                );
-
+        DialougeComponent d = new DialougeComponent();
+        d.set_root(
+                new DialougePart.Single(d, "hello player, welcome to lostock oak!", ()->{})
+                .set_next(
+                        new DialougePart.Single(d, "enjoy!", ()->{}))
+        );
+        return d;
     }
 
     public static abstract class DialougePart {
 
+        protected DialougeComponent m_dialouge;
         protected DialougeTrigger m_on_trigger;
 
         public DialougeTrigger on_trigger(){
@@ -32,7 +35,7 @@ public class DialougeComponent implements Component {
 
 
         public abstract void trigger();
-        public void debug(){
+        public void process(){
 
         }
 
@@ -45,24 +48,41 @@ public class DialougeComponent implements Component {
             public Single(String dialouge){
                 m_speech = dialouge;
             }
-            public Single(String dialouge, DialougeTrigger trigger){
-                m_speech = dialouge;
+            public Single(DialougeComponent dialogue, String speech, DialougeTrigger trigger){
+                m_dialouge = dialogue;
+                m_speech = speech;
                 m_on_trigger = trigger;
             }
-
+            public DialougePart set_next(DialougePart next){
+                m_next=next;
+                return this;
+            }
             @Override
             public void trigger(){
+                m_dialouge.set_active(this);
                 Debug.dgb(m_speech);
                 if(m_on_trigger!=null)
                     m_on_trigger.trigger();
             }
 
+
+            private void next(){
+                if(m_next!=null){
+                    m_next.trigger();
+                }else{
+                    m_dialouge.set_active(m_dialouge.m_root_part);
+                    m_dialouge.close();
+                }
+            }
             @Override
-            public void debug(){
+            public void process(){
                 ImGui.begin("dialouge");
                 ImGui.text(m_speech);
+                if(ImGui.button("next")){
+                    this.next();
+                }
                 if(ImGui.button("close")){
-
+                    this.m_dialouge.close();
                 }
                 ImGui.end();
             }
@@ -93,7 +113,7 @@ public class DialougeComponent implements Component {
             }
 
             @Override
-            public void debug(){
+            public void process(){
                 ImGui.begin("dialouge");
                 for(Map.Entry<String, DialougePart> entry : m_speeches.entrySet()){
                     if(ImGui.button(entry.getKey())){
@@ -119,6 +139,7 @@ public class DialougeComponent implements Component {
     // if this is currently being shown now
     private boolean m_is_in_conversation = false;
 
+    public DialougeComponent(){}
     public DialougeComponent(DialougePart part){
         m_root_part=part;
         m_active_part=part;
@@ -126,15 +147,17 @@ public class DialougeComponent implements Component {
     public boolean is_in_conversation(){
         return m_is_in_conversation;
     }
-
+    public void close(){
+        m_is_in_conversation=false;
+    }
 
     public void trigger_active(){
         m_active_part.trigger();
         m_is_in_conversation = true;
     }
 
-    public void show(){
-        m_active_part.debug();
+    public void process(){
+        m_active_part.process();
     }
     public void exit(){
         m_is_in_conversation = false;
@@ -142,6 +165,7 @@ public class DialougeComponent implements Component {
 
     public DialougeComponent set_root(DialougePart root_part){
         m_root_part=root_part;
+        m_active_part=root_part;
         return this;
     }
 
