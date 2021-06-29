@@ -19,7 +19,6 @@ public class World {
 
 
 
-
     public World(Totem game){
         m_game = game;
         for(int x =-WIDTH/2;x<WIDTH/2;x++){

@@ -12,15 +12,17 @@ import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.*;
 import com.kingstonops.totem.items.InventoryComponent;
 import com.kingstonops.totem.items.Item;
-import com.kingstonops.totem.items.ItemStack;
 import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.CameraComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
-import com.kingstonops.totem.world.World;
+import com.kingstonops.totem.world.DoorComponent;
+import com.kingstonops.totem.world.Tile;
+import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.world.guys.NPC;
+import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.gl3.ImGuiImplGl3;
@@ -45,6 +47,41 @@ public class GameScreen extends ScreenAdapter {
         System.out.println("init");
 
 
+        final int WIDTH = 20;
+        final int HEIGHT = WIDTH;
+        // create a zone descriptor
+        ZoneComponent.register(new ZoneComponent.ZoneDescriptor("test_zone_0", (zone)->{
+
+            Debug.dgb("setting up zone 0");
+
+            for(int x =-WIDTH/2;x<WIDTH/2;x++){
+                for(int y =-HEIGHT/2;y<HEIGHT/2;y++){
+                    zone.entities().add(Tile.create(m_game.engine(), new Vector3(x, y, 0), "grass.png", false));
+                }
+            }
+
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(-3, -3, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(-2, -3, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(-1, -3, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(0, -3, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(0, -2, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(0, -1, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(0, 0, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(-3, 0, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(-2, 0, 0), "brick.png", true));
+            zone.entities().add(DoorComponent.create(m_game.engine(), new Vector3(-1, 0, 0)));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(-3, 0, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(-3, -1, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(-3, -2, 0), "brick.png", true));
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(-3, -3, 0), "brick.png", true));
+        }));
+        ZoneComponent.register(new ZoneComponent.ZoneDescriptor("test_zone_1", (zone)->{
+            zone.entities().add(Tile.create(m_game.engine(), new Vector3(1, 3, 0), "grass.png", false));
+        }));
+        m_game.engine().getSystem(WorldSystem.class).to_zone("test_zone_0");
+
+
+
 
         m_player = m_game.engine().createEntity();
         m_game.engine().addEntity(m_player);
@@ -56,7 +93,6 @@ public class GameScreen extends ScreenAdapter {
         c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
         m_player.add(c);
 
-        NPC.create(m_game.engine());
 
         Item.register(new Item.ItemDescriptor("pickaxe"));
         Item.register(new Item.ItemDescriptor("shovel"));
@@ -83,8 +119,8 @@ public class GameScreen extends ScreenAdapter {
         r.texture = new TextureRegion(new Texture("guy.png"));
         m_player.add(r);
 
-        // create a world
-        new World(m_game);
+        //// create a world
+        //new World(m_game);
 
         // set the camera target
 
