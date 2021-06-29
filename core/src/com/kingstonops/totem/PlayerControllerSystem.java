@@ -51,6 +51,12 @@ public class PlayerControllerSystem extends EntitySystem {
 
         InputSystem input = m_engine.getSystem(InputSystem.class);
 
+        float accel = SPEED;
+
+        if(input.key_held.contains(Input.Keys.SHIFT_LEFT)){
+            accel*=2;
+        }
+
         if(input.mouse_up==Input.Buttons.LEFT){
             // do stuff
             RenderSystem r = m_engine.getSystem(RenderSystem.class);
@@ -59,14 +65,14 @@ public class PlayerControllerSystem extends EntitySystem {
         }
 
         if(input.key_held.contains(Input.Keys.W)){
-            v.acceleration.y=SPEED;
+            v.acceleration.y=accel;
         }else if(input.key_held.contains(Input.Keys.S)){
-            v.acceleration.y=-SPEED;
+            v.acceleration.y=-accel;
         }
         if(input.key_held.contains(Input.Keys.A)){
-            v.acceleration.x=-SPEED;
+            v.acceleration.x=-accel;
         }else if(input.key_held.contains(Input.Keys.D)){
-            v.acceleration.x=SPEED;
+            v.acceleration.x=accel;
         }
         if(input.key_up.contains(Input.Keys.P)){
             Debug.DEBUG=!Debug.DEBUG;

@@ -4,6 +4,9 @@ import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 
 public class MovementSystem extends EntitySystem {
+
+    public static float ACCEL_DAMPER = 0.75f;
+
     private ImmutableArray<Entity> m_entities;
 
     private ComponentMapper<TransformComponent> m_pos_mapper = ComponentMapper.getFor(TransformComponent.class);
@@ -37,13 +40,12 @@ public class MovementSystem extends EntitySystem {
 
             // slow down acceleration
             float THRESH = 0.00001f;
-            float DAMPER = .95f;
             if(v.acceleration.x>THRESH || v.acceleration.x<-THRESH)
-                v.acceleration.x*=(DAMPER);
+                v.acceleration.x*=(ACCEL_DAMPER);
             else
                 v.acceleration.x=0;
             if(v.acceleration.y>THRESH || v.acceleration.y<-THRESH)
-                v.acceleration.y*=(DAMPER);
+                v.acceleration.y*=(ACCEL_DAMPER);
             else
                 v.acceleration.y=0;
 

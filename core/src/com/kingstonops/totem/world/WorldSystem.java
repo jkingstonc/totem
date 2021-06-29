@@ -7,6 +7,7 @@ import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.world.zones.ZoneComponent;
+import imgui.ImGui;
 
 public class WorldSystem extends EntitySystem {
 
@@ -31,9 +32,12 @@ public class WorldSystem extends EntitySystem {
         e.add(zone);
         m_game.engine().addEntity(e);
 
+        m_active_zone = e;
+
         zone.descriptor().setup().setup(zone);
     }
 
+    private Entity m_active_zone;
     private ImmutableArray<Entity> m_entities;
 
     private ComponentMapper<ZoneComponent> m_zone_mapper = ComponentMapper.getFor(ZoneComponent.class);
@@ -52,6 +56,11 @@ public class WorldSystem extends EntitySystem {
 
     @Override
     public void update(float dt){
-
+        if(Debug.DEBUG){
+            ImGui.begin("world info");
+            ZoneComponent z = m_active_zone.getComponent(ZoneComponent.class);
+            ImGui.text("zone "+z.descriptor().name());
+            ImGui.end();
+        }
     }
 }
