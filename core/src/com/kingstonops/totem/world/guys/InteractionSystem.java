@@ -71,6 +71,11 @@ public class InteractionSystem extends EntitySystem {
             if(input.key_up.contains(i.interaction_key())){
                 i.action().trigger();
             }
+
+            ImGui.begin("interaction");
+            ImGui.text(i.interaction_msg());
+            ImGui.end();
+
         }
 
         previous_player_ineracting_with=player_interacting_with;

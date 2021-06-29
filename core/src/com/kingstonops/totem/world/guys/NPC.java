@@ -12,7 +12,7 @@ import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 
 public class NPC {
-    public static Entity create(Engine engine){
+    public static Entity create(Engine engine, String texture, AIComponent.AIProvider ai_provider){
         Entity e = engine.createEntity();
 
 
@@ -27,7 +27,7 @@ public class NPC {
         e.add(new InteractionComponent());
 
         RenderComponent r = new RenderComponent();
-        r.texture = new TextureRegion(new Texture("badlogic.jpg"));
+        r.texture = new TextureRegion(new Texture(texture));
         e.add(r);
 
         ColliderComponent c = new ColliderComponent();
@@ -37,7 +37,7 @@ public class NPC {
         e.add(c);
 
 
-        AIComponent ai = new AIComponent(new AIComponent.AIProvider.BasicWanderingAIProvider());
+        AIComponent ai = new AIComponent(ai_provider);
         e.add(ai);
 
         engine.addEntity(e);

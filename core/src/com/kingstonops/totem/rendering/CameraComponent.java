@@ -23,10 +23,11 @@ public class CameraComponent implements Component {
     }
 
     public CameraComponent(){
+        Gdx.graphics.setWindowedMode(1280, 720);
         float cam_w = Gdx.graphics.getWidth();
         float cam_h = Gdx.graphics.getHeight();
         cam = new OrthographicCamera(cam_w, cam_h);
-        resize(1920,1080);
+        resize(1280,720);
         cam.position.set(cam_w/2f, cam_h/2f, 0);
     }
     public OrthographicCamera cam;
