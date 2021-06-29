@@ -37,6 +37,7 @@ public class ZoneComponent implements Component {
         public ZoneDescriptorSetup setup(){
             return m_setup;
         }
+        public boolean persistant(){return m_persistant;}
     }
 
     private static HashMap<String, ZoneDescriptor> zone_descriptors = new HashMap<>();

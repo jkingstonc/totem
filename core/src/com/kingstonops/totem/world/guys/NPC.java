@@ -22,8 +22,10 @@ public class NPC {
         t.position.z = 3;
         t.position.x = 0;
         t.position.y = 0;
-
         e.add(t);
+
+        e.add(new InteractionComponent());
+
         RenderComponent r = new RenderComponent();
         r.texture = new TextureRegion(new Texture("badlogic.jpg"));
         e.add(r);

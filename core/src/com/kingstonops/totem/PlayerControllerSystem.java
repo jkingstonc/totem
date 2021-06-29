@@ -80,7 +80,8 @@ public class PlayerControllerSystem extends EntitySystem {
 
         if(Debug.DEBUG) {
             ImGui.begin("player info");
-            ImGui.text("player pos " + t.position);
+            ImGui.text("coins "+p.coins());
+            ImGui.text("pos " + t.position);
             ImGui.text("selected tile " + p.last_selected_tile);
             ArrayList<String> stack_names = new ArrayList<>();
             for (int i = 0; i < inv.m_items.size(); i++) {
