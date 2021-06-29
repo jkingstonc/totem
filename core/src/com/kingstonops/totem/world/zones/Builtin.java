@@ -14,7 +14,7 @@ public class Builtin {
         ZoneComponent.register(new ZoneComponent.ZoneDescriptor("starting_house", (zone)->{
             final int WIDTH = 10, HEIGHT = 10;
 
-            zone.entities().add(NPC.create(game.engine(),"mum.jpg", new AIComponent.AIProvider.BasicWanderingAIProvider()));
+            zone.entities().add(NPC.create(game.engine(),"mum.jpg", new AIComponent.AIProvider.BasicStationaryAIProvider()));
             zone.entities().add(DoorComponent.create(game.engine(), new Vector3(0, -5, 0), "starting_town"));
             final int HOUSE_WIDTH = 5, HOUSE_HEIGHT = 5;
             for(int x=-HOUSE_WIDTH;x<=HOUSE_WIDTH;x++){

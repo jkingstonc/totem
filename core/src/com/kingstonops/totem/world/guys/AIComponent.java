@@ -12,6 +12,10 @@ import java.util.Random;
 
 public class AIComponent implements Component {
     public static abstract class AIProvider{
+        public static class BasicStationaryAIProvider extends AIProvider{
+            @Override
+            public void process(Entity e){}
+        }
         public static class BasicWanderingAIProvider extends AIProvider{
 
             public BasicWanderingAIProvider(){
