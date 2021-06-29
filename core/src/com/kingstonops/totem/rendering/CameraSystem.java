@@ -34,7 +34,7 @@ public class CameraSystem extends EntitySystem {
 
             if(c.follow_target){
 
-                final float LERP = .5f;
+                final float LERP = .2f;
                 float x = Utils.lerp(t.position.x, c.target.x, LERP);
                 float y = Utils.lerp(t.position.y, c.target.y, LERP);
 

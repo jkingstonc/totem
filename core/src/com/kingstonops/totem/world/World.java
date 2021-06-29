@@ -16,13 +16,33 @@ public class World {
 
     private Totem m_game;
 
+
+
+
+
     public World(Totem game){
         m_game = game;
         for(int x =-WIDTH/2;x<WIDTH/2;x++){
             for(int y =-HEIGHT/2;y<HEIGHT/2;y++){
-                Tile.create(game.engine(), new Vector3(x, y, 0), "grass.png");
+                Tile.create(game.engine(), new Vector3(x, y, 0), "grass.png", false);
             }
         }
+
+        Tile.create(game.engine(), new Vector3(-3, -3, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(-2, -3, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(-1, -3, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(0, -3, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(0, -2, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(0, -1, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(0, 0, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(-3, 0, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(-2, 0, 0), "brick.png", true);
+        DoorComponent.create(game.engine(), new Vector3(-1, 0, 0));
+        Tile.create(game.engine(), new Vector3(-3, 0, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(-3, -1, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(-3, -2, 0), "brick.png", true);
+        Tile.create(game.engine(), new Vector3(-3, -3, 0), "brick.png", true);
+
 
     }
 

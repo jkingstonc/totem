@@ -55,7 +55,7 @@ public class PlayerControllerSystem extends EntitySystem {
             // do stuff
             RenderSystem r = m_engine.getSystem(RenderSystem.class);
             p.last_selected_tile = r.un_project(new Vector3(input.mouse_pos.x, input.mouse_pos.y, 0));
-            Tile.create(m_engine, new Vector3(p.last_selected_tile.x, p.last_selected_tile.y, 1), "guy.png");
+            Tile.create(m_engine, new Vector3(p.last_selected_tile.x, p.last_selected_tile.y, 1), "guy.png", true);
         }
 
         if(input.key_held.contains(Input.Keys.W)){

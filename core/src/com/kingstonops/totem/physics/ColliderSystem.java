@@ -29,6 +29,13 @@ public class ColliderSystem extends EntitySystem {
 
     @Override
     public void update(float dt){
+
+        for(int i = 0;i<m_entities.size();i++) {
+            Entity e = m_entities.get(i);
+            ColliderComponent c = m_collider_mapper.get(e);
+            c.m_colliding_with.clear();
+        }
+
         for(int i = 0;i<m_entities.size();i++){
             Entity e1 = m_entities.get(i);
             TransformComponent t1 = m_transform_mapper.get(e1);
@@ -51,7 +58,8 @@ public class ColliderSystem extends EntitySystem {
                     &&(t1.position.y - c1.m_bounds.y)<(t2.position.y + c2.m_bounds.y)
                     &&(t1.position.y + c1.m_bounds.y)>(t2.position.y - c2.m_bounds.y)
                     ){
-
+                        if(!c1.m_colliding_with.contains(e2)) c1.m_colliding_with.add(e2);
+                        if(!c2.m_colliding_with.contains(e1)) c2.m_colliding_with.add(e1);
                         if(c1.m_solid&&c2.m_solid && c2.m_dynamic){
 
                             // resolve whichever overlap is smaller

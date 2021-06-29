@@ -14,6 +14,7 @@ import com.kingstonops.totem.physics.MovementSystem;
 import com.kingstonops.totem.rendering.CameraSystem;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.screens.GameScreen;
+import com.kingstonops.totem.world.DoorSystem;
 
 public class Totem extends Game {
 
@@ -41,6 +42,7 @@ public class Totem extends Game {
 		m_engine = new Engine();
 		m_engine.addSystem(new ColliderSystem());
 		m_engine.addSystem(new MovementSystem());
+		m_engine.addSystem(new DoorSystem());
 		m_engine.addSystem(new PlayerControllerSystem(m_engine));
 		InputSystem input = new InputSystem();
 
