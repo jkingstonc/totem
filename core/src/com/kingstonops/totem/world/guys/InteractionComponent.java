@@ -22,6 +22,10 @@ public class InteractionComponent implements Component {
     private int m_interaction_key = Input.Keys.E;
     private InteractionAction m_action = new InteractionAction.HelloInteractionAction();
 
+    public InteractionComponent(){}
+    public InteractionComponent(InteractionAction action){
+        m_action = action;
+    }
     public String interaction_msg(){
         return m_interaction_msg;
     }

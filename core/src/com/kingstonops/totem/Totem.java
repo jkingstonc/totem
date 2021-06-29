@@ -17,6 +17,7 @@ import com.kingstonops.totem.screens.GameScreen;
 import com.kingstonops.totem.world.AISystem;
 import com.kingstonops.totem.world.DoorSystem;
 import com.kingstonops.totem.world.WorldSystem;
+import com.kingstonops.totem.world.guys.DialougeSystem;
 import com.kingstonops.totem.world.guys.InteractionSystem;
 
 public class Totem extends Game {
@@ -43,6 +44,7 @@ public class Totem extends Game {
 	public void create(){
 		Box2D.init();
 		m_engine = new Engine();
+		m_engine.addSystem(new DialougeSystem(this));
 		m_engine.addSystem(new InteractionSystem(this));
 		m_engine.addSystem(new AISystem(this));
 		m_engine.addSystem(new WorldSystem(this));

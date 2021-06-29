@@ -24,7 +24,16 @@ public class NPC {
         t.position.y = 0;
         e.add(t);
 
-        e.add(new InteractionComponent());
+        DialougeComponent d = DialougeComponent.create_test();
+        e.add(d);
+
+        InteractionComponent i = new InteractionComponent(new InteractionComponent.InteractionAction() {
+            @Override
+            public void trigger() {
+                d.trigger_active();
+            }
+        });
+        e.add(i);
 
         RenderComponent r = new RenderComponent();
         r.texture = new TextureRegion(new Texture(texture));
