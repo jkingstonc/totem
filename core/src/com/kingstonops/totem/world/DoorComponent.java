@@ -13,7 +13,7 @@ import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 
 public class DoorComponent implements Component{
-    public static Entity create(Engine engine, Vector3 pos){
+    public static Entity create(Engine engine, Vector3 pos, String to){
         Entity e = engine.createEntity();
         engine.addEntity(e);
         TransformComponent p = new TransformComponent();
@@ -31,10 +31,18 @@ public class DoorComponent implements Component{
         c.m_solid = false;
         c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
 
-        DoorComponent d = new DoorComponent();
+        DoorComponent d = new DoorComponent(to);
         e.add(d);
 
         e.add(c);
         return e;
+    }
+
+    private String m_to;
+    public String to(){
+        return m_to;
+    }
+    public DoorComponent(String to){
+        m_to=to;
     }
 }

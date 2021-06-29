@@ -47,16 +47,16 @@ public class GameScreen extends ScreenAdapter {
         System.out.println("init");
 
 
-        final int WIDTH = 5;
+        final int WIDTH = 15;
         final int HEIGHT = WIDTH;
         // create a zone descriptor
         ZoneComponent.register(new ZoneComponent.ZoneDescriptor("test_zone_0", (zone)->{
 
             Debug.dgb("setting up zone 0");
 
-
-
-            zone.entities().add(NPC.create(m_game.engine()));
+            final float NPS = 3;
+            for(int i=0;i<NPS;i++)
+                zone.entities().add(NPC.create(m_game.engine()));
 
             for(int x =-WIDTH/2;x<WIDTH/2;x++){
                 for(int y =-HEIGHT/2;y<HEIGHT/2;y++){
@@ -75,7 +75,7 @@ public class GameScreen extends ScreenAdapter {
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+0, y_off+0, 0), "brick.png", true));
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+-3, y_off+0, 0), "brick.png", true));
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+-2, y_off+0, 0), "brick.png", true));
-            zone.entities().add(DoorComponent.create(m_game.engine(), new Vector3(x_off+-1, y_off+0, 0)));
+            zone.entities().add(DoorComponent.create(m_game.engine(), new Vector3(x_off+-1, y_off+0, 0), "test_zone_1"));
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+-3, 0, y_off+0), "brick.png", true));
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+-3, -1, y_off+0), "brick.png", true));
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+-3, -2, y_off+0), "brick.png", true));
@@ -98,7 +98,7 @@ public class GameScreen extends ScreenAdapter {
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+0, y_off+0, 0), "brick.png", true));
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+-3, y_off+0, 0), "brick.png", true));
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+-2, y_off+0, 0), "brick.png", true));
-            zone.entities().add(DoorComponent.create(m_game.engine(), new Vector3(x_off+-1, y_off+0, 0)));
+            zone.entities().add(DoorComponent.create(m_game.engine(), new Vector3(x_off+-1, y_off+0, 0), "test_zone_0"));
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+-3, y_off+0, y_off+0), "brick.png", true));
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+-3, y_off+-1, y_off+0), "brick.png", true));
             zone.entities().add(Tile.create(m_game.engine(), new Vector3(x_off+-3, y_off+-2, y_off+0), "brick.png", true));

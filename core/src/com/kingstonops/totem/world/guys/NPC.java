@@ -28,11 +28,11 @@ public class NPC {
         r.texture = new TextureRegion(new Texture("badlogic.jpg"));
         e.add(r);
 
-/*        ColliderComponent c = new ColliderComponent();
+        ColliderComponent c = new ColliderComponent();
         c.m_solid = true;
-        c.m_dynamic = false;
+        c.m_dynamic = true;
         c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
-        e.add(c);*/
+        e.add(c);
 
 
         AIComponent ai = new AIComponent(new AIComponent.AIProvider.BasicWanderingAIProvider());

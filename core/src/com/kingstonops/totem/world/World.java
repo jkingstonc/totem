@@ -36,7 +36,6 @@ public class World {
         Tile.create(game.engine(), new Vector3(0, 0, 0), "brick.png", true);
         Tile.create(game.engine(), new Vector3(-3, 0, 0), "brick.png", true);
         Tile.create(game.engine(), new Vector3(-2, 0, 0), "brick.png", true);
-        DoorComponent.create(game.engine(), new Vector3(-1, 0, 0));
         Tile.create(game.engine(), new Vector3(-3, 0, 0), "brick.png", true);
         Tile.create(game.engine(), new Vector3(-3, -1, 0), "brick.png", true);
         Tile.create(game.engine(), new Vector3(-3, -2, 0), "brick.png", true);

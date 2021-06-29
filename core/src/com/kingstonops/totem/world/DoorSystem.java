@@ -41,7 +41,7 @@ public class DoorSystem extends EntitySystem {
 
                 // go into the new world!
 
-                m_game.engine().getSystem(WorldSystem.class).to_zone("test_zone_1");
+                m_game.engine().getSystem(WorldSystem.class).to_zone(d.to());
             }
         }
     }

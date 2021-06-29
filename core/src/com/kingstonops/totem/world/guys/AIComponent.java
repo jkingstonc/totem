@@ -25,7 +25,7 @@ public class AIComponent implements Component {
             public void process(Entity e){
                 Random r = new Random();
 
-                if(r.nextInt(1000)==1){
+                if(r.nextInt(500)==1){
                     m_target_pos = new Vector3(RenderSystem.unit_to_pixel(10-r.nextInt(20)),RenderSystem.unit_to_pixel(10-r.nextInt(20)),0);
                 }
                 TransformComponent t = e.getComponent(TransformComponent.class);
