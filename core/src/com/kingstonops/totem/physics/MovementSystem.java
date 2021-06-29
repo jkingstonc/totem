@@ -29,6 +29,7 @@ public class MovementSystem extends EntitySystem {
             // add to position
             //p.x+=v.v_x;
             // p.y+=v.v_y;
+            dt = 0.01f;
             p.position.x += (v.velocity.x*dt);
             p.position.y += (v.velocity.y*dt);
 

@@ -6,8 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Box2D;
 import com.kingstonops.totem.input.InputSystem;
 import com.kingstonops.totem.input.RawInput;
+import com.kingstonops.totem.physics.ColliderSystem;
 import com.kingstonops.totem.physics.MovementSystem;
 import com.kingstonops.totem.rendering.CameraSystem;
 import com.kingstonops.totem.rendering.RenderSystem;
@@ -35,7 +37,9 @@ public class Totem extends Game {
 
 	@Override
 	public void create(){
+		Box2D.init();
 		m_engine = new Engine();
+		m_engine.addSystem(new ColliderSystem());
 		m_engine.addSystem(new MovementSystem());
 		m_engine.addSystem(new PlayerControllerSystem(m_engine));
 		InputSystem input = new InputSystem();

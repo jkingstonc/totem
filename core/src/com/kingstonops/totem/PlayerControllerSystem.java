@@ -12,6 +12,7 @@ import com.kingstonops.totem.items.ItemStack;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
+import com.kingstonops.totem.world.Tile;
 import imgui.ImGui;
 import imgui.type.ImInt;
 
@@ -54,28 +55,34 @@ public class PlayerControllerSystem extends EntitySystem {
             // do stuff
             RenderSystem r = m_engine.getSystem(RenderSystem.class);
             p.last_selected_tile = r.un_project(new Vector3(input.mouse_pos.x, input.mouse_pos.y, 0));
+            Tile.create(m_engine, new Vector3(p.last_selected_tile.x, p.last_selected_tile.y, 1), "guy.png");
         }
 
-        if(input.key_held== Input.Keys.W){
+        if(input.key_held.contains(Input.Keys.W)){
             v.acceleration.y=SPEED;
-        }else if(input.key_held== Input.Keys.S){
+        }else if(input.key_held.contains(Input.Keys.S)){
             v.acceleration.y=-SPEED;
         }
-        if(input.key_held== Input.Keys.A){
+        if(input.key_held.contains(Input.Keys.A)){
             v.acceleration.x=-SPEED;
-        }else if(input.key_held== Input.Keys.D){
+        }else if(input.key_held.contains(Input.Keys.D)){
             v.acceleration.x=SPEED;
         }
-
-        ImGui.begin("player info");
-        ImGui.text("player pos "+t.position);
-        ImGui.text("selected tile "+p.last_selected_tile);
-        ArrayList<String> stack_names = new ArrayList<>();
-        for(int i=0;i<inv.m_items.size();i++){
-            ItemStack stack = inv.m_items.get(i);
-            stack_names.add(stack.descriptor().name() + " x " + stack.items().size());
+        if(input.key_up.contains(Input.Keys.P)){
+            Debug.DEBUG=!Debug.DEBUG;
         }
-        ImGui.listBox("inventory", new ImInt(0),(String[])stack_names.toArray(new String[0]));
-        ImGui.end();
+
+        if(Debug.DEBUG) {
+            ImGui.begin("player info");
+            ImGui.text("player pos " + t.position);
+            ImGui.text("selected tile " + p.last_selected_tile);
+            ArrayList<String> stack_names = new ArrayList<>();
+            for (int i = 0; i < inv.m_items.size(); i++) {
+                ItemStack stack = inv.m_items.get(i);
+                stack_names.add(stack.descriptor().name() + " x " + stack.items().size());
+            }
+            ImGui.listBox("inventory", new ImInt(0), (String[]) stack_names.toArray(new String[0]));
+            ImGui.end();
+        }
     }
 }

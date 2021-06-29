@@ -6,16 +6,21 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 public class InputSystem extends EntitySystem implements InputProcessor {
     private ImmutableArray<Entity> m_entities;
 
+
+    // todo key_down should be an array of keys
     public Vector2 mouse_pos = new Vector2();
     public int mouse_down = -1;
     public int mouse_up = -1;
     public int mouse_held = -1;
-    public int key_down = -1;
-    public int key_up = -1;
-    public int key_held = -1;
+
+    public ArrayList<Integer> key_down = new ArrayList<>();
+    public ArrayList<Integer> key_up = new ArrayList<>();
+    public ArrayList<Integer> key_held = new ArrayList<>();
 
     @Override
     public void addedToEngine(Engine engine) {
@@ -25,23 +30,23 @@ public class InputSystem extends EntitySystem implements InputProcessor {
     public void update(float dt){
         mouse_up=-1;
         mouse_down=-1;
-        key_up=-1;
-        key_down=-1;
+        key_up.clear();
+        key_down.clear();
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        key_down=keycode;
-        key_held=keycode;
+        key_down.add(keycode);
+        key_held.add(keycode);
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        if(keycode==key_held){
-            key_held=-1;
+        if(key_held.contains(keycode)){
+            key_held.remove(new Integer(keycode));
         }
-        key_up = keycode;
+        key_up.add(keycode);
         return false;
     }
 

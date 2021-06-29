@@ -7,17 +7,20 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.*;
 import com.kingstonops.totem.items.InventoryComponent;
 import com.kingstonops.totem.items.Item;
 import com.kingstonops.totem.items.ItemStack;
+import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.CameraComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.World;
+import com.kingstonops.totem.world.guys.NPC;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.gl3.ImGuiImplGl3;
@@ -40,8 +43,20 @@ public class GameScreen extends ScreenAdapter {
 
     private void init(){
         System.out.println("init");
+
+
+
         m_player = m_game.engine().createEntity();
         m_game.engine().addEntity(m_player);
+
+
+        ColliderComponent c = new ColliderComponent();
+        c.m_solid = true;
+        c.m_dynamic = true;
+        c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
+        m_player.add(c);
+
+        NPC.create(m_game.engine());
 
         Item.register(new Item.ItemDescriptor("pickaxe"));
         Item.register(new Item.ItemDescriptor("shovel"));
@@ -121,16 +136,16 @@ public class GameScreen extends ScreenAdapter {
 
         m_game.engine().update(dt);
 
-
-        ImGui.begin("debug info");
-        ImGui.text("version "+Totem.VERSION);
-        ImGui.text("fps "+(1/dt));
-        ImGui.text("entities "+m_game.engine().getEntities().size());
-        ImGui.text("draw calls "+ m_profiler.getDrawCalls());
-        ImGui.text("vertex count "+ m_profiler.getVertexCount());
-        ImGui.text("shader switches "+ m_profiler.getShaderSwitches());
-        ImGui.end();
-
+        if(Debug.DEBUG) {
+            ImGui.begin("debug info");
+            ImGui.text("version " + Totem.VERSION);
+            ImGui.text("fps " + (1 / dt));
+            ImGui.text("entities " + m_game.engine().getEntities().size());
+            ImGui.text("draw calls " + m_profiler.getDrawCalls());
+            ImGui.text("vertex count " + m_profiler.getVertexCount());
+            ImGui.text("shader switches " + m_profiler.getShaderSwitches());
+            ImGui.end();
+        }
 
         ImGui.endFrame();
         ImGui.render();
