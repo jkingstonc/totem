@@ -2,9 +2,11 @@ package com.kingstonops.totem.dialouge;
 
 import com.badlogic.ashley.core.Component;
 import com.kingstonops.totem.Debug;
+import com.kingstonops.totem.Utils;
 import imgui.ImGui;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class DialougeComponent implements Component {
 
@@ -55,6 +57,10 @@ public class DialougeComponent implements Component {
 
             public Single(){
             }
+            public Single(String speech, DialougeTrigger trigger){
+                m_speech = speech;
+                m_on_trigger = trigger;
+            }
             public Single(String name, String speech, DialougeTrigger trigger){
                 m_name = name;
                 m_speech = speech;
@@ -83,15 +89,75 @@ public class DialougeComponent implements Component {
                 }
             }
 
+            private void prev(){
+                if(m_prev!=null){
+                    m_prev.set_dialouge(m_dialouge);
+                    m_dialouge.set_active(m_prev);
+                    m_dialouge.show_active();
+                }
+            }
+
             @Override
             public void process(){
                 ImGui.begin("dialouge");
                 ImGui.text(m_speech);
+                if(ImGui.button("prev")){
+                    this.prev();
+                }
                 if(ImGui.button("next")){
                     if(m_on_trigger!=null){
                         m_on_trigger.trigger();
                     }
                     this.next();
+                }
+                if(ImGui.button("close")){
+                    if(m_on_trigger!=null){
+                        m_on_trigger.trigger();
+                    }
+                    this.m_dialouge.close();
+                }
+                ImGui.end();
+            }
+        }
+
+        public static class Choice extends DialougePart {
+
+
+
+            String m_speech;
+            DialougePart m_prev;
+            HashMap<String, Utils.Tuple<DialougeTrigger, DialougePart>> m_choices;
+
+            public Choice(){
+            }
+            public Choice(String name, String speech, HashMap<String, Utils.Tuple<DialougeTrigger, DialougePart>> choices){
+                m_name = name;
+                m_speech = speech;
+                m_choices = choices;
+            }
+
+
+            @Override
+            public void trigger(){
+                m_dialouge.set_active(this);
+                Debug.dgb(m_speech);
+                if(m_on_trigger!=null)
+                    m_on_trigger.trigger();
+            }
+
+            @Override
+            public void process(){
+                ImGui.begin("dialouge");
+                ImGui.text(m_speech);
+                for(Map.Entry<String, Utils.Tuple<DialougeTrigger, DialougePart>> choice : m_choices.entrySet()){
+                    if(ImGui.button(choice.getKey())){
+                        if(choice.getValue().m_first !=null){
+                            choice.getValue().m_first.trigger();
+                        }
+                        choice.getValue().m_second.set_dialouge(m_dialouge);
+                        m_dialouge.set_active(choice.getValue().m_second);
+                        m_dialouge.show_active();
+                    }
                 }
                 if(ImGui.button("close")){
                     if(m_on_trigger!=null){

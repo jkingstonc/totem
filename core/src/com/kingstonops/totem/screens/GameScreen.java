@@ -29,6 +29,8 @@ import imgui.glfw.ImGuiImplGlfw;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
+import java.util.HashMap;
+
 public class GameScreen extends ScreenAdapter {
 
     private Totem m_game;
@@ -61,15 +63,21 @@ public class GameScreen extends ScreenAdapter {
         // create a zone descriptor
         Builtin.setup_builtin_zones(m_game);
 
-
+        // todo we should actually register each part seperately then we can just reference the other parts...
         DialougeComponent.DialougePart.register(
                 new DialougeComponent.DialougePart.Single("basic_greeting_part_0", "hello there!", null)
         .set_next(new DialougeComponent.DialougePart.Single("basic_greeting_part_1", "have a good day :)", null)));
         DialougeComponent.DialougePart.register(
                 new DialougeComponent.DialougePart.Single("basic_battle_part_0", "so you have chosen death...", ()->{
-                    Debug.dgb("fuck sake");
                     m_game.engine().getSystem(WorldSystem.class).to_zone("battle_zone");
                 }));
+
+        DialougeComponent.DialougePart.register(
+                new DialougeComponent.DialougePart.Choice("basic_shop_part_0", "what would you like?", new HashMap<String, Utils.Tuple<DialougeComponent.DialougePart.DialougeTrigger, DialougeComponent.DialougePart>>(){{
+                    put("healing potion", new Utils.Tuple<>(null, new DialougeComponent.DialougePart.Single("thank you for shopping!", null)));
+                    put("mana potion", null);
+                }})
+        );
 
 
         m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");

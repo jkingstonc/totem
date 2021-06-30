@@ -59,8 +59,10 @@ public class Builtin {
 
             zone.entities().add(NPC.create(game.engine(),
                     new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-10), 5), "enemy.png", new AIComponent.AIProvider.BasicStationaryAIProvider(), "basic_battle_part_0"));
+            zone.entities().add(NPC.create(game.engine(),
+                    new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-12), 5), "enemy.png", new AIComponent.AIProvider.BasicStationaryAIProvider(), "basic_shop_part_0"));
 
-            final int WIDTH = 30, HEIGHT = 30;
+            final int WIDTH = 50, HEIGHT = 50;
             for(int x =-WIDTH/2;x<WIDTH/2;x++) {
                 for (int y = -HEIGHT / 2; y < HEIGHT / 2; y++) {
                     zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "grass.png", false));
