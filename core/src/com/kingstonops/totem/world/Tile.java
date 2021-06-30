@@ -16,10 +16,7 @@ public class Tile {
         Entity e = engine.createEntity();
         engine.addEntity(e);
         TransformComponent p = new TransformComponent();
-        p.position = new Vector3(
-                RenderSystem.unit_to_pixel(pos.x),
-                RenderSystem.unit_to_pixel(pos.y),
-                pos.z);
+        p.position.set(pos);
         e.add(p);
         RenderComponent r = new RenderComponent();
         r.texture = new TextureRegion(new Texture(texture));

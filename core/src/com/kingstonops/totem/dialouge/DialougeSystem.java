@@ -1,9 +1,8 @@
-package com.kingstonops.totem.world.guys;
+package com.kingstonops.totem.dialouge;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.kingstonops.totem.Totem;
-import imgui.ImGui;
 
 public class DialougeSystem extends EntitySystem {
 

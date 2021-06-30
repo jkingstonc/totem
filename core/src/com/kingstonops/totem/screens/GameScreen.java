@@ -20,7 +20,7 @@ import com.kingstonops.totem.rendering.CameraComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.WorldSystem;
-import com.kingstonops.totem.world.guys.DialougeComponent;
+import com.kingstonops.totem.dialouge.DialougeComponent;
 import com.kingstonops.totem.world.zones.Builtin;
 import imgui.ImGui;
 import imgui.ImGuiIO;
@@ -56,7 +56,11 @@ public class GameScreen extends ScreenAdapter {
                 new DialougeComponent.DialougePart.Single("basic_greeting_part_0", "hello there!", null)
         .set_next(new DialougeComponent.DialougePart.Single("basic_greeting_part_1", "have a good day :)", null)));
         DialougeComponent.DialougePart.register(
-                new DialougeComponent.DialougePart.Single("basic_battle", "so you have chosen death...", ()->{}));
+                new DialougeComponent.DialougePart.Single("basic_battle_part_0", "so you have chosen death...", ()->{
+                    Debug.dgb("fuck sake");
+                    m_game.engine().getSystem(WorldSystem.class).to_zone("battle_zone");
+                }));
+
 
         m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
 

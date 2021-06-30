@@ -18,7 +18,7 @@ import com.kingstonops.totem.screens.GameScreen;
 import com.kingstonops.totem.world.AISystem;
 import com.kingstonops.totem.world.DoorSystem;
 import com.kingstonops.totem.world.WorldSystem;
-import com.kingstonops.totem.world.guys.DialougeSystem;
+import com.kingstonops.totem.dialouge.DialougeSystem;
 import com.kingstonops.totem.world.guys.InteractionSystem;
 
 public class Totem extends Game {

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class CameraSystem extends EntitySystem {
 
+    public static float LERP = .1f;
 
     private ImmutableArray<Entity> m_entities;
     private ArrayList<Entity> m_render_queue;
@@ -34,7 +35,6 @@ public class CameraSystem extends EntitySystem {
 
             if(c.follow_target){
 
-                final float LERP = .2f;
                 float x = Utils.lerp(t.position.x, c.target.x, LERP);
                 float y = Utils.lerp(t.position.y, c.target.y, LERP);
 

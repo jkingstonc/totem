@@ -1,12 +1,10 @@
-package com.kingstonops.totem.world.guys;
+package com.kingstonops.totem.dialouge;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.ashley.core.Entity;
 import com.kingstonops.totem.Debug;
 import imgui.ImGui;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class DialougeComponent implements Component {
 
@@ -77,7 +75,8 @@ public class DialougeComponent implements Component {
             private void next(){
                 if(m_next!=null){
                     m_next.set_dialouge(m_dialouge);
-                    m_next.trigger();
+                    m_dialouge.set_active(m_next);
+                    m_dialouge.show_active();
                 }else{
                     m_dialouge.set_active(m_dialouge.m_root_part);
                     m_dialouge.close();
@@ -89,9 +88,15 @@ public class DialougeComponent implements Component {
                 ImGui.begin("dialouge");
                 ImGui.text(m_speech);
                 if(ImGui.button("next")){
+                    if(m_on_trigger!=null){
+                        m_on_trigger.trigger();
+                    }
                     this.next();
                 }
                 if(ImGui.button("close")){
+                    if(m_on_trigger!=null){
+                        m_on_trigger.trigger();
+                    }
                     this.m_dialouge.close();
                 }
                 ImGui.end();
@@ -163,7 +168,7 @@ public class DialougeComponent implements Component {
             m_root_part=dialouge_part;
             m_active_part=dialouge_part;
             dialouge_part.set_dialouge(this);
-            trigger_active();
+            show_active();
         }
     }
 
@@ -174,8 +179,7 @@ public class DialougeComponent implements Component {
         m_is_in_conversation=false;
     }
 
-    public void trigger_active(){
-        m_active_part.trigger();
+    public void show_active(){
         m_is_in_conversation = true;
     }
 
