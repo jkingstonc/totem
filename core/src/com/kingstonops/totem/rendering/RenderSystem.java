@@ -3,14 +3,17 @@ package com.kingstonops.totem.rendering;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.kingstonops.totem.physics.TransformComponent;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class RenderSystem extends EntitySystem {
     private static class ZComparator implements Comparator<Entity>{
@@ -29,6 +32,17 @@ public class RenderSystem extends EntitySystem {
                 result = -1;
             return result;
         }
+    }
+
+
+    public static HashMap<String, Texture> texture_registry = new HashMap<>();
+
+    public static void register(String name){
+        texture_registry.put(name, new Texture(name));
+    }
+
+    public static Texture get(String name){
+        return texture_registry.get(name);
     }
 
     private ImmutableArray<Entity> m_entities;
@@ -127,6 +141,7 @@ public class RenderSystem extends EntitySystem {
         }
 
         m_batch.end();
+        m_batch.disableBlending();
         m_render_queue.clear();
     }
 }

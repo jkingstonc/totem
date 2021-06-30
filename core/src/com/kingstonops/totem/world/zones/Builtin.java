@@ -60,10 +60,10 @@ public class Builtin {
             zone.entities().add(NPC.create(game.engine(),
                     new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-10), 5), "enemy.png", new AIComponent.AIProvider.BasicStationaryAIProvider(), "basic_battle_part_0"));
 
-            final int WIDTH = 20, HEIGHT = 20;
+            final int WIDTH = 30, HEIGHT = 30;
             for(int x =-WIDTH/2;x<WIDTH/2;x++) {
                 for (int y = -HEIGHT / 2; y < HEIGHT / 2; y++) {
-                    zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "sand.png", false));
+                    zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "grass.png", false));
                 }
             }
             final int HOUSE_WIDTH=5, HOUSE_HEIGHT=5;

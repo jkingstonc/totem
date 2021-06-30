@@ -26,7 +26,7 @@ public class NPC {
 
 
         RenderComponent r = new RenderComponent();
-        r.texture = new TextureRegion(new Texture(texture));
+        r.texture = new TextureRegion(RenderSystem.get(texture));
         e.add(r);
 
         ColliderComponent c = new ColliderComponent();

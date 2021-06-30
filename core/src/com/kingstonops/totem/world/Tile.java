@@ -19,7 +19,7 @@ public class Tile {
         p.position.set(pos);
         e.add(p);
         RenderComponent r = new RenderComponent();
-        r.texture = new TextureRegion(new Texture(texture));
+        r.texture = new TextureRegion(RenderSystem.get(texture));
         e.add(r);
 
         if(solid){

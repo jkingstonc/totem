@@ -46,6 +46,16 @@ public class GameScreen extends ScreenAdapter {
         System.out.println("init");
 
 
+        RenderSystem.register("guy.png");
+        RenderSystem.register("enemy.png");
+        RenderSystem.register("grass.png");
+        RenderSystem.register("brick.png");
+        RenderSystem.register("wood.png");
+        RenderSystem.register("mum.jpg");
+        RenderSystem.register("door.jpg");
+        RenderSystem.register("roof.jpg");
+        RenderSystem.register("lava.jpg");
+
         final int WIDTH = 15;
         final int HEIGHT = WIDTH;
         // create a zone descriptor
