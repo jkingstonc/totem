@@ -15,15 +15,13 @@ import com.kingstonops.totem.items.Item;
 import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
+import com.kingstonops.totem.player.PlayerComponent;
 import com.kingstonops.totem.rendering.CameraComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
-import com.kingstonops.totem.world.DoorComponent;
-import com.kingstonops.totem.world.Tile;
 import com.kingstonops.totem.world.WorldSystem;
-import com.kingstonops.totem.world.guys.NPC;
+import com.kingstonops.totem.world.guys.DialougeComponent;
 import com.kingstonops.totem.world.zones.Builtin;
-import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.gl3.ImGuiImplGl3;
@@ -53,8 +51,14 @@ public class GameScreen extends ScreenAdapter {
         // create a zone descriptor
         Builtin.setup_builtin_zones(m_game);
 
-        m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house");
 
+        DialougeComponent.DialougePart.register(
+                new DialougeComponent.DialougePart.Single("basic_greeting_part_0", "hello there!", null)
+        .set_next(new DialougeComponent.DialougePart.Single("basic_greeting_part_1", "have a good day :)", null)));
+        DialougeComponent.DialougePart.register(
+                new DialougeComponent.DialougePart.Single("basic_battle", "so you have chosen death...", ()->{}));
+
+        m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
 
 
 

@@ -13,14 +13,11 @@ import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 
 public class DoorComponent implements Component{
-    public static Entity create(Engine engine, Vector3 pos, String to){
+    public static Entity create(Engine engine, Vector3 pos, String to, Vector3 target){
         Entity e = engine.createEntity();
         engine.addEntity(e);
         TransformComponent p = new TransformComponent();
-        p.position = new Vector3(
-                RenderSystem.unit_to_pixel(pos.x),
-                RenderSystem.unit_to_pixel(pos.y),
-                pos.z);
+        p.position = pos;
         e.add(p);
         RenderComponent r = new RenderComponent();
         r.texture = new TextureRegion(new Texture("door.jpg"));
@@ -31,18 +28,22 @@ public class DoorComponent implements Component{
         c.m_solid = false;
         c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
 
-        DoorComponent d = new DoorComponent(to);
+        DoorComponent d = new DoorComponent(to, target);
         e.add(d);
 
         e.add(c);
         return e;
     }
 
+    private Vector3 m_target;
     private String m_to;
     public String to(){
         return m_to;
     }
-    public DoorComponent(String to){
-        m_to=to;
+    public DoorComponent(String to, Vector3 target){
+        m_to=to;m_target=target;
+    }
+    public Vector3 target(){
+        return m_target;
     }
 }

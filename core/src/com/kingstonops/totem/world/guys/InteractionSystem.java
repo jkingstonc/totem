@@ -2,15 +2,11 @@ package com.kingstonops.totem.world.guys;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.Input;
 import com.kingstonops.totem.Debug;
-import com.kingstonops.totem.PlayerComponent;
+import com.kingstonops.totem.player.PlayerComponent;
 import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.input.InputSystem;
 import com.kingstonops.totem.physics.ColliderComponent;
-import com.kingstonops.totem.physics.TransformComponent;
-import com.kingstonops.totem.world.guys.AIComponent;
-import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
 
 public class InteractionSystem extends EntitySystem {

@@ -1,18 +1,16 @@
-package com.kingstonops.totem;
+package com.kingstonops.totem.player;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kingstonops.totem.Debug;
 import com.kingstonops.totem.input.InputSystem;
 import com.kingstonops.totem.items.InventoryComponent;
-import com.kingstonops.totem.items.Item;
 import com.kingstonops.totem.items.ItemStack;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
-import com.kingstonops.totem.world.Tile;
 import imgui.ImGui;
 import imgui.type.ImInt;
 

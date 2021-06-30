@@ -11,6 +11,7 @@ import com.kingstonops.totem.input.InputSystem;
 import com.kingstonops.totem.input.RawInput;
 import com.kingstonops.totem.physics.ColliderSystem;
 import com.kingstonops.totem.physics.MovementSystem;
+import com.kingstonops.totem.player.PlayerControllerSystem;
 import com.kingstonops.totem.rendering.CameraSystem;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.screens.GameScreen;

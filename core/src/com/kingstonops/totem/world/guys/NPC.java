@@ -12,7 +12,7 @@ import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 
 public class NPC {
-    public static Entity create(Engine engine, String texture, AIComponent.AIProvider ai_provider){
+    public static Entity create(Engine engine, String texture, AIComponent.AIProvider ai_provider, String dialouge_part){
         Entity e = engine.createEntity();
 
 
@@ -24,16 +24,6 @@ public class NPC {
         t.position.y = 0;
         e.add(t);
 
-        DialougeComponent d = DialougeComponent.create_test();
-        e.add(d);
-
-        InteractionComponent i = new InteractionComponent(new InteractionComponent.InteractionAction() {
-            @Override
-            public void trigger() {
-                d.trigger_active();
-            }
-        });
-        e.add(i);
 
         RenderComponent r = new RenderComponent();
         r.texture = new TextureRegion(new Texture(texture));
@@ -48,6 +38,19 @@ public class NPC {
 
         AIComponent ai = new AIComponent(ai_provider);
         e.add(ai);
+
+        DialougeComponent dialouge = new DialougeComponent();
+        e.add(dialouge);
+
+
+
+        InteractionComponent i = new InteractionComponent(new InteractionComponent.InteractionAction() {
+            @Override
+            public void trigger() {
+                dialouge.start_dialouge(dialouge_part);
+            }
+        });
+        e.add(i);
 
         engine.addEntity(e);
         return e;
