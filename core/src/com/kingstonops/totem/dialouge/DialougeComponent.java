@@ -126,11 +126,11 @@ public class DialougeComponent implements Component {
 
             String m_speech;
             DialougePart m_prev;
-            HashMap<String, Utils.Tuple<DialougeTrigger, DialougePart>> m_choices;
+            HashMap<String, Utils.Tuple<DialougeTrigger, String>> m_choices;
 
             public Choice(){
             }
-            public Choice(String name, String speech, HashMap<String, Utils.Tuple<DialougeTrigger, DialougePart>> choices){
+            public Choice(String name, String speech, HashMap<String, Utils.Tuple<DialougeTrigger, String>> choices){
                 m_name = name;
                 m_speech = speech;
                 m_choices = choices;
@@ -149,13 +149,14 @@ public class DialougeComponent implements Component {
             public void process(){
                 ImGui.begin("dialouge");
                 ImGui.text(m_speech);
-                for(Map.Entry<String, Utils.Tuple<DialougeTrigger, DialougePart>> choice : m_choices.entrySet()){
+                for(Map.Entry<String, Utils.Tuple<DialougeTrigger, String>> choice : m_choices.entrySet()){
                     if(ImGui.button(choice.getKey())){
                         if(choice.getValue().m_first !=null){
                             choice.getValue().m_first.trigger();
                         }
-                        choice.getValue().m_second.set_dialouge(m_dialouge);
-                        m_dialouge.set_active(choice.getValue().m_second);
+                        DialougePart next_part = DialougePart.get(choice.getValue().m_second);
+                        next_part.set_dialouge(m_dialouge);
+                        m_dialouge.set_active(next_part);
                         m_dialouge.show_active();
                     }
                 }

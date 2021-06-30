@@ -72,10 +72,11 @@ public class GameScreen extends ScreenAdapter {
                     m_game.engine().getSystem(WorldSystem.class).to_zone("battle_zone");
                 }));
 
+        DialougeComponent.DialougePart.register(new DialougeComponent.DialougePart.Single("basic_shop_thanks_0", "thank you for shopping!", null));
         DialougeComponent.DialougePart.register(
-                new DialougeComponent.DialougePart.Choice("basic_shop_part_0", "what would you like?", new HashMap<String, Utils.Tuple<DialougeComponent.DialougePart.DialougeTrigger, DialougeComponent.DialougePart>>(){{
-                    put("healing potion", new Utils.Tuple<>(null, new DialougeComponent.DialougePart.Single("thank you for shopping!", null)));
-                    put("mana potion", null);
+                new DialougeComponent.DialougePart.Choice("basic_shop_part_0", "what would you like?", new HashMap<String, Utils.Tuple<DialougeComponent.DialougePart.DialougeTrigger, String>>(){{
+                    put("healing potion", new Utils.Tuple<>(null, "basic_shop_thanks_0"));
+                    put("mana potion", new Utils.Tuple<>(null, "basic_shop_thanks_0"));
                 }})
         );
 
