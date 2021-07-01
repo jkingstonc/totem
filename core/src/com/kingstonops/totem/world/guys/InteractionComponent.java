@@ -23,7 +23,8 @@ public class InteractionComponent implements Component {
     private InteractionAction m_action = new InteractionAction.HelloInteractionAction();
 
     public InteractionComponent(){}
-    public InteractionComponent(InteractionAction action){
+    public InteractionComponent(String interaction_msg, InteractionAction action){
+        m_interaction_msg = interaction_msg;
         m_action = action;
     }
     public String interaction_msg(){

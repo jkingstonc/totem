@@ -85,6 +85,7 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.ashley:ashley:1.7.3"
 
+
         implementation group: 'com.badlogicgames.gdx', name: 'gdx-backend-lwjgl3', version: '1.10.0'
 
         implementation "io.github.spair:imgui-java-app:1.83.1"
@@ -93,7 +94,6 @@ project(":core") {
         "io.github.spair:imgui-java-natives-linux:<version>"
         "io.github.spair:imgui-java-natives-macos:<version>"
         "io.github.spair:imgui-java-natives-windows:<version>"
-        
         
 
 

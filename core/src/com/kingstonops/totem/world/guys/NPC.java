@@ -44,7 +44,7 @@ public class NPC {
 
 
 
-        InteractionComponent i = new InteractionComponent(new InteractionComponent.InteractionAction() {
+        InteractionComponent i = new InteractionComponent("press e to talk", new InteractionComponent.InteractionAction() {
             @Override
             public void trigger() {
                 dialouge.start_dialouge(dialouge_part);

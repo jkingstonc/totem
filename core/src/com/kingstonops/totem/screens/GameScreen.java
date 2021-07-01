@@ -50,13 +50,17 @@ public class GameScreen extends ScreenAdapter {
 
         RenderSystem.register("guy.png");
         RenderSystem.register("enemy.png");
+        RenderSystem.register("water.png");
         RenderSystem.register("grass.png");
         RenderSystem.register("brick.png");
+        RenderSystem.register("rock.png");
         RenderSystem.register("wood.png");
         RenderSystem.register("mum.jpg");
         RenderSystem.register("door.jpg");
         RenderSystem.register("roof.jpg");
         RenderSystem.register("lava.jpg");
+        RenderSystem.register("tree.png");
+
 
         final int WIDTH = 15;
         final int HEIGHT = WIDTH;

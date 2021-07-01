@@ -5,6 +5,7 @@ import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.DoorComponent;
 import com.kingstonops.totem.world.Tile;
+import com.kingstonops.totem.world.Tree;
 import com.kingstonops.totem.world.guys.AIComponent;
 import com.kingstonops.totem.world.guys.NPC;
 
@@ -64,9 +65,21 @@ public class Builtin {
             final int WIDTH = 50, HEIGHT = 50;
             for(int x =-WIDTH/2;x<WIDTH/2;x++) {
                 for (int y = -HEIGHT / 2; y < HEIGHT / 2; y++) {
+                    if(x%4==0 && y%4==0) {
+                        zone.entities().add(Tree.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 10), "tree.png", true));
+                    }
                     zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "grass.png", false));
                 }
+
             }
+
+            for(int x =10;x<15;x++) {
+                for (int y = 10; y<15; y++) {
+                    zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "water.png", true));
+                }
+            }
+
+
             final int HOUSE_WIDTH=5, HOUSE_HEIGHT=5;
             for(int x=-HOUSE_WIDTH;x<=HOUSE_WIDTH;x++){
                 for(int y=-HOUSE_HEIGHT;y<=HOUSE_HEIGHT;y++){
@@ -81,7 +94,8 @@ public class Builtin {
             }
             zone.entities().add(DoorComponent.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-5),1), "starting_house_downstairs", new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(0), 5)));
 
-            zone.entities().add(DoorComponent.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-15), 1), "starting_shop", new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(0), 5)));
+            zone.entities().add(DoorComponent.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(3), RenderSystem.unit_to_pixel(-15), 1), "starting_shop", new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(0), 5)));
+            zone.entities().add(DoorComponent.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(-3), RenderSystem.unit_to_pixel(-15), 1), "starting_cave", new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(0), 5)));
 
         }));
 
@@ -102,6 +116,17 @@ public class Builtin {
                     }else{
                         zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "wood.png", false));
                     }
+                }
+            }
+        }));
+
+        ZoneComponent.register(new ZoneComponent.ZoneDescriptor("starting_cave", (zone)->{
+
+            zone.entities().add(DoorComponent.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-5), 1), "starting_town", new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-8), 5)));
+            final int WIDTH = 5, HEIGHT = 5;
+            for(int x=-WIDTH;x<=WIDTH;x++){
+                for(int y=-HEIGHT;y<=HEIGHT;y++){
+                    zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "rock.png", false));
                 }
             }
         }));

@@ -11,6 +11,7 @@ import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
+import com.kingstonops.totem.world.guys.InteractionComponent;
 
 public class DoorComponent implements Component{
     public static Entity create(Engine engine, Vector3 pos, String to, Vector3 target){
@@ -28,13 +29,23 @@ public class DoorComponent implements Component{
         c.m_solid = false;
         c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
 
+
+
         DoorComponent d = new DoorComponent(to, target);
         e.add(d);
+
+        InteractionComponent i = new InteractionComponent("to "+to, new InteractionComponent.InteractionAction() {
+            @Override
+            public void trigger() {
+                d.m_should_go = true;
+            }
+        });
+        e.add(i);
 
         e.add(c);
         return e;
     }
-
+    public boolean m_should_go = false;
     private Vector3 m_target;
     private String m_to;
     public String to(){

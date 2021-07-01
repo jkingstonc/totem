@@ -134,6 +134,9 @@ public class RenderSystem extends EntitySystem {
             w = UNIT_SIZE;
             h = UNIT_SIZE;
 
+            w = t.scale.x;
+            h = t.scale.y;
+
             float origin_x = Gdx.graphics.getWidth()/2;
             float origin_y = Gdx.graphics.getHeight()/2;
 
