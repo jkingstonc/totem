@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.physics.TransformComponent;
 
 import java.util.ArrayList;
@@ -16,6 +17,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class RenderSystem extends EntitySystem {
+
+
+    public static int TILE_LAYER = 0;
+    public static int PLAYER_LAYER = 5;
+    public static int DECOR_LAYER = 15;
+
+
     private static class ZComparator implements Comparator<Entity>{
         private ComponentMapper<TransformComponent> m_pos_mapper;
         public ZComparator(){
@@ -37,6 +45,21 @@ public class RenderSystem extends EntitySystem {
 
     public static HashMap<String, Texture> texture_registry = new HashMap<>();
 
+    public static void register_all(Totem game){
+        RenderSystem.register("chest.png");
+        RenderSystem.register("guy.png");
+        RenderSystem.register("enemy.png");
+        RenderSystem.register("water.png");
+        RenderSystem.register("grass.png");
+        RenderSystem.register("brick.png");
+        RenderSystem.register("rock.png");
+        RenderSystem.register("wood.png");
+        RenderSystem.register("mum.jpg");
+        RenderSystem.register("door.jpg");
+        RenderSystem.register("roof.jpg");
+        RenderSystem.register("lava.jpg");
+        RenderSystem.register("tree.png");
+    }
     public static void register(String name){
         texture_registry.put(name, new Texture(name));
     }

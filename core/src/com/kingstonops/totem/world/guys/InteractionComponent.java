@@ -1,6 +1,7 @@
 package com.kingstonops.totem.world.guys;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Input;
 import com.kingstonops.totem.Debug;
 
@@ -8,12 +9,12 @@ public class InteractionComponent implements Component {
 
 
     public static abstract class InteractionAction{
-        public abstract void trigger();
+        public abstract void trigger(Entity e);
 
 
         public static class HelloInteractionAction extends InteractionAction{
             @Override
-            public void trigger(){
+            public void trigger(Entity e){
                 Debug.dgb("hello, world!");
             }
         }

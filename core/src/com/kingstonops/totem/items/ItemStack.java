@@ -27,7 +27,7 @@ public class ItemStack {
     }
 
     public boolean can_put(Item item){
-        return item.descriptor().id()==item.descriptor().id();
+        return m_item_descriptor.id()==item.descriptor().id();
     }
 
 }

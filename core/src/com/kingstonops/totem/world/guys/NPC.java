@@ -31,7 +31,7 @@ public class NPC {
 
         ColliderComponent c = new ColliderComponent();
         c.m_solid = true;
-        c.m_dynamic = false;
+        c.m_dynamic = true;
         c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
         e.add(c);
 
@@ -46,7 +46,7 @@ public class NPC {
 
         InteractionComponent i = new InteractionComponent("press e to talk", new InteractionComponent.InteractionAction() {
             @Override
-            public void trigger() {
+            public void trigger(Entity e) {
                 dialouge.start_dialouge(dialouge_part);
             }
         });

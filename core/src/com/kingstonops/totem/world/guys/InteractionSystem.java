@@ -2,6 +2,7 @@ package com.kingstonops.totem.world.guys;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
 import com.kingstonops.totem.Debug;
 import com.kingstonops.totem.player.PlayerComponent;
 import com.kingstonops.totem.Totem;
@@ -33,12 +34,14 @@ public class InteractionSystem extends EntitySystem {
 
 
     private Entity previous_player_ineracting_with;
-    private Entity player_interacting_with;
+    private Entity interacting_with;
+
+    private Entity player;
 
     @Override
     public void update(float dt){
 
-        player_interacting_with=null;
+        interacting_with =null;
 
 
         for(int i =0;i<m_entities.size();i++){
@@ -51,30 +54,33 @@ public class InteractionSystem extends EntitySystem {
                 Entity other_e = c.m_colliding_with.get(j);
                 PlayerComponent p = other_e.getComponent(PlayerComponent.class);
                 if(p!=null){
-                    player_interacting_with = e;
+                    interacting_with = e;
+                    player = other_e;
                 }
             }
         }
 
-        if(player_interacting_with!=null && player_interacting_with!=previous_player_ineracting_with){
-            InteractionComponent i = player_interacting_with.getComponent(InteractionComponent.class);
+        if(interacting_with !=null && interacting_with !=previous_player_ineracting_with){
+            InteractionComponent i = interacting_with.getComponent(InteractionComponent.class);
             Debug.dgb(i.interaction_msg());
         }
 
-        if(player_interacting_with!=null){
+        if(interacting_with !=null){
             InputSystem input = m_game.engine().getSystem(InputSystem.class);
-            InteractionComponent i = player_interacting_with.getComponent(InteractionComponent.class);
+            InteractionComponent i = interacting_with.getComponent(InteractionComponent.class);
             if(input.key_up.contains(i.interaction_key())){
-                i.action().trigger();
+                i.action().trigger(player);
             }
 
+            ImGui.setNextWindowPos(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+            ImGui.setNextWindowSize(Gdx.graphics.getWidth()/8, Gdx.graphics.getHeight()/8);
             ImGui.begin("interaction");
             ImGui.text(i.interaction_msg());
             ImGui.end();
 
         }
 
-        previous_player_ineracting_with=player_interacting_with;
+        previous_player_ineracting_with= interacting_with;
 
     }
 }

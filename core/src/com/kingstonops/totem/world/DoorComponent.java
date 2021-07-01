@@ -36,7 +36,7 @@ public class DoorComponent implements Component{
 
         InteractionComponent i = new InteractionComponent("to "+to, new InteractionComponent.InteractionAction() {
             @Override
-            public void trigger() {
+            public void trigger(Entity e) {
                 d.m_should_go = true;
             }
         });

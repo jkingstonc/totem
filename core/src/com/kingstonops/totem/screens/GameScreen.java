@@ -22,6 +22,7 @@ import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.dialouge.DialougeComponent;
 import com.kingstonops.totem.world.zones.Builtin;
+import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.gl3.ImGuiImplGl3;
@@ -48,41 +49,10 @@ public class GameScreen extends ScreenAdapter {
         System.out.println("init");
 
 
-        RenderSystem.register("guy.png");
-        RenderSystem.register("enemy.png");
-        RenderSystem.register("water.png");
-        RenderSystem.register("grass.png");
-        RenderSystem.register("brick.png");
-        RenderSystem.register("rock.png");
-        RenderSystem.register("wood.png");
-        RenderSystem.register("mum.jpg");
-        RenderSystem.register("door.jpg");
-        RenderSystem.register("roof.jpg");
-        RenderSystem.register("lava.jpg");
-        RenderSystem.register("tree.png");
+        RenderSystem.register_all(m_game);
+        ZoneComponent.register_all(m_game);
+        DialougeComponent.register_all(m_game);
 
-
-        final int WIDTH = 15;
-        final int HEIGHT = WIDTH;
-        // create a zone descriptor
-        Builtin.setup_builtin_zones(m_game);
-
-        // todo we should actually register each part seperately then we can just reference the other parts...
-        DialougeComponent.DialougePart.register(
-                new DialougeComponent.DialougePart.Single("basic_greeting_part_0", "hello there!", null)
-        .set_next(new DialougeComponent.DialougePart.Single("basic_greeting_part_1", "have a good day :)", null)));
-        DialougeComponent.DialougePart.register(
-                new DialougeComponent.DialougePart.Single("basic_battle_part_0", "so you have chosen death...", ()->{
-                    m_game.engine().getSystem(WorldSystem.class).to_zone("battle_zone");
-                }));
-
-        DialougeComponent.DialougePart.register(new DialougeComponent.DialougePart.Single("basic_shop_thanks_0", "thank you for shopping!", null));
-        DialougeComponent.DialougePart.register(
-                new DialougeComponent.DialougePart.Choice("basic_shop_part_0", "what would you like?", new HashMap<String, Utils.Tuple<DialougeComponent.DialougePart.DialougeTrigger, String>>(){{
-                    put("healing potion", new Utils.Tuple<>(null, "basic_shop_thanks_0"));
-                    put("mana potion", new Utils.Tuple<>(null, "basic_shop_thanks_0"));
-                }})
-        );
 
 
         m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
@@ -99,10 +69,7 @@ public class GameScreen extends ScreenAdapter {
         c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
         m_player.add(c);
 
-
-        Item.register(new Item.ItemDescriptor("pickaxe"));
-        Item.register(new Item.ItemDescriptor("shovel"));
-        Item.register(new Item.ItemDescriptor("axe"));
+        InventoryComponent.register_all(m_game);
 
         InventoryComponent i = new InventoryComponent();
         i.put(Item.instance("pickaxe"));

@@ -75,6 +75,9 @@ public class PlayerControllerSystem extends EntitySystem {
             Debug.DEBUG=!Debug.DEBUG;
         }
 
+        if(input.key_held.contains(Input.Keys.I)){
+            inv.show();
+        }
         if(Debug.DEBUG) {
             ImGui.begin("player info");
             ImGui.text("coins "+p.coins());

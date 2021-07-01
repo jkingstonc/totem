@@ -1,8 +1,11 @@
 package com.kingstonops.totem.dialouge;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.Gdx;
 import com.kingstonops.totem.Debug;
+import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.Utils;
+import com.kingstonops.totem.world.WorldSystem;
 import imgui.ImGui;
 
 import java.util.HashMap;
@@ -10,6 +13,27 @@ import java.util.Map;
 
 public class DialougeComponent implements Component {
 
+
+
+    public static void register_all(Totem game){
+        // todo we should actually register each part seperately then we can just reference the other parts...
+        DialougeComponent.DialougePart.register(
+                new DialougeComponent.DialougePart.Single("basic_greeting_part_0", "hello there!", null)
+                        .set_next(new DialougeComponent.DialougePart.Single("basic_greeting_part_1", "have a good day :)", null)));
+        DialougeComponent.DialougePart.register(
+                new DialougeComponent.DialougePart.Single("basic_battle_part_0", "so you have chosen death...", ()->{
+                    game.engine().getSystem(WorldSystem.class).to_zone("battle_zone");
+                }));
+
+        DialougeComponent.DialougePart.register(new DialougeComponent.DialougePart.Single("basic_shop_thanks_0", "thank you for shopping!", null));
+        DialougeComponent.DialougePart.register(
+                new DialougeComponent.DialougePart.Choice("basic_shop_part_0", "what would you like?", new HashMap<String, Utils.Tuple<DialougeComponent.DialougePart.DialougeTrigger, String>>(){{
+                    put("healing potion", new Utils.Tuple<>(null, "basic_shop_thanks_0"));
+                    put("mana potion", new Utils.Tuple<>(null, "basic_shop_thanks_0"));
+                }})
+        );
+
+    }
     public static abstract class DialougePart {
 
         public static HashMap<String, DialougePart> dialouge_registry = new HashMap<>();
@@ -99,6 +123,9 @@ public class DialougeComponent implements Component {
 
             @Override
             public void process(){
+                ImGui.setNextWindowPos(0,(Gdx.graphics.getHeight()/4) * 3);
+                ImGui.setNextWindowSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/4);
+                // todo make below the npc name
                 ImGui.begin("dialouge");
                 ImGui.text(m_speech);
                 if(ImGui.button("prev")){
@@ -147,6 +174,8 @@ public class DialougeComponent implements Component {
 
             @Override
             public void process(){
+                ImGui.setNextWindowPos(0,(Gdx.graphics.getHeight()/4) * 3);
+                ImGui.setNextWindowSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/4);
                 ImGui.begin("dialouge");
                 ImGui.text(m_speech);
                 for(Map.Entry<String, Utils.Tuple<DialougeTrigger, String>> choice : m_choices.entrySet()){

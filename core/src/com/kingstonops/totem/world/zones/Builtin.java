@@ -3,6 +3,7 @@ package com.kingstonops.totem.world.zones;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.rendering.RenderSystem;
+import com.kingstonops.totem.world.Chest;
 import com.kingstonops.totem.world.DoorComponent;
 import com.kingstonops.totem.world.Tile;
 import com.kingstonops.totem.world.Tree;
@@ -57,16 +58,16 @@ public class Builtin {
         }));
         ZoneComponent.register(new ZoneComponent.ZoneDescriptor("starting_town", (zone)->{
 
-            zone.entities().add(NPC.create(game.engine(),
-                    new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-10), 5), "enemy.png", new AIComponent.AIProvider.BasicStationaryAIProvider(), "basic_battle_part_0"));
-            zone.entities().add(NPC.create(game.engine(),
-                    new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-12), 5), "enemy.png", new AIComponent.AIProvider.BasicStationaryAIProvider(), "basic_shop_part_0"));
+            zone.entities().add(NPC.create(game.engine(),new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-10), 5), "enemy.png", new AIComponent.AIProvider.BasicWanderingAIProvider(), "basic_greeting_part_0"));
 
             final int WIDTH = 50, HEIGHT = 50;
             for(int x =-WIDTH/2;x<WIDTH/2;x++) {
                 for (int y = -HEIGHT / 2; y < HEIGHT / 2; y++) {
                     if(x%4==0 && y%4==0) {
-                        zone.entities().add(Tree.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 10), "tree.png", true));
+                        zone.entities().add(Tree.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), RenderSystem.DECOR_LAYER), "tree.png", true));
+                    }
+                    if(x%10==0 && y%10==0) {
+                        zone.entities().add(NPC.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 5), "enemy.png", new AIComponent.AIProvider.BasicWanderingAIProvider(), "basic_greeting_part_0"));
                     }
                     zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "grass.png", false));
                 }
@@ -121,7 +122,8 @@ public class Builtin {
         }));
 
         ZoneComponent.register(new ZoneComponent.ZoneDescriptor("starting_cave", (zone)->{
-
+            zone.entities().add(NPC.create(game.engine(),
+                    new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(0), 5), "enemy.png", new AIComponent.AIProvider.BasicStationaryAIProvider(), "basic_battle_part_0"));
             zone.entities().add(DoorComponent.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-5), 1), "starting_town", new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-8), 5)));
             final int WIDTH = 5, HEIGHT = 5;
             for(int x=-WIDTH;x<=WIDTH;x++){
@@ -129,6 +131,7 @@ public class Builtin {
                     zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "rock.png", false));
                 }
             }
+            zone.entities().add(Chest.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(3), RenderSystem.DECOR_LAYER), "chest.png"));
         }));
     }
 }

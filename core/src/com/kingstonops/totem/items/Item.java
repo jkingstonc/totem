@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Item {
 
     public static class ItemDescriptor{
-        private int m_id = 0;
+        public int m_id = 0;
         private String m_name;
         private TextureRegion m_icon;
         private Placeable m_placeable;
@@ -27,13 +27,9 @@ public class Item {
     }
 
     public static Item instance(String name){
-        return new Item(item_registry.get(name));
+        return new Item(InventoryComponent.get(name));
     }
 
-    public static void register(ItemDescriptor descriptor){
-        descriptor.m_id=item_registry.size();
-        item_registry.put(descriptor.m_name, descriptor);
-    }
     /*
     * e.g. health, etc
     * */

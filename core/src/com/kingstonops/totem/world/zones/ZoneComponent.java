@@ -2,12 +2,16 @@ package com.kingstonops.totem.world.zones;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
+import com.kingstonops.totem.Totem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ZoneComponent implements Component {
 
+    public static void register_all(Totem game){
+        Builtin.setup_builtin_zones(game);
+    }
 
     public static class ZoneDescriptor{
 
