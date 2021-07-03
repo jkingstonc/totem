@@ -10,10 +10,7 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.*;
-import com.kingstonops.totem.items.EmptyTotem;
-import com.kingstonops.totem.items.InventoryComponent;
-import com.kingstonops.totem.items.Item;
-import com.kingstonops.totem.items.Pickaxe;
+import com.kingstonops.totem.items.*;
 import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
@@ -55,6 +52,8 @@ public class GameScreen extends ScreenAdapter {
 
         Item.registry.register("pickaxe", ()->new Pickaxe());
         Item.registry.register("speed_totem", ()->new EmptyTotem.SpeedTotem());
+        Item.registry.register("rusty_gear", ()->new Misc.RustyGear());
+        Item.registry.register("grass", ()->new Item("grass", "grass.png", Item.Rarity.COMMON));
 
 
 
@@ -76,6 +75,7 @@ public class GameScreen extends ScreenAdapter {
         InventoryComponent i = new InventoryComponent();
         i.put(Item.registry.instantiate("speed_totem"));
         i.put(Item.registry.instantiate("pickaxe"));
+        i.put(Item.registry.instantiate("grass"));
         m_player.add(i);
 
         TransformComponent t = new TransformComponent();

@@ -104,6 +104,9 @@ public class PlayerControllerSystem extends EntitySystem {
         }else if(input.key_up.contains(Input.Keys.NUM_2)){
             p.m_selected_item=2;
             update_selected_item=2;
+        }else if(input.key_up.contains(Input.Keys.NUM_3)){
+            p.m_selected_item=3;
+            update_selected_item=3;
         }
         if(update_selected_item>-1){
             p.m_holding_item.getComponent(RenderComponent.class).texture=new TextureRegion(RenderSystem.get(inv.m_items.get(update_selected_item).items().get(0).m_texture));
