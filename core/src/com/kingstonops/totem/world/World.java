@@ -1,13 +1,8 @@
 package com.kingstonops.totem.world;
 
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.*;
-import com.kingstonops.totem.physics.TransformComponent;
-import com.kingstonops.totem.rendering.RenderComponent;
-import com.kingstonops.totem.rendering.RenderSystem;
+import com.kingstonops.totem.world.tiles.Tile;
 
 public class World {
 

@@ -5,7 +5,7 @@ import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.Chest;
 import com.kingstonops.totem.world.DoorComponent;
-import com.kingstonops.totem.world.Tile;
+import com.kingstonops.totem.world.tiles.Tile;
 import com.kingstonops.totem.world.Tree;
 import com.kingstonops.totem.world.guys.AIComponent;
 import com.kingstonops.totem.world.guys.NPC;

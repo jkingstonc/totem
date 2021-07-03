@@ -3,10 +3,14 @@ package com.kingstonops.totem.rendering;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.kingstonops.totem.Totem;
@@ -17,7 +21,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class RenderSystem extends EntitySystem {
-
 
     public static int TILE_LAYER = 0;
     public static int PLAYER_LAYER = 5;
@@ -59,6 +62,8 @@ public class RenderSystem extends EntitySystem {
         RenderSystem.register("roof.jpg");
         RenderSystem.register("lava.jpg");
         RenderSystem.register("tree.png");
+        RenderSystem.register("pickaxe.png");
+        RenderSystem.register("speed_totem.png");
     }
     public static void register(String name){
         texture_registry.put(name, new Texture(name));
@@ -98,6 +103,10 @@ public class RenderSystem extends EntitySystem {
         return new Vector3(p.x, p.y, p.z);
     }
 
+    ShaderProgram shader = null;
+    Mesh mesh;
+    Texture texture;
+
     public RenderSystem(Engine engine){
         m_engine = engine;
         m_batch = new SpriteBatch();
@@ -115,11 +124,6 @@ public class RenderSystem extends EntitySystem {
 
 
         System.out.println("creating RenderSystem");
-
-
-/*        m_imgui_glfw = new ImGuiImplGlfw();
-        m_imgui_gl3 = new ImGuiImplGl3();
-        ImGui.createContext();*/
     }
 
     @Override
@@ -130,11 +134,15 @@ public class RenderSystem extends EntitySystem {
     @Override
     public void update(float dt){
 
-        ScreenUtils.clear(0, 0, 0, 1);
+        ScreenUtils.clear(0, 1, 0, 1);
 
         for(int i = 0;i<m_entities.size();i++){
             Entity e = m_entities.get(i);
-            m_render_queue.add(e);
+            RenderComponent r = e.getComponent(RenderComponent.class);
+            assert r != null;
+            if(r.m_show) {
+                m_render_queue.add(e);
+            }
         }
 
         m_render_queue.sort(new ZComparator());
@@ -169,5 +177,7 @@ public class RenderSystem extends EntitySystem {
         m_batch.end();
         m_batch.disableBlending();
         m_render_queue.clear();
+
+
     }
 }

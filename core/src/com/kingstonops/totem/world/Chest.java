@@ -31,7 +31,7 @@ public class Chest {
 
                 InventoryComponent i = e.getComponent(InventoryComponent.class);
                 assert i!=null;
-                i.put(Item.instance("basic_health_potion"));
+                i.put(Item.registry.instantiate("speed_totem"));
             }
         });
         e.add(i);

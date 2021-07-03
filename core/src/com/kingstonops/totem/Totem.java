@@ -52,7 +52,7 @@ public class Totem extends Game {
 		m_engine.addSystem(new ColliderSystem());
 		m_engine.addSystem(new MovementSystem());
 		m_engine.addSystem(new DoorSystem(this));
-		m_engine.addSystem(new PlayerControllerSystem(m_engine));
+		m_engine.addSystem(new PlayerControllerSystem(this));
 		InputSystem input = new InputSystem();
 
 		Gdx.input.setInputProcessor(input);

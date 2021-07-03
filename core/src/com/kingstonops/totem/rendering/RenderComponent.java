@@ -6,5 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class RenderComponent implements Component {
+    public boolean m_show = true;
     public TextureRegion texture;
 }

@@ -10,8 +10,10 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.*;
+import com.kingstonops.totem.items.EmptyTotem;
 import com.kingstonops.totem.items.InventoryComponent;
 import com.kingstonops.totem.items.Item;
+import com.kingstonops.totem.items.Pickaxe;
 import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
@@ -21,7 +23,6 @@ import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.dialouge.DialougeComponent;
-import com.kingstonops.totem.world.zones.Builtin;
 import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
 import imgui.ImGuiIO;
@@ -29,8 +30,6 @@ import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
-
-import java.util.HashMap;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -54,6 +53,10 @@ public class GameScreen extends ScreenAdapter {
         DialougeComponent.register_all(m_game);
 
 
+        Item.registry.register("pickaxe", ()->new Pickaxe());
+        Item.registry.register("speed_totem", ()->new EmptyTotem.SpeedTotem());
+
+
 
         m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
 
@@ -69,20 +72,17 @@ public class GameScreen extends ScreenAdapter {
         c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
         m_player.add(c);
 
-        InventoryComponent.register_all(m_game);
 
         InventoryComponent i = new InventoryComponent();
-        i.put(Item.instance("pickaxe"));
-        i.put(Item.instance("pickaxe"));
-        i.put(Item.instance("shovel"));
-        i.put(Item.instance("axe"));
+        i.put(Item.registry.instantiate("speed_totem"));
+        i.put(Item.registry.instantiate("pickaxe"));
         m_player.add(i);
 
         TransformComponent t = new TransformComponent();
         t.position = new Vector3(
             RenderSystem.unit_to_pixel(0),
             RenderSystem.unit_to_pixel(0),
-            1
+            RenderSystem.PLAYER_LAYER
         );
         m_player.add(t);
         MovementComponent v = new MovementComponent();
@@ -92,8 +92,31 @@ public class GameScreen extends ScreenAdapter {
         r.texture = new TextureRegion(new Texture("guy.png"));
         m_player.add(r);
 
-        //// create a world
-        //new World(m_game);
+
+        // add the item the player is holding
+
+
+        Entity holding_item = m_game.engine().createEntity();
+        TransformComponent i_t = new TransformComponent();
+        i_t.position = new Vector3(
+                RenderSystem.unit_to_pixel(0),
+                RenderSystem.unit_to_pixel(0),
+                RenderSystem.PLAYER_LAYER+1
+        );
+        i_t.scale = new Vector3(
+                RenderSystem.unit_to_pixel(.5f),
+                RenderSystem.unit_to_pixel(.5f),
+                0
+        );
+        holding_item.add(i_t);
+        RenderComponent i_r = new RenderComponent();
+        i_r.texture=new TextureRegion(RenderSystem.get(i.m_items.get(0).items().get(0).m_texture));
+        holding_item.add(i_r);
+        m_game.engine().addEntity(holding_item);
+        m_player.getComponent(PlayerComponent.class).m_holding_item = holding_item;
+
+
+
 
         // set the camera target
 
@@ -101,6 +124,10 @@ public class GameScreen extends ScreenAdapter {
         System.out.println("camera = "+cam);
         cam.target = t.position;
         cam.follow_target=true;
+
+
+
+
 
 
 
