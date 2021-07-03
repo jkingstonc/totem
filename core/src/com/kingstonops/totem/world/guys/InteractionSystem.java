@@ -72,8 +72,8 @@ public class InteractionSystem extends EntitySystem {
                 i.action().trigger(player);
             }
 
-            ImGui.setNextWindowPos(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
-            ImGui.setNextWindowSize(Gdx.graphics.getWidth()/8, Gdx.graphics.getHeight()/8);
+            ImGui.setNextWindowPos(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/2);
+            ImGui.setNextWindowSize(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/4);
             ImGui.begin("interaction");
             ImGui.text(i.interaction_msg());
             ImGui.end();

@@ -114,7 +114,8 @@ public class PlayerControllerSystem extends EntitySystem {
 
         if(input.mouse_up== Input.Buttons.LEFT){
             // use the first item
-            inv.m_items.get(0).items().get(0).on_use(m_game, p.last_selected_tile);
+            Debug.dgb("last selected tile "+p.last_selected_tile);
+            inv.m_items.get(p.m_selected_item).items().get(0).on_use(m_game, p.last_selected_tile);
         }
 
         Vector3 item_pos = new Vector3(t.position);

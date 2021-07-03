@@ -69,14 +69,15 @@ public class Builtin {
                     if(x%10==0 && y%10==0) {
                         zone.entities().add(NPC.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 5), "enemy.png", new AIComponent.AIProvider.BasicWanderingAIProvider(), "basic_greeting_part_0"));
                     }
-                    zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "grass.png", false));
+
+                    zone.entities().add(Tile.registry.instantiate("grass").spawn(game, new Vector3(x, y, 0)));
                 }
 
             }
 
             for(int x =10;x<15;x++) {
                 for (int y = 10; y<15; y++) {
-                    zone.entities().add(Tile.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 0), "water.png", true));
+                    zone.entities().add(Tile.registry.instantiate("water").spawn(game, new Vector3(x, y, 0)));
                 }
             }
 

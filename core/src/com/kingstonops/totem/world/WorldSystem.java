@@ -37,7 +37,7 @@ public class WorldSystem extends EntitySystem {
         zone.descriptor().setup().setup(zone);
     }
 
-    private Entity m_active_zone;
+    public Entity m_active_zone;
     private ImmutableArray<Entity> m_entities;
 
     private ComponentMapper<ZoneComponent> m_zone_mapper = ComponentMapper.getFor(ZoneComponent.class);

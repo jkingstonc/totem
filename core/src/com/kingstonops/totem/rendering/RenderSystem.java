@@ -65,6 +65,7 @@ public class RenderSystem extends EntitySystem {
         RenderSystem.register("pickaxe.png");
         RenderSystem.register("speed_totem.png");
         RenderSystem.register("rusty_gear.jpg");
+        RenderSystem.register("chair.jpg");
     }
     public static void register(String name){
         texture_registry.put(name, new Texture(name));
