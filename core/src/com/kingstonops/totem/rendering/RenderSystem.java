@@ -51,6 +51,7 @@ public class RenderSystem extends EntitySystem {
     public static void register_all(Totem game){
         RenderSystem.register("hay.png");
         RenderSystem.register("fence.png");
+        RenderSystem.register("chicken.png");
         RenderSystem.register("cow.png");
         RenderSystem.register("chest.png");
         RenderSystem.register("guy.png");

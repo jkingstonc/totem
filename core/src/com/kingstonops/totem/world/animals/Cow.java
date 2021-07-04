@@ -10,13 +10,19 @@ public class Cow extends Animal{
         super("cow", "cow.png");
     }
 
-    public static class CowAIProvider extends AIComponent.AIProvider{
+    public static class CowAIProvider extends AIComponent.AIProvider.BasicWanderingAIProvider{
 
         boolean m_hungry = false;
         @Override
         public void process(Entity e) {
             if(m_hungry){
                 // look for hay
+                // find the nearest hay block
+
+
+            }else{
+                // just wander
+                super.process(e);
             }
         }
     }

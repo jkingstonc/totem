@@ -65,6 +65,18 @@ public class Misc {
         }
     }
 
+    public static class SpawnChicken extends Item{
+        public SpawnChicken(){
+            super("spawn_chicken", "chicken.png", Rarity.COMMON);
+        }
+        @Override
+        public void on_use(Totem game, Vector3 pos) {
+            super.on_use(game, pos);
+            ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
+            z.entities().add(Animal.registry.instantiate("chicken").spawn(game, pos));
+        }
+    }
+
     public static class SpawnHay extends Item{
         public SpawnHay(){
             super("spawn_hay", "hay.png", Rarity.COMMON);

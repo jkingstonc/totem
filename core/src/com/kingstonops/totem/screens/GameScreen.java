@@ -21,6 +21,7 @@ import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.dialouge.DialougeComponent;
 import com.kingstonops.totem.world.animals.Animal;
+import com.kingstonops.totem.world.animals.Chicken;
 import com.kingstonops.totem.world.animals.Cow;
 import com.kingstonops.totem.world.tiles.Chair;
 import com.kingstonops.totem.world.tiles.Tile;
@@ -58,6 +59,7 @@ public class GameScreen extends ScreenAdapter {
 
 
         Animal.registry.register("cow", ()->new Cow());
+        Animal.registry.register("chicken", ()->new Chicken());
 
         Item.registry.register("pickaxe", ()->new Pickaxe());
         Item.registry.register("speed_totem", ()->new EmptyTotem.SpeedTotem());
@@ -66,6 +68,7 @@ public class GameScreen extends ScreenAdapter {
         Item.registry.register("chair", ()->new Misc.Chair());
         Item.registry.register("spawn_fence", ()->new Misc.SpawnFence());
         Item.registry.register("spawn_cow", ()->new Misc.SpawnCow());
+        Item.registry.register("spawn_chicken", ()->new Misc.SpawnChicken());
         Item.registry.register("spawn_hay", ()->new Misc.SpawnHay());
 
 
@@ -97,6 +100,7 @@ public class GameScreen extends ScreenAdapter {
 
 
         InventoryComponent i = new InventoryComponent();
+        i.put(Item.registry.instantiate("spawn_chicken"));
         i.put(Item.registry.instantiate("spawn_cow"));
         i.put(Item.registry.instantiate("spawn_hay"));
         i.put(Item.registry.instantiate("spawn_fence"));
