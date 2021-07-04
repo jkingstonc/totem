@@ -27,20 +27,15 @@ public class Cow extends Animal{
                 // find the nearest hay block by checking IDComponents
 
 
-                ImmutableArray<Entity> es = game.engine().getEntitiesFor(Family.all(IDComponent.class).get());
-                ArrayList<Entity> hay_entities = new ArrayList<>();
-                for(Entity entity : es){
-                    if(entity.getComponent(IDComponent.class).id().equals("hay")){
-                        hay_entities.add(entity);
-                    }
-                }
+                Entity nearest_hay = IDComponent.find_nearest(game, "hay", e.getComponent(TransformComponent.class).position);
 
-                if(hay_entities.size()>0) {
+
+                if(nearest_hay!=null) {
                     // now go to the nearest hay
 
                     MovementComponent cow_m = e.getComponent(MovementComponent.class);
                     TransformComponent cow_t = e.getComponent(TransformComponent.class);
-                    TransformComponent hay_t = hay_entities.get(0).getComponent(TransformComponent.class);
+                    TransformComponent hay_t = nearest_hay.getComponent(TransformComponent.class);
 
                     Vector3 v = new Vector3();
                     v.x = hay_t.position.x - cow_t.position.x;
