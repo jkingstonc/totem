@@ -18,8 +18,10 @@ public class AIComponent implements Component {
         }
         public static class BasicWanderingAIProvider extends AIProvider{
 
+            Random r;
             public BasicWanderingAIProvider(){
                 m_target_pos = new Vector3(RenderSystem.unit_to_pixel(5f),RenderSystem.unit_to_pixel(5f),0);
+                r = new Random(System.currentTimeMillis());
             }
 
             // the target position to walk to
@@ -27,9 +29,8 @@ public class AIComponent implements Component {
 
             @Override
             public void process(Entity e){
-                Random r = new Random();
 
-                if(r.nextInt(500)==1){
+                if(r.nextDouble()<0.005){
                     m_target_pos = new Vector3(RenderSystem.unit_to_pixel(10-r.nextInt(20)),RenderSystem.unit_to_pixel(10-r.nextInt(20)),0);
                 }
                 TransformComponent t = e.getComponent(TransformComponent.class);
@@ -47,7 +48,7 @@ public class AIComponent implements Component {
     public AIComponent(AIProvider ai_provider){
         m_ai_provier = ai_provider;
     }
-    AIProvider m_ai_provier;
+    public AIProvider m_ai_provier;
 
     public AIProvider provider(){
         return m_ai_provier;

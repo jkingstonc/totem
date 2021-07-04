@@ -9,6 +9,11 @@ import java.util.HashMap;
 
 public class ZoneComponent implements Component {
 
+
+    public static void from_file(String path){
+    }
+
+
     public static void register_all(Totem game){
         Builtin.setup_builtin_zones(game);
     }

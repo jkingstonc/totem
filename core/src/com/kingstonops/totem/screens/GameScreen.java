@@ -21,6 +21,7 @@ import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.dialouge.DialougeComponent;
 import com.kingstonops.totem.world.animals.Animal;
+import com.kingstonops.totem.world.animals.Cow;
 import com.kingstonops.totem.world.tiles.Chair;
 import com.kingstonops.totem.world.tiles.Tile;
 import com.kingstonops.totem.world.zones.ZoneComponent;
@@ -56,17 +57,20 @@ public class GameScreen extends ScreenAdapter {
         DialougeComponent.register_all(m_game);
 
 
-        Animal.registry.register("cow", ()->new Animal("cow", "cow.png"));
+        Animal.registry.register("cow", ()->new Cow());
 
         Item.registry.register("pickaxe", ()->new Pickaxe());
         Item.registry.register("speed_totem", ()->new EmptyTotem.SpeedTotem());
         Item.registry.register("rusty_gear", ()->new Misc.RustyGear());
         Item.registry.register("grass", ()->new Item("grass", "grass.png", Item.Rarity.COMMON));
         Item.registry.register("chair", ()->new Misc.Chair());
-        Item.registry.register("fence", ()->new Misc.Fence());
+        Item.registry.register("spawn_fence", ()->new Misc.SpawnFence());
+        Item.registry.register("spawn_cow", ()->new Misc.SpawnCow());
+        Item.registry.register("spawn_hay", ()->new Misc.SpawnHay());
 
 
 
+        Tile.registry.register("hay", ()->new Tile("hay", "hay.png", false));
         Tile.registry.register("grass", ()->new Tile("grass", "grass.png", false));
         Tile.registry.register("water", ()->new Tile("water", "water.png", true));
         Tile.registry.register("chair", ()->new Chair());
@@ -93,7 +97,9 @@ public class GameScreen extends ScreenAdapter {
 
 
         InventoryComponent i = new InventoryComponent();
-        i.put(Item.registry.instantiate("fence"));
+        i.put(Item.registry.instantiate("spawn_cow"));
+        i.put(Item.registry.instantiate("spawn_hay"));
+        i.put(Item.registry.instantiate("spawn_fence"));
         i.put(Item.registry.instantiate("speed_totem"));
         i.put(Item.registry.instantiate("pickaxe"));
         i.put(Item.registry.instantiate("chair"));

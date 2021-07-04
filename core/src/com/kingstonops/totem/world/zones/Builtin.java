@@ -69,9 +69,9 @@ public class Builtin {
                     if(x%4==0 && y%4==0) {
                         zone.entities().add(Tree.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), RenderSystem.DECOR_LAYER), "tree.png", true));
                     }
-                    if(x%10==0 && y%10==0) {
+                    /*if(x%10==0 && y%10==0) {
                         zone.entities().add(NPC.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 5), "enemy.png", new AIComponent.AIProvider.BasicWanderingAIProvider(), "basic_greeting_part_0"));
-                    }
+                    }*/
 
                     zone.entities().add(Tile.registry.instantiate("grass").spawn(game, new Vector3(x, y, 0)));
                 }

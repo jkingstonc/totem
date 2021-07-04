@@ -19,6 +19,7 @@ public class Animal {
     private String m_name;
     private String m_texture;
 
+    public Animal(){}
     public Animal(String name, String texture){
         m_name = name;
         m_texture = texture;

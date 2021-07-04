@@ -49,6 +49,7 @@ public class RenderSystem extends EntitySystem {
     public static HashMap<String, Texture> texture_registry = new HashMap<>();
 
     public static void register_all(Totem game){
+        RenderSystem.register("hay.png");
         RenderSystem.register("fence.png");
         RenderSystem.register("cow.png");
         RenderSystem.register("chest.png");
@@ -175,7 +176,7 @@ public class RenderSystem extends EntitySystem {
             float origin_x = Gdx.graphics.getWidth()/2;
             float origin_y = Gdx.graphics.getHeight()/2;
 
-            m_batch.draw(r.texture, t.position.x + origin_x, t.position.y + origin_y, w, h);
+            m_batch.draw(r.texture, t.position.x + origin_x - UNIT_SIZE/2, t.position.y + origin_y - UNIT_SIZE/2, w, h);
         }
 
         m_batch.end();
