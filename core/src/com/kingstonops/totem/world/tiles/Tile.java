@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kingstonops.totem.IDComponent;
 import com.kingstonops.totem.Registry;
 import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.physics.ColliderComponent;
@@ -56,6 +57,7 @@ public class Tile {
     public Entity spawn(Totem game, Vector3 pos){
         Entity e = game.engine().createEntity();
         game.engine().addEntity(e);
+        e.add(new IDComponent(m_name));
         TransformComponent p = new TransformComponent();
         Vector3 pp = new Vector3(pos);
         pp.x = RenderSystem.unit_to_pixel(pos.x);

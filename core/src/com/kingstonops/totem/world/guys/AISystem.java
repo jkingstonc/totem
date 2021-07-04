@@ -35,7 +35,7 @@ public class AISystem extends EntitySystem {
         for(int i =0;i<m_entities.size();i++){
             Entity e = m_entities.get(i);
             AIComponent ai = m_ai_mapper.get(e);
-            ai.provider().process(e);
+            ai.provider().process(m_game, e);
         }
     }
 }
