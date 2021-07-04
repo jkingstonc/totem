@@ -5,6 +5,7 @@ import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.Chest;
 import com.kingstonops.totem.world.DoorComponent;
+import com.kingstonops.totem.world.animals.Animal;
 import com.kingstonops.totem.world.tiles.Tile;
 import com.kingstonops.totem.world.Tree;
 import com.kingstonops.totem.world.guys.AIComponent;
@@ -24,7 +25,7 @@ public class Builtin {
         ZoneComponent.register(new ZoneComponent.ZoneDescriptor("starting_house_downstairs", (zone)->{
             final int WIDTH = 10, HEIGHT = 10;
 
-            zone.entities().add(NPC.create(game.engine(),new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(2), 5), "mum.jpg", new AIComponent.AIProvider.BasicStationaryAIProvider(), "basic_greeting_part_0"));
+            zone.entities().add(NPC.create(game.engine(),new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(2), 5), "mum.png", new AIComponent.AIProvider.BasicStationaryAIProvider(), "basic_greeting_part_0"));
             zone.entities().add(DoorComponent.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-5), 1), "starting_town", new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-8), 5)));
             zone.entities().add(DoorComponent.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(-3), RenderSystem.unit_to_pixel(0), 1), "starting_house_upstairs", new Vector3(RenderSystem.unit_to_pixel(-1), RenderSystem.unit_to_pixel(0), 5)));
             final int HOUSE_WIDTH = 5, HOUSE_HEIGHT = 5;
@@ -58,6 +59,8 @@ public class Builtin {
         }));
         ZoneComponent.register(new ZoneComponent.ZoneDescriptor("starting_town", (zone)->{
 
+
+            zone.entities().add(Animal.registry.instantiate("cow").spawn(game, new Vector3(0,-12,1)));
             zone.entities().add(NPC.create(game.engine(),new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-10), 5), "enemy.png", new AIComponent.AIProvider.BasicWanderingAIProvider(), "basic_greeting_part_0"));
 
             final int WIDTH = 50, HEIGHT = 50;

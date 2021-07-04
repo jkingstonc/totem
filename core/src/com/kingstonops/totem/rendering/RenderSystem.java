@@ -49,6 +49,8 @@ public class RenderSystem extends EntitySystem {
     public static HashMap<String, Texture> texture_registry = new HashMap<>();
 
     public static void register_all(Totem game){
+        RenderSystem.register("fence.png");
+        RenderSystem.register("cow.png");
         RenderSystem.register("chest.png");
         RenderSystem.register("guy.png");
         RenderSystem.register("enemy.png");
@@ -57,7 +59,7 @@ public class RenderSystem extends EntitySystem {
         RenderSystem.register("brick.png");
         RenderSystem.register("rock.png");
         RenderSystem.register("wood.png");
-        RenderSystem.register("mum.jpg");
+        RenderSystem.register("mum.png");
         RenderSystem.register("door.jpg");
         RenderSystem.register("roof.jpg");
         RenderSystem.register("lava.jpg");
@@ -136,7 +138,7 @@ public class RenderSystem extends EntitySystem {
     @Override
     public void update(float dt){
 
-        ScreenUtils.clear(0, 1, 0, 1);
+        ScreenUtils.clear(0, 0, 0, 1);
 
         for(int i = 0;i<m_entities.size();i++){
             Entity e = m_entities.get(i);

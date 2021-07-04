@@ -20,6 +20,7 @@ import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.dialouge.DialougeComponent;
+import com.kingstonops.totem.world.animals.Animal;
 import com.kingstonops.totem.world.tiles.Chair;
 import com.kingstonops.totem.world.tiles.Tile;
 import com.kingstonops.totem.world.zones.ZoneComponent;
@@ -55,17 +56,21 @@ public class GameScreen extends ScreenAdapter {
         DialougeComponent.register_all(m_game);
 
 
+        Animal.registry.register("cow", ()->new Animal("cow", "cow.png"));
+
         Item.registry.register("pickaxe", ()->new Pickaxe());
         Item.registry.register("speed_totem", ()->new EmptyTotem.SpeedTotem());
         Item.registry.register("rusty_gear", ()->new Misc.RustyGear());
         Item.registry.register("grass", ()->new Item("grass", "grass.png", Item.Rarity.COMMON));
         Item.registry.register("chair", ()->new Misc.Chair());
+        Item.registry.register("fence", ()->new Misc.Fence());
 
 
 
         Tile.registry.register("grass", ()->new Tile("grass", "grass.png", false));
         Tile.registry.register("water", ()->new Tile("water", "water.png", true));
         Tile.registry.register("chair", ()->new Chair());
+        Tile.registry.register("fence", ()->new Tile("fence", "fence.png", true));
 
 
         Recipe.registry.register("speed_totem_recipe", ()->new Recipe("speed_totem_recipe", new ArrayList<>(Arrays.asList("base_totem", "speed_berry")), null));
@@ -88,6 +93,7 @@ public class GameScreen extends ScreenAdapter {
 
 
         InventoryComponent i = new InventoryComponent();
+        i.put(Item.registry.instantiate("fence"));
         i.put(Item.registry.instantiate("speed_totem"));
         i.put(Item.registry.instantiate("pickaxe"));
         i.put(Item.registry.instantiate("chair"));
