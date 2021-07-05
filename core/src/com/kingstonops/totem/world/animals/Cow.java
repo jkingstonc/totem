@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Vector3;
+import com.kingstonops.totem.Debug;
 import com.kingstonops.totem.IDComponent;
 import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.physics.ColliderComponent;
@@ -23,7 +24,6 @@ public class Cow extends Animal{
         boolean m_hungry = false;
         @Override
         public void process(Totem game, Entity e) {
-
 
             if(!m_hungry && r.nextDouble()<0.0005){
                 m_hungry = true;

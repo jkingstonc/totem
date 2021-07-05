@@ -20,9 +20,10 @@ public class AIComponent implements Component {
         public static class BasicWanderingAIProvider extends AIProvider{
 
             protected Random r;
+
             public BasicWanderingAIProvider(){
                 m_target_pos = new Vector3(RenderSystem.unit_to_pixel(5f),RenderSystem.unit_to_pixel(5f),0);
-                r = new Random(System.currentTimeMillis());
+                r = new Random();
             }
 
             // the target position to walk to
