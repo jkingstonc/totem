@@ -80,6 +80,7 @@ public class GameScreen extends ScreenAdapter {
         Tile.registry.register("grass", ()->new Tile("grass", "grass.png", false));
         Tile.registry.register("water", ()->new Tile("water", "water.png", true));
         Tile.registry.register("sand", ()->new Tile("sand", "sand.png", false));
+        Tile.registry.register("path", ()->new Tile("path", "path.png", false));
         Tile.registry.register("chair", ()->new Chair());
         Tile.registry.register("fence", ()->new Tile("fence", "fence.png", true));
 
