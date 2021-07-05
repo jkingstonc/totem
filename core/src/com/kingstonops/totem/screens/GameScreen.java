@@ -89,8 +89,9 @@ public class GameScreen extends ScreenAdapter {
 
 
 
-        Zone.from_file(m_game, "zones/test.tmx");
+        //Zone.from_file(m_game, "zones/test.tmx");
         //m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
+        m_game.engine().getSystem(WorldSystem.class).to_zone("zones/test.tmx");
 
 
 

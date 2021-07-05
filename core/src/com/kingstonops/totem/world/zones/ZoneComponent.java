@@ -63,8 +63,14 @@ public class ZoneComponent implements Component {
     private ZoneDescriptor m_descriptor;
     private ArrayList<Entity> m_entities = new ArrayList<>();
 
+    public String m_name = "default";
+
     public ZoneComponent(ZoneDescriptor descriptor){
         m_descriptor = descriptor;
+    }
+
+    public ZoneComponent(ArrayList<Entity> entities){
+        m_entities = entities;
     }
 
     public ZoneDescriptor descriptor(){return m_descriptor;}

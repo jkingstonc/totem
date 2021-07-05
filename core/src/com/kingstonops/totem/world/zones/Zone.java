@@ -1,5 +1,6 @@
 package com.kingstonops.totem.world.zones;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
@@ -10,6 +11,8 @@ import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.world.animals.Animal;
 import com.kingstonops.totem.world.tiles.Tile;
 
+import java.util.ArrayList;
+
 public class Zone {
 
     public static int BG_LAYER = 0;
@@ -18,9 +21,11 @@ public class Zone {
     public static int ANIMAL_LAYER = 3;
     public static int PLAYER_LAYER = 4;
 
-    public static void from_file(Totem game, String file){
+    public static ArrayList<Entity> from_file(Totem game, String file){
         TiledMap tiled_map = new TmxMapLoader().load(file);
         assert tiled_map != null;
+
+        ArrayList<com.badlogic.ashley.core.Entity> entities = new ArrayList<>();
 
         TiledMapTileLayer layer_0 = (TiledMapTileLayer)tiled_map.getLayers().get(BG_LAYER);
         for(int x=0;x<layer_0.getWidth();x++){
@@ -28,7 +33,18 @@ public class Zone {
                 TiledMapTileLayer.Cell cell = layer_0.getCell(x,y);
                 if(cell!=null) {
                     String name = "" + cell.getTile().getProperties().get("name");
-                    Tile.registry.instantiate(name).spawn(game, new Vector3(x, y, BG_LAYER));
+                    entities.add(Tile.registry.instantiate(name).spawn(game, new Vector3(x, y, BG_LAYER)));
+                }
+            }
+        }
+
+        TiledMapTileLayer decor_layer = (TiledMapTileLayer)tiled_map.getLayers().get(DECOR_LAYER);
+        for(int x=0;x<decor_layer.getWidth();x++){
+            for(int y=0;y<decor_layer.getHeight();y++){
+                TiledMapTileLayer.Cell cell = decor_layer.getCell(x,y);
+                if(cell!=null) {
+                    String name = "" + cell.getTile().getProperties().get("name");
+                    entities.add(Tile.registry.instantiate(name).spawn(game, new Vector3(x, y, DECOR_LAYER)));
                 }
             }
         }
@@ -40,11 +56,12 @@ public class Zone {
                 if(cell!=null){
                     String name = "" + cell.getTile().getProperties().get("name");
                     Debug.dbg("name = "+name);
-                    Animal.registry.instantiate(name).spawn(game, new Vector3(x, y, ANIMAL_LAYER));
+                    entities.add(Animal.registry.instantiate(name).spawn(game, new Vector3(x, y, ANIMAL_LAYER)));
                 }
             }
         }
 
         tiled_map.dispose();
+        return entities;
     }
 }

@@ -4,12 +4,38 @@ import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.kingstonops.totem.Debug;
 import com.kingstonops.totem.Totem;
+import com.kingstonops.totem.world.zones.Zone;
 import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
 
 public class WorldSystem extends EntitySystem {
 
-    public void to_zone(String name){
+
+    public void to_zone(String zone_path){
+        Debug.dbg("to zone "+zone_path);
+
+        // first remove the entities of the previous zone
+        for(int i = 0;i<m_entities.size();i++){
+            Debug.dbg("removing entity in previous zone!");
+            Entity e = m_entities.get(i);
+            ZoneComponent z = m_zone_mapper.get(e);
+            Debug.dbg("z = "+z);
+            for(int j=0;j<z.entities().size();j++){
+                m_game.engine().removeEntity(z.entities().get(j));
+            }
+            m_game.engine().removeEntity(e);
+        }
+
+        Entity e = m_game.engine().createEntity();
+        ZoneComponent zone = new ZoneComponent(Zone.from_file(m_game, zone_path));
+        e.add(zone);
+        m_game.engine().addEntity(e);
+
+        m_active_zone = e;
+
+    }
+
+    /*public void to_zone(String name){
 
         Debug.dbg("to zone "+name);
 
@@ -33,7 +59,7 @@ public class WorldSystem extends EntitySystem {
         m_active_zone = e;
 
         zone.descriptor().setup().setup(zone);
-    }
+    }*/
 
     public Entity m_active_zone;
     private ImmutableArray<Entity> m_entities;
@@ -57,7 +83,7 @@ public class WorldSystem extends EntitySystem {
         if(Debug.DEBUG){
             ImGui.begin("world info");
             ZoneComponent z = m_active_zone.getComponent(ZoneComponent.class);
-            ImGui.text("zone "+z.descriptor().name());
+            ImGui.text("zone "+z.m_name);
             ImGui.end();
         }
     }
