@@ -15,7 +15,7 @@ public class InteractionComponent implements Component {
         public static class HelloInteractionAction extends InteractionAction{
             @Override
             public void trigger(Entity e){
-                Debug.dgb("hello, world!");
+                Debug.dbg("hello, world!");
             }
         }
     }

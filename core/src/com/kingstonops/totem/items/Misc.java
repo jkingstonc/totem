@@ -90,4 +90,18 @@ public class Misc {
 
         }
     }
+
+    public static class SpawnTree extends Item{
+        public SpawnTree(){
+            super("spawn_tree", "tree.png", Rarity.COMMON);
+        }
+        @Override
+        public void on_use(Totem game, Vector3 pos) {
+            super.on_use(game, pos);
+            ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
+            z.entities().add(Tile.registry.instantiate("tree").spawn(game, pos));
+
+
+        }
+    }
 }

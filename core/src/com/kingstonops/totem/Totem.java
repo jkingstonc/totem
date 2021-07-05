@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.kingstonops.totem.input.InputSystem;
 import com.kingstonops.totem.input.RawInput;
+import com.kingstonops.totem.pathfinding.PathFindingSystem;
 import com.kingstonops.totem.physics.ColliderSystem;
 import com.kingstonops.totem.physics.MovementSystem;
 import com.kingstonops.totem.player.PlayerControllerSystem;
@@ -20,6 +21,8 @@ import com.kingstonops.totem.world.DoorSystem;
 import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.dialouge.DialougeSystem;
 import com.kingstonops.totem.world.guys.InteractionSystem;
+
+import java.nio.file.Path;
 
 public class Totem extends Game {
 
@@ -45,6 +48,7 @@ public class Totem extends Game {
 	public void create(){
 		Box2D.init();
 		m_engine = new Engine();
+		m_engine.addSystem(new PathFindingSystem(this));
 		m_engine.addSystem(new DialougeSystem(this));
 		m_engine.addSystem(new InteractionSystem(this));
 		m_engine.addSystem(new AISystem(this));

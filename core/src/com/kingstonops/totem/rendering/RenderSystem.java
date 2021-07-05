@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.kingstonops.totem.Totem;
@@ -58,6 +61,7 @@ public class RenderSystem extends EntitySystem {
         RenderSystem.register("enemy.png");
         RenderSystem.register("water.png");
         RenderSystem.register("grass.png");
+        RenderSystem.register("sand.png");
         RenderSystem.register("brick.png");
         RenderSystem.register("rock.png");
         RenderSystem.register("wood.png");
@@ -139,7 +143,6 @@ public class RenderSystem extends EntitySystem {
 
     @Override
     public void update(float dt){
-
         ScreenUtils.clear(0, 0, 0, 1);
 
         for(int i = 0;i<m_entities.size();i++){
@@ -183,7 +186,5 @@ public class RenderSystem extends EntitySystem {
         m_batch.end();
         m_batch.disableBlending();
         m_render_queue.clear();
-
-
     }
 }

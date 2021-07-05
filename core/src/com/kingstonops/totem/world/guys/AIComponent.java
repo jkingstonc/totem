@@ -19,7 +19,7 @@ public class AIComponent implements Component {
         }
         public static class BasicWanderingAIProvider extends AIProvider{
 
-            Random r;
+            protected Random r;
             public BasicWanderingAIProvider(){
                 m_target_pos = new Vector3(RenderSystem.unit_to_pixel(5f),RenderSystem.unit_to_pixel(5f),0);
                 r = new Random(System.currentTimeMillis());

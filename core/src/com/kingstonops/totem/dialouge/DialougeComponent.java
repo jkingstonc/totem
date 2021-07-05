@@ -97,7 +97,7 @@ public class DialougeComponent implements Component {
             @Override
             public void trigger(){
                 m_dialouge.set_active(this);
-                Debug.dgb(m_speech);
+                Debug.dbg(m_speech);
                 if(m_on_trigger!=null)
                     m_on_trigger.trigger();
             }
@@ -167,7 +167,7 @@ public class DialougeComponent implements Component {
             @Override
             public void trigger(){
                 m_dialouge.set_active(this);
-                Debug.dgb(m_speech);
+                Debug.dbg(m_speech);
                 if(m_on_trigger!=null)
                     m_on_trigger.trigger();
             }

@@ -25,6 +25,7 @@ import com.kingstonops.totem.world.animals.Chicken;
 import com.kingstonops.totem.world.animals.Cow;
 import com.kingstonops.totem.world.tiles.Chair;
 import com.kingstonops.totem.world.tiles.Tile;
+import com.kingstonops.totem.world.zones.Zone;
 import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
 import imgui.ImGuiIO;
@@ -53,6 +54,7 @@ public class GameScreen extends ScreenAdapter {
         System.out.println("init");
 
 
+
         RenderSystem.register_all(m_game);
         ZoneComponent.register_all(m_game);
         DialougeComponent.register_all(m_game);
@@ -70,12 +72,14 @@ public class GameScreen extends ScreenAdapter {
         Item.registry.register("spawn_cow", ()->new Misc.SpawnCow());
         Item.registry.register("spawn_chicken", ()->new Misc.SpawnChicken());
         Item.registry.register("spawn_hay", ()->new Misc.SpawnHay());
+        Item.registry.register("spawn_tree", ()->new Misc.SpawnTree());
 
 
 
-        Tile.registry.register("hay", ()->new Tile("hay", "hay.png", false));
+        Tile.registry.register("hay", ()->new Tile("hay", "hay.png", true));
         Tile.registry.register("grass", ()->new Tile("grass", "grass.png", false));
         Tile.registry.register("water", ()->new Tile("water", "water.png", true));
+        Tile.registry.register("sand", ()->new Tile("sand", "sand.png", false));
         Tile.registry.register("chair", ()->new Chair());
         Tile.registry.register("fence", ()->new Tile("fence", "fence.png", true));
 
@@ -84,7 +88,8 @@ public class GameScreen extends ScreenAdapter {
 
 
 
-        m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
+        Zone.from_file(m_game, "zones/test.tmx");
+        //m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
 
 
 
@@ -104,6 +109,7 @@ public class GameScreen extends ScreenAdapter {
         i.put(Item.registry.instantiate("spawn_cow"));
         i.put(Item.registry.instantiate("spawn_hay"));
         i.put(Item.registry.instantiate("spawn_fence"));
+        i.put(Item.registry.instantiate("spawn_tree"));
         i.put(Item.registry.instantiate("speed_totem"));
         i.put(Item.registry.instantiate("pickaxe"));
         i.put(Item.registry.instantiate("chair"));

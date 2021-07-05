@@ -18,7 +18,7 @@ public class EmptyTotem extends Item{
         @Override
         public void on_use(Totem game, Vector3 pos){
 
-            Debug.dgb("speeeeeed!!!");
+            Debug.dbg("speeeeeed!!!");
 
             ImmutableArray<Entity> entities = game.engine().getEntitiesFor(Family.all(PlayerComponent.class).get());
             Entity p = entities.first();

@@ -4,8 +4,6 @@ package com.kingstonops.totem.items;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.Debug;
 
-import javax.swing.text.html.parser.Entity;
-
 /*
 *
 * Item.register(()->{new Pickaxe()});
@@ -25,7 +23,7 @@ public class Pickaxe extends Item{
     // called when right clicked
     public void on_use(com.kingstonops.totem.Totem game, Vector3 pos){
 
-        Debug.dgb("pickaxe use = " + pos);
+        Debug.dbg("pickaxe use = " + pos);
 
 
     }

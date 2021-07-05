@@ -62,7 +62,7 @@ public class InteractionSystem extends EntitySystem {
 
         if(interacting_with !=null && interacting_with !=previous_player_ineracting_with){
             InteractionComponent i = interacting_with.getComponent(InteractionComponent.class);
-            Debug.dgb(i.interaction_msg());
+            Debug.dbg(i.interaction_msg());
         }
 
         if(interacting_with !=null){

@@ -59,23 +59,14 @@ public class Builtin {
         }));
         ZoneComponent.register(new ZoneComponent.ZoneDescriptor("starting_town", (zone)->{
 
-
             zone.entities().add(Animal.registry.instantiate("cow").spawn(game, new Vector3(0,-12,1)));
             zone.entities().add(NPC.create(game.engine(),new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(-10), 5), "enemy.png", new AIComponent.AIProvider.BasicWanderingAIProvider(), "basic_greeting_part_0"));
 
-            final int WIDTH = 50, HEIGHT = 50;
+            final int WIDTH = 100, HEIGHT = 100;
             for(int x =-WIDTH/2;x<WIDTH/2;x++) {
                 for (int y = -HEIGHT / 2; y < HEIGHT / 2; y++) {
-                    if(x%4==0 && y%4==0) {
-                        zone.entities().add(Tree.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), RenderSystem.DECOR_LAYER), "tree.png", true));
-                    }
-                    /*if(x%10==0 && y%10==0) {
-                        zone.entities().add(NPC.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(x), RenderSystem.unit_to_pixel(y), 5), "enemy.png", new AIComponent.AIProvider.BasicWanderingAIProvider(), "basic_greeting_part_0"));
-                    }*/
-
                     zone.entities().add(Tile.registry.instantiate("grass").spawn(game, new Vector3(x, y, 0)));
                 }
-
             }
 
             for(int x =10;x<15;x++) {

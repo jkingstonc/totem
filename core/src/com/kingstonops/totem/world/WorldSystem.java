@@ -4,8 +4,6 @@ import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.kingstonops.totem.Debug;
 import com.kingstonops.totem.Totem;
-import com.kingstonops.totem.physics.ColliderComponent;
-import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
 
@@ -13,14 +11,14 @@ public class WorldSystem extends EntitySystem {
 
     public void to_zone(String name){
 
-        Debug.dgb("to zone "+name);
+        Debug.dbg("to zone "+name);
 
         // first remove the entities of the previous zone
         for(int i = 0;i<m_entities.size();i++){
-            Debug.dgb("removing entity in previous zone!");
+            Debug.dbg("removing entity in previous zone!");
             Entity e = m_entities.get(i);
             ZoneComponent z = m_zone_mapper.get(e);
-            Debug.dgb("z = "+z);
+            Debug.dbg("z = "+z);
             for(int j=0;j<z.entities().size();j++){
                 m_game.engine().removeEntity(z.entities().get(j));
             }
