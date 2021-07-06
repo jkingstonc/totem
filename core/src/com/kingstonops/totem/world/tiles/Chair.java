@@ -11,8 +11,8 @@ public class Chair extends Tile{
     }
 
     @Override
-    public Entity spawn(Totem game, Vector3 pos) {
-        Entity e = super.spawn(game, pos);
+    public Entity spawn(Totem game) {
+        Entity e = super.spawn(game);
         InteractionComponent i = new InteractionComponent("press e to sit down", new InteractionComponent.InteractionAction() {
             @Override
             public void trigger(Entity e) {

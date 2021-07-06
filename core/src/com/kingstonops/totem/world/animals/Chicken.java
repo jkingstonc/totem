@@ -31,13 +31,13 @@ public class Chicken extends Animal{
     }
 
     @Override
-    public Entity spawn(Totem game, Vector3 pos) {
-        Entity e = super.spawn(game, pos);
+    public Entity spawn(Totem game) {
+        Entity e = super.spawn(game);
         e.add(new IDComponent("chicken"));
         e.getComponent(AIComponent.class).m_ai_provier = new ChickenAIProvider();
         TransformComponent t = e.getComponent(TransformComponent.class);
-        t.scale.x = RenderSystem.unit_to_pixel(.5f);
-        t.scale.y = RenderSystem.unit_to_pixel(.5f);
+        t.scale.x = .5f;
+        t.scale.y = .5f;
         return e;
     }
 }

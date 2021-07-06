@@ -43,7 +43,7 @@ public class CameraSystem extends EntitySystem {
 
                 float cam_w = Gdx.graphics.getWidth();
                 float cam_h = Gdx.graphics.getHeight();
-                c.cam.position.set(cam_w/2f + t.position.x, cam_h/2f + t.position.y, 0);
+                c.cam.position.set(cam_w/2f + RenderSystem.unit_to_pixel(t.position.x), cam_h/2f + RenderSystem.unit_to_pixel(t.position.y), 0);
 
             }
         }

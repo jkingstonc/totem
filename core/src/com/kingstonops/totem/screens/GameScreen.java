@@ -14,6 +14,7 @@ import com.kingstonops.totem.items.*;
 import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
+import com.kingstonops.totem.player.Player;
 import com.kingstonops.totem.player.PlayerComponent;
 import com.kingstonops.totem.rendering.CameraComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
@@ -61,22 +62,32 @@ public class GameScreen extends ScreenAdapter {
         DialougeComponent.register_all(m_game);
 
 
-        Animal.registry.register("cow", ()->new Cow());
-        Animal.registry.register("chicken", ()->new Chicken());
-
-        Item.registry.register("pickaxe", ()->new Pickaxe());
-        Item.registry.register("speed_totem", ()->new EmptyTotem.SpeedTotem());
-        Item.registry.register("rusty_gear", ()->new Misc.RustyGear());
-        Item.registry.register("grass", ()->new Item("grass", "grass.png", Item.Rarity.COMMON));
-        Item.registry.register("chair", ()->new Misc.Chair());
-        Item.registry.register("spawn_fence", ()->new Misc.SpawnFence());
-        Item.registry.register("spawn_cow", ()->new Misc.SpawnCow());
-        Item.registry.register("spawn_chicken", ()->new Misc.SpawnChicken());
-        Item.registry.register("spawn_hay", ()->new Misc.SpawnHay());
-        Item.registry.register("spawn_tree", ()->new Misc.SpawnTree());
+        Prefab.registry.register("player", (g)->new Player().spawn(g));
+        Prefab.registry.register("tile_grass", (g)->new Tile("grass", "grass.png", false).spawn(g));
+        Prefab.registry.register("tile_sand", (g)->new Tile("sand", "sand.png", false).spawn(g));
+        Prefab.registry.register("tile_water", (g)->new Tile("water", "water.png", true).spawn(g));
+        Prefab.registry.register("tile_path", (g)->new Tile("path", "path.png", false).spawn(g));
+        Prefab.registry.register("tile_fence", (g)->new Tile("fence", "fence.png", true).spawn(g));
+        Prefab.registry.register("tile_tree", (g)->new Tree().spawn(g));
+        Prefab.registry.register("animal_cow", (g)->new Cow().spawn(g));
 
 
+        //Animal.registry.register("cow", ()->new Cow());
+        //Animal.registry.register("chicken", ()->new Chicken());
 
+//        Item.registry.register("pickaxe", (g)->new Pickaxe());
+//        Item.registry.register("speed_totem", ()->new EmptyTotem.SpeedTotem());
+//        Item.registry.register("rusty_gear", ()->new Misc.RustyGear());
+//        Item.registry.register("grass", ()->new Item("grass", "grass.png", Item.Rarity.COMMON));
+//        Item.registry.register("chair", ()->new Misc.Chair());
+//        Item.registry.register("spawn_fence", ()->new Misc.SpawnFence());
+//        Item.registry.register("spawn_cow", ()->new Misc.SpawnCow());
+//        Item.registry.register("spawn_chicken", ()->new Misc.SpawnChicken());
+//        Item.registry.register("spawn_hay", ()->new Misc.SpawnHay());
+//        Item.registry.register("spawn_tree", ()->new Misc.SpawnTree());
+
+
+/*
         Tile.registry.register("tree", ()->new Tree());
         Tile.registry.register("hay", ()->new Tile("hay", "hay.png", true));
         Tile.registry.register("grass", ()->new Tile("grass", "grass.png", false));
@@ -87,7 +98,7 @@ public class GameScreen extends ScreenAdapter {
         Tile.registry.register("fence", ()->new Tile("fence", "fence.png", true));
 
 
-        Recipe.registry.register("speed_totem_recipe", ()->new Recipe("speed_totem_recipe", new ArrayList<>(Arrays.asList("base_totem", "speed_berry")), null));
+        Recipe.registry.register("speed_totem_recipe", ()->new Recipe("speed_totem_recipe", new ArrayList<>(Arrays.asList("base_totem", "speed_berry")), null));*/
 
 
 
@@ -97,64 +108,7 @@ public class GameScreen extends ScreenAdapter {
 
 
 
-        m_player = m_game.engine().createEntity();
-        m_game.engine().addEntity(m_player);
-
-
-        ColliderComponent c = new ColliderComponent();
-        c.m_solid = true;
-        c.m_dynamic = true;
-        c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
-        m_player.add(c);
-
-
-        InventoryComponent i = new InventoryComponent();
-        i.put(Item.registry.instantiate("spawn_chicken"));
-        i.put(Item.registry.instantiate("spawn_cow"));
-        i.put(Item.registry.instantiate("spawn_hay"));
-        i.put(Item.registry.instantiate("spawn_fence"));
-        i.put(Item.registry.instantiate("spawn_tree"));
-        i.put(Item.registry.instantiate("speed_totem"));
-        i.put(Item.registry.instantiate("pickaxe"));
-        i.put(Item.registry.instantiate("chair"));
-        m_player.add(i);
-
-        TransformComponent t = new TransformComponent();
-        t.position = new Vector3(
-            RenderSystem.unit_to_pixel(0),
-            RenderSystem.unit_to_pixel(0),
-            RenderSystem.PLAYER_LAYER
-        );
-        m_player.add(t);
-        MovementComponent v = new MovementComponent();
-        m_player.add(v);
-        m_player.add(new PlayerComponent());
-        RenderComponent r = new RenderComponent();
-        r.texture = new TextureRegion(new Texture("guy.png"));
-        m_player.add(r);
-
-
-        // add the item the player is holding
-
-
-        Entity holding_item = m_game.engine().createEntity();
-        TransformComponent i_t = new TransformComponent();
-        i_t.position = new Vector3(
-                RenderSystem.unit_to_pixel(0),
-                RenderSystem.unit_to_pixel(0),
-                RenderSystem.PLAYER_LAYER+1
-        );
-        i_t.scale = new Vector3(
-                RenderSystem.unit_to_pixel(.5f),
-                RenderSystem.unit_to_pixel(.5f),
-                0
-        );
-        holding_item.add(i_t);
-        RenderComponent i_r = new RenderComponent();
-        i_r.texture=new TextureRegion(RenderSystem.get(i.m_items.get(0).items().get(0).m_texture));
-        holding_item.add(i_r);
-        m_game.engine().addEntity(holding_item);
-        m_player.getComponent(PlayerComponent.class).m_holding_item = holding_item;
+        Entity e = Prefab.registry.instantiate("player").spawn(m_game);
 
 
 
@@ -163,7 +117,7 @@ public class GameScreen extends ScreenAdapter {
 
         CameraComponent cam = CameraComponent.getInstance(m_game.engine());
         System.out.println("camera = "+cam);
-        cam.target = t.position;
+        cam.target = e.getComponent(TransformComponent.class).position;
         cam.follow_target=true;
 
 

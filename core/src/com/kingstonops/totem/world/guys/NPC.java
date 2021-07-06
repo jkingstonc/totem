@@ -32,7 +32,7 @@ public class NPC {
         ColliderComponent c = new ColliderComponent();
         c.m_solid = true;
         c.m_dynamic = true;
-        c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
+        c.m_bounds = new Vector2(.5f, .5f);
         e.add(c);
 
 

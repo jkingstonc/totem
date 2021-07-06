@@ -33,7 +33,7 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Tile.registry.instantiate("chair").spawn(game, pos));
+            z.entities().add(Tile.registry.instantiate("chair").spawn(game));
 
 
         }
@@ -47,7 +47,7 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Tile.registry.instantiate("fence").spawn(game, pos));
+            z.entities().add(Tile.registry.instantiate("fence").spawn(game));
 
 
         }
@@ -61,7 +61,7 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Animal.registry.instantiate("cow").spawn(game, pos));
+            z.entities().add(Animal.registry.instantiate("cow").spawn(game));
         }
     }
 
@@ -73,7 +73,7 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Animal.registry.instantiate("chicken").spawn(game, pos));
+            z.entities().add(Animal.registry.instantiate("chicken").spawn(game));
         }
     }
 
@@ -85,7 +85,7 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Tile.registry.instantiate("hay").spawn(game, pos));
+            z.entities().add(Tile.registry.instantiate("hay").spawn(game));
 
 
         }
@@ -99,7 +99,7 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Tile.registry.instantiate("tree").spawn(game, pos));
+            z.entities().add(Tile.registry.instantiate("tree").spawn(game));
 
 
         }

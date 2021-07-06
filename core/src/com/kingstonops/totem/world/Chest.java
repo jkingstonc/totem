@@ -19,7 +19,7 @@ public class Chest {
         engine.addEntity(e);
         TransformComponent p = new TransformComponent();
         p.position.set(pos);
-        p.scale.set(new Vector3(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f), 1));
+        p.scale.set(new Vector3(.5f, .5f, 1));
         e.add(p);
         RenderComponent r = new RenderComponent();
         r.texture = new TextureRegion(RenderSystem.get(texture));
@@ -38,7 +38,7 @@ public class Chest {
         ColliderComponent c = new ColliderComponent();
         c.m_dynamic = false;
         c.m_solid = true;
-        c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
+        c.m_bounds = new Vector2(.5f, .5f);
         e.add(c);
         return e;
     }

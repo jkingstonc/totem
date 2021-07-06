@@ -25,14 +25,11 @@ public class Animal {
         m_texture = texture;
     }
 
-    public Entity spawn(Totem game, Vector3 pos){
+    public Entity spawn(Totem game){
         Entity e = game.engine().createEntity();
         game.engine().addEntity(e);
         TransformComponent p = new TransformComponent();
-        Vector3 pp = new Vector3(pos);
-        pp.x = RenderSystem.unit_to_pixel(pos.x);
-        pp.y = RenderSystem.unit_to_pixel(pos.y);
-        p.position.set(pp);
+        p.position.set(new Vector3(0,0,0));
         e.add(p);
         RenderComponent r = new RenderComponent();
         r.texture = new TextureRegion(RenderSystem.get(m_texture));
@@ -45,7 +42,7 @@ public class Animal {
         ColliderComponent c = new ColliderComponent();
         c.m_dynamic = true;
         c.m_solid = true;
-        c.m_bounds = new Vector2(RenderSystem.unit_to_pixel(.5f), RenderSystem.unit_to_pixel(.5f));
+        c.m_bounds = new Vector2(.5f,.5f);
         e.add(c);
         return e;
     }

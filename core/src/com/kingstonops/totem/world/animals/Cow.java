@@ -74,8 +74,8 @@ public class Cow extends Animal{
     }
 
     @Override
-    public Entity spawn(Totem game, Vector3 pos) {
-        Entity e = super.spawn(game, pos);
+    public Entity spawn(Totem game) {
+        Entity e = super.spawn(game);
         e.getComponent(AIComponent.class).m_ai_provier = new CowAIProvider();
         return e;
     }

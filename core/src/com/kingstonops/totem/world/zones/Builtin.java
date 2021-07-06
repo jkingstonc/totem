@@ -7,12 +7,11 @@ import com.kingstonops.totem.world.Chest;
 import com.kingstonops.totem.world.DoorComponent;
 import com.kingstonops.totem.world.animals.Animal;
 import com.kingstonops.totem.world.tiles.Tile;
-import com.kingstonops.totem.world.Tree;
 import com.kingstonops.totem.world.guys.AIComponent;
 import com.kingstonops.totem.world.guys.NPC;
 
 public class Builtin {
-    public static void setup_builtin_zones(Totem game){
+/*    public static void setup_builtin_zones(Totem game){
 
         ZoneComponent.register(new ZoneComponent.ZoneDescriptor("battle_zone", (zone) ->{
             final int HOUSE_WIDTH = 15, HOUSE_HEIGHT = 15;
@@ -128,5 +127,5 @@ public class Builtin {
             }
             zone.entities().add(Chest.create(game.engine(), new Vector3(RenderSystem.unit_to_pixel(0), RenderSystem.unit_to_pixel(3), RenderSystem.DECOR_LAYER), "chest.png"));
         }));
-    }
+    }*/
 }

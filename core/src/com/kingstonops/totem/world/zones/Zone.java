@@ -7,7 +7,9 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.Debug;
+import com.kingstonops.totem.Prefab;
 import com.kingstonops.totem.Totem;
+import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.world.animals.Animal;
 import com.kingstonops.totem.world.tiles.Tile;
 
@@ -27,7 +29,26 @@ public class Zone {
 
         ArrayList<com.badlogic.ashley.core.Entity> entities = new ArrayList<>();
 
-        TiledMapTileLayer layer_0 = (TiledMapTileLayer)tiled_map.getLayers().get(BG_LAYER);
+        // todo move to this system
+        for(int layer=0;layer<tiled_map.getLayers().getCount();layer++){
+            TiledMapTileLayer current_layer = (TiledMapTileLayer)tiled_map.getLayers().get(layer);
+            for(int x=0;x<current_layer.getWidth();x++){
+                for(int y=0;y<current_layer.getHeight();y++){
+                    TiledMapTileLayer.Cell cell = current_layer.getCell(x,y);
+                    if(cell!=null) {
+                        String name = "" + cell.getTile().getProperties().get("name");
+                        Debug.dbg("name = "+name);
+                        Debug.dbg(""+Prefab.registry.instantiate(name));
+                        Entity e = Prefab.registry.instantiate(name).spawn(game);
+                        e.getComponent(TransformComponent.class).position.set(new Vector3(x,y,layer));
+                        entities.add(e);
+                    }
+                }
+            }
+        }
+
+
+        /*TiledMapTileLayer layer_0 = (TiledMapTileLayer)tiled_map.getLayers().get(BG_LAYER);
         for(int x=0;x<layer_0.getWidth();x++){
             for(int y=0;y<layer_0.getHeight();y++){
                 TiledMapTileLayer.Cell cell = layer_0.getCell(x,y);
@@ -58,7 +79,7 @@ public class Zone {
                     entities.add(Animal.registry.instantiate(name).spawn(game, new Vector3(x, y, ANIMAL_LAYER)));
                 }
             }
-        }
+        }*/
 
         tiled_map.dispose();
         return entities;

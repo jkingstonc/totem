@@ -120,10 +120,10 @@ public class PlayerControllerSystem extends EntitySystem {
 
         Vector3 item_pos = new Vector3(t.position);
         item_pos.z++;
-        p.m_holding_item.getComponent(TransformComponent.class).position.set(item_pos);
+  //      p.m_holding_item.getComponent(TransformComponent.class).position.set(item_pos);
 
 
-
+        Debug.dbg("player pos = "+t.position.x+", "+t.position.y+", "+t.position.z);
 
         if(Debug.DEBUG) {
             ImGui.begin("player info");

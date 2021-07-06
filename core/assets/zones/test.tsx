@@ -3,43 +3,43 @@
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="6">
   <properties>
-   <property name="name" value="grass"/>
+   <property name="name" value="tile_grass"/>
   </properties>
   <image width="256" height="256" source="grass.png"/>
  </tile>
  <tile id="7">
   <properties>
-   <property name="name" value="sand"/>
+   <property name="name" value="tile_sand"/>
   </properties>
   <image width="900" height="900" source="sand.jpg"/>
  </tile>
  <tile id="8">
   <properties>
-   <property name="name" value="water"/>
+   <property name="name" value="tile_water"/>
   </properties>
   <image width="256" height="256" source="water.png"/>
  </tile>
  <tile id="9">
   <properties>
-   <property name="name" value="path"/>
+   <property name="name" value="tile_path"/>
   </properties>
   <image width="256" height="256" source="path.png"/>
  </tile>
  <tile id="10">
   <properties>
-   <property name="name" value="cow"/>
+   <property name="name" value="animal_cow"/>
   </properties>
   <image width="280" height="210" source="cow.png"/>
  </tile>
  <tile id="11">
   <properties>
-   <property name="name" value="fence"/>
+   <property name="name" value="tile_fence"/>
   </properties>
   <image width="256" height="256" source="fence.png"/>
  </tile>
  <tile id="12">
   <properties>
-   <property name="name" value="tree"/>
+   <property name="name" value="tile_tree"/>
   </properties>
   <image width="256" height="512" source="tree.png"/>
  </tile>

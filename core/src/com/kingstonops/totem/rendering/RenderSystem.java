@@ -26,7 +26,7 @@ import java.util.HashMap;
 public class RenderSystem extends EntitySystem {
 
     public static int TILE_LAYER = 0;
-    public static int PLAYER_LAYER = 5;
+    public static int PLAYER_LAYER = 2;
     public static int DECOR_LAYER = 15;
 
 
@@ -95,7 +95,7 @@ public class RenderSystem extends EntitySystem {
 
     private Engine m_engine;
 
-    public static final float UNIT_SIZE = 100f; // pixels per unit
+    public static final float UNIT_SIZE = 50f; // pixels per unit
     public static final float PIXEL_TO_UNIT = 1/UNIT_SIZE;
 
     public static final float pix_to_unit(float pixels){
@@ -168,6 +168,9 @@ public class RenderSystem extends EntitySystem {
             TransformComponent t = m_pos_mapper.get(e);
             RenderComponent r = m_render_mapper.get(e);
 
+            float t_x = RenderSystem.unit_to_pixel(t.position.x);
+            float t_y = RenderSystem.unit_to_pixel(t.position.y);
+
             float w = r.texture.getRegionWidth();
             float h = r.texture.getRegionHeight();
 
@@ -175,13 +178,15 @@ public class RenderSystem extends EntitySystem {
             w = UNIT_SIZE;
             h = UNIT_SIZE;
 
-            w = t.scale.x;
-            h = t.scale.y;
+            w = RenderSystem.unit_to_pixel(t.scale.x);
+            h = RenderSystem.unit_to_pixel(t.scale.y);
+
+
 
             float origin_x = Gdx.graphics.getWidth()/2;
             float origin_y = Gdx.graphics.getHeight()/2;
 
-            m_batch.draw(r.texture, t.position.x + origin_x - UNIT_SIZE/2, t.position.y + origin_y - UNIT_SIZE/2, w, h);
+            m_batch.draw(r.texture, t_x + origin_x - UNIT_SIZE/2, t_y + origin_y - UNIT_SIZE/2, w, h);
         }
 
         m_batch.end();

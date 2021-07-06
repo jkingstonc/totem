@@ -15,7 +15,7 @@ public class ZoneComponent implements Component {
 
 
     public static void register_all(Totem game){
-        Builtin.setup_builtin_zones(game);
+        //Builtin.setup_builtin_zones(game);
     }
 
     public static class ZoneDescriptor{

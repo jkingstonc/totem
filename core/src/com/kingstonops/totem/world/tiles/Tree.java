@@ -12,9 +12,9 @@ public class Tree extends Tile{
     }
 
     @Override
-    public Entity spawn(Totem game, Vector3 pos) {
-        Entity e = super.spawn(game, pos);
-        e.getComponent(TransformComponent.class).scale.set(new Vector3(RenderSystem.unit_to_pixel(1f), RenderSystem.unit_to_pixel(2f), 1));
+    public Entity spawn(Totem game) {
+        Entity e = super.spawn(game);
+        e.getComponent(TransformComponent.class).scale.set(new Vector3(1,2,1));
         return e;
     }
 }
