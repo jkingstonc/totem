@@ -5,7 +5,9 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.Debug;
+import com.kingstonops.totem.Prefab;
 import com.kingstonops.totem.Totem;
+import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.world.animals.Animal;
@@ -47,7 +49,9 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Tile.registry.instantiate("fence").spawn(game));
+            Entity e = Prefab.registry.instantiate("obj_fence").spawn(game);
+            e.getComponent(TransformComponent.class).position.set(pos);
+            z.entities().add(e);
 
 
         }
@@ -61,7 +65,9 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Animal.registry.instantiate("cow").spawn(game));
+            Entity e = Prefab.registry.instantiate("animal_cow").spawn(game);
+            e.getComponent(TransformComponent.class).position.set(pos);
+            z.entities().add(e);
         }
     }
 
@@ -73,7 +79,9 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Animal.registry.instantiate("chicken").spawn(game));
+            Entity e = Prefab.registry.instantiate("animal_chicken").spawn(game);
+            e.getComponent(TransformComponent.class).position.set(pos);
+            z.entities().add(e);
         }
     }
 
@@ -85,9 +93,9 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Tile.registry.instantiate("hay").spawn(game));
-
-
+            Entity e = Prefab.registry.instantiate("obj_hay").spawn(game);
+            e.getComponent(TransformComponent.class).position.set(pos);
+            z.entities().add(e);
         }
     }
 
@@ -99,9 +107,9 @@ public class Misc {
         public void on_use(Totem game, Vector3 pos) {
             super.on_use(game, pos);
             ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-            z.entities().add(Tile.registry.instantiate("tree").spawn(game));
-
-
+            Entity e = Prefab.registry.instantiate("obj_tree").spawn(game);
+            e.getComponent(TransformComponent.class).position.set(pos);
+            z.entities().add(e);
         }
     }
 }

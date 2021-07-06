@@ -24,6 +24,7 @@ import com.kingstonops.totem.dialouge.DialougeComponent;
 import com.kingstonops.totem.world.animals.Animal;
 import com.kingstonops.totem.world.animals.Chicken;
 import com.kingstonops.totem.world.animals.Cow;
+import com.kingstonops.totem.world.animals.Dog;
 import com.kingstonops.totem.world.tiles.Chair;
 import com.kingstonops.totem.world.tiles.Tile;
 import com.kingstonops.totem.world.tiles.Tree;
@@ -63,52 +64,46 @@ public class GameScreen extends ScreenAdapter {
 
 
         Prefab.registry.register("player", (g)->new Player().spawn(g));
+        Prefab.registry.register("animal_dog", (g)->new Dog().spawn(g));
         Prefab.registry.register("tile_grass", (g)->new Tile("grass", "grass.png", false).spawn(g));
         Prefab.registry.register("tile_sand", (g)->new Tile("sand", "sand.png", false).spawn(g));
         Prefab.registry.register("tile_water", (g)->new Tile("water", "water.png", true).spawn(g));
         Prefab.registry.register("tile_path", (g)->new Tile("path", "path.png", false).spawn(g));
-        Prefab.registry.register("tile_fence", (g)->new Tile("fence", "fence.png", true).spawn(g));
-        Prefab.registry.register("tile_tree", (g)->new Tree().spawn(g));
+        Prefab.registry.register("obj_fence", (g)->new Tile("fence", "fence.png", true).spawn(g));
+        Prefab.registry.register("obj_tree", (g)->new Tree().spawn(g));
+        Prefab.registry.register("obj_hay", (g)->new Tile("hay", "hay.png", true).spawn(g));
         Prefab.registry.register("animal_cow", (g)->new Cow().spawn(g));
 
 
-        //Animal.registry.register("cow", ()->new Cow());
-        //Animal.registry.register("chicken", ()->new Chicken());
-
-//        Item.registry.register("pickaxe", (g)->new Pickaxe());
-//        Item.registry.register("speed_totem", ()->new EmptyTotem.SpeedTotem());
-//        Item.registry.register("rusty_gear", ()->new Misc.RustyGear());
-//        Item.registry.register("grass", ()->new Item("grass", "grass.png", Item.Rarity.COMMON));
-//        Item.registry.register("chair", ()->new Misc.Chair());
-//        Item.registry.register("spawn_fence", ()->new Misc.SpawnFence());
-//        Item.registry.register("spawn_cow", ()->new Misc.SpawnCow());
-//        Item.registry.register("spawn_chicken", ()->new Misc.SpawnChicken());
-//        Item.registry.register("spawn_hay", ()->new Misc.SpawnHay());
-//        Item.registry.register("spawn_tree", ()->new Misc.SpawnTree());
+        Item.registry.register("pickaxe", (g)->new Pickaxe());
+        Item.registry.register("speed_totem", (g)->new EmptyTotem.SpeedTotem());
+        Item.registry.register("rusty_gear", (g)->new Misc.RustyGear());
+        Item.registry.register("grass", (g)->new Item("grass", "grass.png", Item.Rarity.COMMON));
+        Item.registry.register("chair", (g)->new Misc.Chair());
+        Item.registry.register("spawn_fence", (g)->new Misc.SpawnFence());
+        Item.registry.register("spawn_cow", (g)->new Misc.SpawnCow());
+        Item.registry.register("spawn_chicken", (g)->new Misc.SpawnChicken());
+        Item.registry.register("spawn_hay", (g)->new Misc.SpawnHay());
+        Item.registry.register("spawn_tree", (g)->new Misc.SpawnTree());
 
 
-/*
-        Tile.registry.register("tree", ()->new Tree());
-        Tile.registry.register("hay", ()->new Tile("hay", "hay.png", true));
-        Tile.registry.register("grass", ()->new Tile("grass", "grass.png", false));
-        Tile.registry.register("water", ()->new Tile("water", "water.png", true));
-        Tile.registry.register("sand", ()->new Tile("sand", "sand.png", false));
-        Tile.registry.register("path", ()->new Tile("path", "path.png", false));
-        Tile.registry.register("chair", ()->new Chair());
-        Tile.registry.register("fence", ()->new Tile("fence", "fence.png", true));
 
 
-        Recipe.registry.register("speed_totem_recipe", ()->new Recipe("speed_totem_recipe", new ArrayList<>(Arrays.asList("base_totem", "speed_berry")), null));*/
+
+        //Recipe.registry.register("speed_totem_recipe", ()->new Recipe("speed_totem_recipe", new ArrayList<>(Arrays.asList("base_totem", "speed_berry")), null));*/
 
 
 
         //Zone.from_file(m_game, "zones/test.tmx");
         //m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
-        m_game.engine().getSystem(WorldSystem.class).to_zone("zones/test.tmx");
+        m_game.engine().getSystem(WorldSystem.class).to_zone("zones/sanctuary.tmx");
 
 
 
         Entity e = Prefab.registry.instantiate("player").spawn(m_game);
+        Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(5,5,1);
+        Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(3,3,1);
+        Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(2,2,1);
 
 
 

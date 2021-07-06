@@ -52,6 +52,7 @@ public class RenderSystem extends EntitySystem {
     public static HashMap<String, Texture> texture_registry = new HashMap<>();
 
     public static void register_all(Totem game){
+        RenderSystem.register("dog.png");
         RenderSystem.register("hay.png");
         RenderSystem.register("fence.png");
         RenderSystem.register("chicken.png");
@@ -95,7 +96,7 @@ public class RenderSystem extends EntitySystem {
 
     private Engine m_engine;
 
-    public static final float UNIT_SIZE = 50f; // pixels per unit
+    public static final float UNIT_SIZE = 150f; // pixels per unit
     public static final float PIXEL_TO_UNIT = 1/UNIT_SIZE;
 
     public static final float pix_to_unit(float pixels){

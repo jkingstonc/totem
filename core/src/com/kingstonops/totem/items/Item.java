@@ -37,7 +37,10 @@ public class Item implements Component {
         LEGENDARY
     }
 
-    public static Registry<Item> registry = new Registry<>();
+    public interface ItemSpawn{
+        Item spawn(Totem game);
+    }
+    public static Registry<ItemSpawn> registry = new Registry<>();
 
     public Properties m_properties;
     public Use m_use;

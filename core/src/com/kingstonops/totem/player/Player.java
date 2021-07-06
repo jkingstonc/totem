@@ -5,9 +5,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kingstonops.totem.IDComponent;
 import com.kingstonops.totem.Prefab;
 import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.items.InventoryComponent;
+import com.kingstonops.totem.items.Item;
 import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
@@ -22,6 +24,8 @@ public class Player extends Prefab {
         e = game.engine().createEntity();
         game.engine().addEntity(e);
 
+        e.add(new IDComponent("player"));
+
 
         ColliderComponent c = new ColliderComponent();
         c.m_solid = true;
@@ -31,19 +35,18 @@ public class Player extends Prefab {
 
 
         InventoryComponent i = new InventoryComponent();
-//        i.put(Item.registry.instantiate("spawn_chicken"));
-//        i.put(Item.registry.instantiate("spawn_cow"));
-//        i.put(Item.registry.instantiate("spawn_hay"));
-//        i.put(Item.registry.instantiate("spawn_fence"));
-//        i.put(Item.registry.instantiate("spawn_tree"));
-//        i.put(Item.registry.instantiate("speed_totem"));
-//        i.put(Item.registry.instantiate("pickaxe"));
-//        i.put(Item.registry.instantiate("chair"));
+        i.put(Item.registry.instantiate("spawn_chicken").spawn(game));
+        i.put(Item.registry.instantiate("spawn_cow").spawn(game));
+        i.put(Item.registry.instantiate("spawn_hay").spawn(game));
+        i.put(Item.registry.instantiate("spawn_tree").spawn(game));
+        i.put(Item.registry.instantiate("speed_totem").spawn(game));
+        i.put(Item.registry.instantiate("pickaxe").spawn(game));
+        i.put(Item.registry.instantiate("chair").spawn(game));
         e.add(i);
 
         TransformComponent t = new TransformComponent();
         t.position = new Vector3(
-                10,
+                0,
                 0,
                 RenderSystem.PLAYER_LAYER
         );
@@ -59,24 +62,24 @@ public class Player extends Prefab {
         // add the item the player is holding
 
 
-//        Entity holding_item = m_game.engine().createEntity();
-//        TransformComponent i_t = new TransformComponent();
-//        i_t.position = new Vector3(
-//                0,
-//                0,
-//                99
-//        );
-//        i_t.scale = new Vector3(
-//                .5f,
-//                .5f,
-//                0
-//        );
-//        holding_item.add(i_t);
-//        RenderComponent i_r = new RenderComponent();
-//        i_r.texture=new TextureRegion(RenderSystem.get(i.m_items.get(0).items().get(0).m_texture));
-//        holding_item.add(i_r);
-//        m_game.engine().addEntity(holding_item);
-//        m_player.getComponent(PlayerComponent.class).m_holding_item = holding_item;
+        Entity holding_item = game.engine().createEntity();
+        TransformComponent i_t = new TransformComponent();
+        i_t.position = new Vector3(
+                0,
+                0,
+                RenderSystem.PLAYER_LAYER+1
+        );
+        i_t.scale = new Vector3(
+                .5f,
+                .5f,
+                0
+        );
+        holding_item.add(i_t);
+        RenderComponent i_r = new RenderComponent();
+        i_r.texture=new TextureRegion(RenderSystem.get(i.m_items.get(0).items().get(0).m_texture));
+        holding_item.add(i_r);
+        game.engine().addEntity(holding_item);
+        e.getComponent(PlayerComponent.class).m_holding_item = holding_item;
         return e;
     }
 

@@ -33,13 +33,13 @@
  </tile>
  <tile id="11">
   <properties>
-   <property name="name" value="tile_fence"/>
+   <property name="name" value="obj_fence"/>
   </properties>
   <image width="256" height="256" source="fence.png"/>
  </tile>
  <tile id="12">
   <properties>
-   <property name="name" value="tile_tree"/>
+   <property name="name" value="obj_tree"/>
   </properties>
   <image width="256" height="512" source="tree.png"/>
  </tile>
