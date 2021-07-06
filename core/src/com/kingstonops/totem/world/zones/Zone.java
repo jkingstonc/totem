@@ -55,7 +55,6 @@ public class Zone {
                 TiledMapTileLayer.Cell cell = animal_layer.getCell(x,y);
                 if(cell!=null){
                     String name = "" + cell.getTile().getProperties().get("name");
-                    Debug.dbg("name = "+name);
                     entities.add(Animal.registry.instantiate(name).spawn(game, new Vector3(x, y, ANIMAL_LAYER)));
                 }
             }

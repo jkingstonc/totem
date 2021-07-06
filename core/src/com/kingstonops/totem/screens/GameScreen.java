@@ -25,6 +25,7 @@ import com.kingstonops.totem.world.animals.Chicken;
 import com.kingstonops.totem.world.animals.Cow;
 import com.kingstonops.totem.world.tiles.Chair;
 import com.kingstonops.totem.world.tiles.Tile;
+import com.kingstonops.totem.world.tiles.Tree;
 import com.kingstonops.totem.world.zones.Zone;
 import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
@@ -76,6 +77,7 @@ public class GameScreen extends ScreenAdapter {
 
 
 
+        Tile.registry.register("tree", ()->new Tree());
         Tile.registry.register("hay", ()->new Tile("hay", "hay.png", true));
         Tile.registry.register("grass", ()->new Tile("grass", "grass.png", false));
         Tile.registry.register("water", ()->new Tile("water", "water.png", true));

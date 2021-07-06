@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.0" name="test" tilewidth="900" tileheight="900" tilecount="6" columns="0">
+<tileset version="1.5" tiledversion="1.7.0" name="test" tilewidth="900" tileheight="900" tilecount="7" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="6">
   <properties>
@@ -36,5 +36,11 @@
    <property name="name" value="fence"/>
   </properties>
   <image width="256" height="256" source="fence.png"/>
+ </tile>
+ <tile id="12">
+  <properties>
+   <property name="name" value="tree"/>
+  </properties>
+  <image width="256" height="512" source="tree.png"/>
  </tile>
 </tileset>
