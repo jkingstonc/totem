@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.0" name="test" tilewidth="900" tileheight="900" tilecount="7" columns="0">
+<tileset version="1.5" tiledversion="1.7.0" name="test" tilewidth="900" tileheight="900" tilecount="8" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="6">
   <properties>
@@ -42,5 +42,11 @@
    <property name="name" value="obj_tree"/>
   </properties>
   <image width="256" height="512" source="tree.png"/>
+ </tile>
+ <tile id="13">
+  <properties>
+   <property name="name" value="obj_hay"/>
+  </properties>
+  <image width="256" height="256" source="hay.png"/>
  </tile>
 </tileset>

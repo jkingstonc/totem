@@ -30,7 +30,7 @@ public class Player extends Prefab {
         ColliderComponent c = new ColliderComponent();
         c.m_solid = true;
         c.m_dynamic = true;
-        c.m_bounds = new Vector2(.5f, .5f);
+        c.m_bounds = new Vector2(.5f, .25f);
         e.add(c);
 
 

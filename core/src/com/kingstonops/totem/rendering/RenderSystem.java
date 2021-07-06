@@ -26,7 +26,7 @@ import java.util.HashMap;
 public class RenderSystem extends EntitySystem {
 
     public static int TILE_LAYER = 0;
-    public static int PLAYER_LAYER = 2;
+    public static int PLAYER_LAYER = 5;
     public static int DECOR_LAYER = 15;
 
 

@@ -1,8 +1,10 @@
 package com.kingstonops.totem.world.animals;
 
+import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.Debug;
 import com.kingstonops.totem.IDComponent;
@@ -64,6 +66,7 @@ public class Dog extends Animal{
         Entity e = super.spawn(game);
         e.getComponent(AIComponent.class).m_ai_provier = new DogAIProvider();
         e.getComponent(TransformComponent.class).scale.set(new Vector3(.5f,.5f,1));
+        e.getComponent(ColliderComponent.class).m_bounds.set(new Vector2(.1f,.1f));
         return e;
     }
 }
