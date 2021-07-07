@@ -96,14 +96,14 @@ public class GameScreen extends ScreenAdapter {
 
         //Zone.from_file(m_game, "zones/test.tmx");
         //m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
-        m_game.engine().getSystem(WorldSystem.class).to_zone("zones/sanctuary.tmx");
+        m_game.engine().getSystem(WorldSystem.class).to_zone("zones/test.tmx");
 
 
 
         Entity e = Prefab.registry.instantiate("player").spawn(m_game);
-        Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(5,5,1);
-        Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(3,3,1);
-        Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(2,2,1);
+        //Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(5,5,1);
+        //Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(3,3,1);
+        //Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(2,2,1);
 
 
 

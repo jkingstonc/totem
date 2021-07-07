@@ -23,18 +23,18 @@ public class MovementSystem extends EntitySystem {
             Entity e = m_entities.get(i);
             TransformComponent p = m_pos_mapper.get(e);
             MovementComponent v = m_vel_mapper.get(e);
-            v.velocity.set(0,0,0);
+
             // add acceleration
-            v.velocity.x+=v.acceleration.x;
-            v.velocity.y+=v.acceleration.y;
+            dt = 0.01f;
+            v.velocity.x=v.acceleration.x * dt;
+            v.velocity.y=v.acceleration.y * dt;
             //v.velocity.add(v.acceleration.mulAdd(new Vector3(1, 1, 1), dt));
 
             // add to position
             //p.x+=v.v_x;
             // p.y+=v.v_y;
-            dt = 0.01f;
-            p.position.x += (v.velocity.x*dt);
-            p.position.y += (v.velocity.y*dt);
+            p.position.x += (v.velocity.x);
+            p.position.y += (v.velocity.y);
 
 
 
