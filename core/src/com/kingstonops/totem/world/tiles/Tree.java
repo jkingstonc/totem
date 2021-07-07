@@ -16,7 +16,7 @@ public class Tree extends Tile{
     @Override
     public Entity spawn(Totem game) {
         Entity e = super.spawn(game);
-        e.getComponent(TransformComponent.class).scale.set(new Vector3(1,2,1));
+        e.getComponent(TransformComponent.class).scale.set(new Vector3(2,4,1));
         e.getComponent(ColliderComponent.class).m_bounds.set(new Vector2(.25f, .25f));
         return e;
     }

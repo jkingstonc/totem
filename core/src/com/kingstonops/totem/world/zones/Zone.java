@@ -79,17 +79,34 @@ public class Zone {
                     Debug.dbg("pos = "+pos.x+", "+pos.y);
 
                     switch(obj.getName()){
-                        case "spawn":{
+                        case "default_spawn":{
+
                             Entity player = IDComponent.find(game, "player");
                             TransformComponent t = player.getComponent(TransformComponent.class);
                             t.position.set(pos);
+
+                            Entity camera = IDComponent.find(game, "camera");
+                            TransformComponent cam_t = camera.getComponent(TransformComponent.class);
+                            cam_t.position.set(pos);
+
+
                             break;
                         }
                         case "obj_door":{
                             Entity e = Prefab.registry.instantiate("obj_door").spawn(game);
                             e.getComponent(TransformComponent.class).position.set(pos);
                             DoorComponent d = e.getComponent(DoorComponent.class);
-                            d.m_to = "zones/"+obj.getProperties().get("to").toString()+".tmx";
+                            Debug.dbg(""+obj.getProperties().get("zone"));
+                            d.m_to = "zones/"+obj.getProperties().get("zone").toString()+".tmx";
+
+
+                            // if the door goes somewhere then find where it goes
+                            Object spawn = obj.getProperties().get("spawn");
+                            if(spawn!=null){
+                                // todo
+                            }
+
+
                             d.m_target = new Vector3(0,0, RenderSystem.PLAYER_LAYER);
                             entities.add(e);
                             break;

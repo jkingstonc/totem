@@ -16,6 +16,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.kingstonops.totem.IDComponent;
 import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.physics.TransformComponent;
 
@@ -111,7 +112,7 @@ public class RenderSystem extends EntitySystem {
     public Vector3 un_project(Vector3 coords){
         Vector3 p = m_camera.cam.unproject(coords);
         System.out.println("unprojected "+coords+" -> "+p);
-        p.x = (int)pix_to_unit(p.x - Gdx.graphics.getWidth()/2);
+        p.x = (int)pix_to_unit(p.x - Gdx.graphics.getWidth()/2 + UNIT_SIZE/2);
         p.y = (int)pix_to_unit(p.y - Gdx.graphics.getHeight()/2);
         p.z = (int)pix_to_unit(p.z);
         return new Vector3(p.x, p.y, p.z);
@@ -128,7 +129,7 @@ public class RenderSystem extends EntitySystem {
 
         Entity e = engine.createEntity();
         engine.addEntity(e);
-
+        e.add(new IDComponent("camera"));
         CameraComponent c = new CameraComponent();
         e.add(c);
         m_camera = c;
@@ -190,7 +191,11 @@ public class RenderSystem extends EntitySystem {
             float origin_x = Gdx.graphics.getWidth()/2;
             float origin_y = Gdx.graphics.getHeight()/2;
 
-            m_batch.draw(r.texture, t_x + origin_x - UNIT_SIZE/2, t_y + origin_y - UNIT_SIZE/2, w, h);
+            float offset_x = w/2;
+            float offset_y = 0;//h/2;
+
+            //m_batch.draw(r.texture, t_x + origin_x - UNIT_SIZE/2 - offset_x, t_y + origin_y - UNIT_SIZE/2 - offset_y, w, h);
+            m_batch.draw(r.texture, t_x + origin_x - offset_x, t_y + origin_y - offset_y, w, h);
         }
 
         m_batch.end();

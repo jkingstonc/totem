@@ -34,9 +34,10 @@
  <objectgroup id="3" name="Object Layer 1">
   <object id="5" name="obj_door" x="1396" y="2680">
    <properties>
-    <property name="to" value="zone_sanctuary"/>
+    <property name="spawn" value="spawn_0"/>
+    <property name="zone" value="zone_sanctuary"/>
    </properties>
   </object>
-  <object id="6" name="spawn" x="1396" y="1396"/>
+  <object id="6" name="default_spawn" x="1396" y="1396"/>
  </objectgroup>
 </map>
