@@ -50,6 +50,7 @@ public class Player extends Prefab {
                 0,
                 RenderSystem.PLAYER_LAYER
         );
+        t.scale = new Vector3(1, 2, 1);
         e.add(t);
         MovementComponent v = new MovementComponent();
         e.add(v);

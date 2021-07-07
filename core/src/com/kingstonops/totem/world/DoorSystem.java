@@ -45,7 +45,9 @@ public class DoorSystem extends EntitySystem {
 
                 if(d.m_should_go) {
                     d.m_should_go = false;
-                    player_transform.position.set(d.target());
+                    player_transform.position.x = d.target().x;
+                    player_transform.position.y = d.target().y;
+
                     m_game.engine().getSystem(WorldSystem.class).to_zone(d.to());
                 }
             }

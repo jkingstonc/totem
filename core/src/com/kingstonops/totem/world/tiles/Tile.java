@@ -34,25 +34,6 @@ public class Tile {
         m_solid = solid;
     }
 
-    public static Entity create(Engine engine, Vector3 pos, String texture, boolean solid){
-        Entity e = engine.createEntity();
-        engine.addEntity(e);
-        TransformComponent p = new TransformComponent();
-        p.position.set(pos);
-        e.add(p);
-        RenderComponent r = new RenderComponent();
-        r.texture = new TextureRegion(RenderSystem.get(texture));
-        e.add(r);
-
-        if(solid){
-            ColliderComponent c = new ColliderComponent();
-            c.m_dynamic = false;
-            c.m_solid = true;
-            c.m_bounds = new Vector2(.5f, .5f);
-            e.add(c);
-        }
-        return e;
-    }
 
     public Entity spawn(Totem game){
         Entity e = game.engine().createEntity();
@@ -64,14 +45,11 @@ public class Tile {
         RenderComponent r = new RenderComponent();
         r.texture = new TextureRegion(RenderSystem.get(m_texture));
         e.add(r);
-
-        if(m_solid){
-            ColliderComponent c = new ColliderComponent();
-            c.m_dynamic = false;
-            c.m_solid = true;
-            c.m_bounds = new Vector2(.5f, .5f);
-            e.add(c);
-        }
+        ColliderComponent c = new ColliderComponent();
+        c.m_dynamic = false;
+        c.m_solid = m_solid;
+        c.m_bounds = new Vector2(.5f, .5f);
+        e.add(c);
         return e;
     }
 }

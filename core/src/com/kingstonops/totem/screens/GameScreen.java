@@ -25,6 +25,7 @@ import com.kingstonops.totem.world.animals.Animal;
 import com.kingstonops.totem.world.animals.Chicken;
 import com.kingstonops.totem.world.animals.Cow;
 import com.kingstonops.totem.world.animals.Dog;
+import com.kingstonops.totem.world.objects.Door;
 import com.kingstonops.totem.world.tiles.Chair;
 import com.kingstonops.totem.world.tiles.Tile;
 import com.kingstonops.totem.world.tiles.Tree;
@@ -65,6 +66,8 @@ public class GameScreen extends ScreenAdapter {
 
         Prefab.registry.register("player", (g)->new Player().spawn(g));
         Prefab.registry.register("animal_dog", (g)->new Dog().spawn(g));
+        Prefab.registry.register("tile_barrier", (g)->new Tile("barrier", "barrier.png", true).spawn(g));
+        Prefab.registry.register("tile_floor_board", (g)->new Tile("floor_board", "floor_board.png", false).spawn(g));
         Prefab.registry.register("tile_grass", (g)->new Tile("grass", "grass.png", false).spawn(g));
         Prefab.registry.register("tile_sand", (g)->new Tile("sand", "sand.png", false).spawn(g));
         Prefab.registry.register("tile_water", (g)->new Tile("water", "water.png", true).spawn(g));
@@ -72,6 +75,7 @@ public class GameScreen extends ScreenAdapter {
         Prefab.registry.register("obj_fence", (g)->new Tile("fence", "fence.png", true).spawn(g));
         Prefab.registry.register("obj_tree", (g)->new Tree().spawn(g));
         Prefab.registry.register("obj_hay", (g)->new Tile("hay", "hay.png", true).spawn(g));
+        Prefab.registry.register("obj_door", (g)->new Door().spawn(g));
         Prefab.registry.register("animal_cow", (g)->new Cow().spawn(g));
 
 
@@ -94,13 +98,13 @@ public class GameScreen extends ScreenAdapter {
 
 
 
+        Entity e = Prefab.registry.instantiate("player").spawn(m_game);
         //Zone.from_file(m_game, "zones/test.tmx");
         //m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
-        m_game.engine().getSystem(WorldSystem.class).to_zone("zones/test.tmx");
+        m_game.engine().getSystem(WorldSystem.class).to_zone("zones/house_0.tmx");
 
 
 
-        Entity e = Prefab.registry.instantiate("player").spawn(m_game);
         //Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(5,5,1);
         //Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(3,3,1);
         //Prefab.registry.instantiate("animal_dog").spawn(m_game).getComponent(TransformComponent.class).position.set(2,2,1);

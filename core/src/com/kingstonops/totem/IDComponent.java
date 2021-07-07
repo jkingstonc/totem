@@ -48,6 +48,16 @@ public class IDComponent implements Component {
         return m_id;
     }
 
+    public static Entity find(Totem game, String id){
+        ImmutableArray<Entity> es = game.engine().getEntitiesFor(Family.all(IDComponent.class).get());
+        for(Entity e : es){
+            if(e.getComponent(IDComponent.class).m_id.equals(id)){
+                return e;
+            }
+        }
+        return null;
+    }
+
     public static Entity find_nearest(Totem game, String id, Vector3 target){
         ImmutableArray<Entity> es = game.engine().getEntitiesFor(Family.all(IDComponent.class).get());
         ArrayList<Entity> hay_entities = new ArrayList<>();

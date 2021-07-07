@@ -1,16 +1,22 @@
 package com.kingstonops.totem.world.zones;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.Debug;
+import com.kingstonops.totem.IDComponent;
 import com.kingstonops.totem.Prefab;
 import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.physics.TransformComponent;
+import com.kingstonops.totem.rendering.RenderSystem;
+import com.kingstonops.totem.world.DoorComponent;
 import com.kingstonops.totem.world.animals.Animal;
+import com.kingstonops.totem.world.objects.Door;
 import com.kingstonops.totem.world.tiles.Tile;
 
 import java.util.ArrayList;
@@ -29,19 +35,65 @@ public class Zone {
 
         ArrayList<com.badlogic.ashley.core.Entity> entities = new ArrayList<>();
 
+        Debug.dbg("layers = "+tiled_map.getLayers().getCount());
+
         // todo move to this system
         for(int layer=0;layer<tiled_map.getLayers().getCount();layer++){
-            TiledMapTileLayer current_layer = (TiledMapTileLayer)tiled_map.getLayers().get(layer);
-            for(int x=0;x<current_layer.getWidth();x++){
-                for(int y=0;y<current_layer.getHeight();y++){
-                    TiledMapTileLayer.Cell cell = current_layer.getCell(x,y);
-                    if(cell!=null) {
-                        String name = "" + cell.getTile().getProperties().get("name");
-                        Debug.dbg("name = "+name);
-                        Debug.dbg(""+Prefab.registry.instantiate(name));
-                        Entity e = Prefab.registry.instantiate(name).spawn(game);
-                        e.getComponent(TransformComponent.class).position.set(new Vector3(x,y,layer));
-                        entities.add(e);
+
+
+            Debug.dbg(""+tiled_map.getLayers().get(layer).getClass());
+
+            if(tiled_map.getLayers().get(layer) instanceof TiledMapTileLayer) {
+
+                TiledMapTileLayer current_layer = (TiledMapTileLayer) tiled_map.getLayers().get(layer);
+                for (int x = 0; x < current_layer.getWidth(); x++) {
+                    for (int y = 0; y < current_layer.getHeight(); y++) {
+                        TiledMapTileLayer.Cell cell = current_layer.getCell(x, y);
+                        if (cell != null) {
+                            String name = "" + cell.getTile().getProperties().get("name");
+                            Entity e = Prefab.registry.instantiate(name).spawn(game);
+                            e.getComponent(TransformComponent.class).position.set(new Vector3(x, y, layer));
+                            entities.add(e);
+                        }
+                    }
+                }
+            }else{
+                // object layer
+                MapLayer current_layer = tiled_map.getLayers().get(layer);
+                for (MapObject obj : current_layer.getObjects()) {
+
+                    Debug.dbg("obj name = "+obj.getName());
+
+
+                    // todo dynamically get this
+                    final float TILE_SIZE = 256f;
+
+
+                    Vector3 pos = new Vector3(
+                            (int)(Float.parseFloat(obj.getProperties().get("x").toString()) / TILE_SIZE),
+                            (int)(Float.parseFloat(obj.getProperties().get("y").toString()) / TILE_SIZE),
+                            layer);
+
+
+
+                    Debug.dbg("pos = "+pos.x+", "+pos.y);
+
+                    switch(obj.getName()){
+                        case "spawn":{
+                            Entity player = IDComponent.find(game, "player");
+                            TransformComponent t = player.getComponent(TransformComponent.class);
+                            t.position.set(pos);
+                            break;
+                        }
+                        case "obj_door":{
+                            Entity e = Prefab.registry.instantiate("obj_door").spawn(game);
+                            e.getComponent(TransformComponent.class).position.set(pos);
+                            DoorComponent d = e.getComponent(DoorComponent.class);
+                            d.m_to = "zones/"+obj.getProperties().get("to").toString()+".tmx";
+                            d.m_target = new Vector3(0,0, RenderSystem.PLAYER_LAYER);
+                            entities.add(e);
+                            break;
+                        }
                     }
                 }
             }

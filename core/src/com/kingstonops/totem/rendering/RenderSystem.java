@@ -52,6 +52,8 @@ public class RenderSystem extends EntitySystem {
     public static HashMap<String, Texture> texture_registry = new HashMap<>();
 
     public static void register_all(Totem game){
+        RenderSystem.register("barrier.png");
+        RenderSystem.register("floor_board.png");
         RenderSystem.register("dog.png");
         RenderSystem.register("hay.png");
         RenderSystem.register("fence.png");
@@ -67,7 +69,7 @@ public class RenderSystem extends EntitySystem {
         RenderSystem.register("rock.png");
         RenderSystem.register("wood.png");
         RenderSystem.register("mum.png");
-        RenderSystem.register("door.jpg");
+        RenderSystem.register("door.png");
         RenderSystem.register("roof.jpg");
         RenderSystem.register("lava.jpg");
         RenderSystem.register("tree.png");
@@ -96,7 +98,7 @@ public class RenderSystem extends EntitySystem {
 
     private Engine m_engine;
 
-    public static final float UNIT_SIZE = 150f; // pixels per unit
+    public static final float UNIT_SIZE = 100f; // pixels per unit
     public static final float PIXEL_TO_UNIT = 1/UNIT_SIZE;
 
     public static final float pix_to_unit(float pixels){
@@ -182,6 +184,7 @@ public class RenderSystem extends EntitySystem {
             w = RenderSystem.unit_to_pixel(t.scale.x);
             h = RenderSystem.unit_to_pixel(t.scale.y);
 
+           // w = t.scale.x *
 
 
             float origin_x = Gdx.graphics.getWidth()/2;

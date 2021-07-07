@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.0" name="test" tilewidth="900" tileheight="900" tilecount="8" columns="0">
+<tileset version="1.5" tiledversion="1.7.0" name="test" tilewidth="900" tileheight="900" tilecount="11" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="6">
   <properties>
@@ -48,5 +48,24 @@
    <property name="name" value="obj_hay"/>
   </properties>
   <image width="256" height="256" source="hay.png"/>
+ </tile>
+ <tile id="14">
+  <properties>
+   <property name="name" value="tile_floor_board"/>
+  </properties>
+  <image width="256" height="256" source="floor_board.png"/>
+ </tile>
+ <tile id="15">
+  <properties>
+   <property name="name" value="tile_barrier"/>
+  </properties>
+  <image width="256" height="256" source="barrier.png"/>
+ </tile>
+ <tile id="16">
+  <properties>
+   <property name="name" value="obj_door"/>
+   <property name="to" value="zone_village_0"/>
+  </properties>
+  <image width="256" height="256" source="door.png"/>
  </tile>
 </tileset>

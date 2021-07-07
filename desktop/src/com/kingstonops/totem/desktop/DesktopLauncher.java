@@ -9,7 +9,7 @@ import com.kingstonops.totem.Totem;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(60);
+		config.setForegroundFPS(1000);
 		config.setResizable(true);
 		config.useVsync(true);
 		config.setTitle("totem");

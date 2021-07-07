@@ -50,7 +50,6 @@ public class ColliderSystem extends EntitySystem {
             // if we are moving then check our collision with the other entities
             if(m1!=null && c1.m_dynamic){
                 Vector3 pos1 = new Vector3(t1.position.x + m1.velocity.x, t1.position.y+m1.velocity.y,0);
-                Debug.dbg("accel = "+m1.acceleration.x+", "+m1.acceleration.y);
                 for(int j = 0;j<m_entities.size();j++){
                     Entity e2 = m_entities.get(j);
                     TransformComponent t2 = m_transform_mapper.get(e2);
@@ -74,9 +73,12 @@ public class ColliderSystem extends EntitySystem {
                         ){
                             if(!c1.m_colliding_with.contains(e2)) c1.m_colliding_with.add(e2);
                             if(!c2.m_colliding_with.contains(e1)) c2.m_colliding_with.add(e1);
+
+                            c1.m_colliding_with.add(e2);
+                            c2.m_colliding_with.add(e1);
+
                             if(c1.m_solid&&c2.m_solid && c1.m_dynamic){
 
-                                Debug.dbg("coll!");
 
                                 // resolve whichever overlap is smaller
                                 // todo this doesn't account for bounding box sizes
@@ -86,11 +88,13 @@ public class ColliderSystem extends EntitySystem {
                                     if(overlap.x<0){
                                         float diff = (pos2.x + c2.m_bounds.x) - (pos1.x - c1.m_bounds.x);
                                         t1.position.x += diff;
+                                        //m1.acceleration.x = 0;
                                     }
                                     // e2 is right of e1
                                     else if(overlap.x>=0){
                                         float diff = (pos1.x + c1.m_bounds.x) - (pos2.x - c2.m_bounds.x);
                                         t1.position.x -= diff;
+                                        //m1.acceleration.x = 0;
                                     }
                                 }else {
                                     // resole y
@@ -98,11 +102,13 @@ public class ColliderSystem extends EntitySystem {
                                     if(overlap.y<0){
                                         float diff = (pos2.y + c2.m_bounds.y) - (pos1.y - c1.m_bounds.y);
                                         t1.position.y += diff;
+                                        //m1.acceleration.y = 0;
                                     }
                                     // e2 is above e1
                                     else if(overlap.y>=0){
                                         float diff = (pos1.y + c1.m_bounds.y) - (pos2.y - c2.m_bounds.y);
                                         t1.position.y -= diff;
+                                        //m1.acceleration.y = 0;
                                     }
                                 }
 

@@ -12,6 +12,7 @@ import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.guys.InteractionComponent;
+import com.kingstonops.totem.world.objects.Door;
 
 public class DoorComponent implements Component{
     public static Entity create(Engine engine, Vector3 pos, String to, Vector3 target){
@@ -46,11 +47,12 @@ public class DoorComponent implements Component{
         return e;
     }
     public boolean m_should_go = false;
-    private Vector3 m_target;
-    private String m_to;
+    public Vector3 m_target;
+    public String m_to;
     public String to(){
         return m_to;
     }
+    public DoorComponent(){}
     public DoorComponent(String to, Vector3 target){
         m_to=to;m_target=target;
     }
