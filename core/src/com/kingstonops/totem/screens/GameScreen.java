@@ -5,33 +5,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.*;
 import com.kingstonops.totem.items.*;
-import com.kingstonops.totem.physics.ColliderComponent;
-import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.player.Pet;
 import com.kingstonops.totem.player.Player;
 import com.kingstonops.totem.player.PlayerComponent;
 import com.kingstonops.totem.rendering.CameraComponent;
-import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.dialouge.DialougeComponent;
-import com.kingstonops.totem.world.animals.Animal;
-import com.kingstonops.totem.world.animals.Chicken;
 import com.kingstonops.totem.world.animals.Cow;
 import com.kingstonops.totem.world.animals.Dog;
 import com.kingstonops.totem.world.guys.AIComponent;
 import com.kingstonops.totem.world.objects.Door;
-import com.kingstonops.totem.world.tiles.Chair;
 import com.kingstonops.totem.world.tiles.Tile;
 import com.kingstonops.totem.world.tiles.Tree;
-import com.kingstonops.totem.world.zones.Zone;
 import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
 import imgui.ImGuiIO;
@@ -39,9 +29,6 @@ import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -81,9 +68,13 @@ public class GameScreen extends ScreenAdapter {
         Prefab.registry.register("obj_hay", (g)->new Tile("hay", "hay.png", true).spawn(g));
         Prefab.registry.register("obj_door", (g)->new Door().spawn(g));
         Prefab.registry.register("animal_cow", (g)->new Cow().spawn(g));
+        Prefab.registry.register("obj_water_tank_empty", (g)->new Tile("obj_water_tank_empty", "water_tank_empty.png", true).spawn(g));
+        Prefab.registry.register("obj_water_tank_full", (g)->new Tile("obj_water_tank_full", "water_tank_full.png", true).spawn(g));
 
 
-        Item.registry.register("lead", (g)->new LeadItem());
+        Item.registry.register("water_tank", (g)->new WaterTank());
+        Item.registry.register("water_bucket", (g)->new WaterBucket());
+        Item.registry.register("lead", (g)->new Lead());
         Item.registry.register("pickaxe", (g)->new Pickaxe());
         Item.registry.register("speed_totem", (g)->new EmptyTotem.SpeedTotem());
         Item.registry.register("rusty_gear", (g)->new Misc.RustyGear());

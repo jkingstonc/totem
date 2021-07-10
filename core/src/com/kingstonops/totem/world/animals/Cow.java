@@ -21,7 +21,9 @@ public class Cow extends Animal{
 
     public static class CowAIProvider extends AIComponent.AIProvider.BasicWanderingAIProvider{
 
+        boolean m_thirsty = false;
         boolean m_hungry = false;
+
         @Override
         public void process(Totem game, Entity e) {
 

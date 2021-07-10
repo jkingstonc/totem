@@ -107,8 +107,48 @@ public class PlayerControllerSystem extends EntitySystem {
         }else if(input.key_up.contains(Input.Keys.NUM_3)){
             p.m_selected_item=3;
             update_selected_item=3;
+        }else if(input.key_up.contains(Input.Keys.NUM_4)){
+            p.m_selected_item=4;
+            update_selected_item=4;
+        }else if(input.key_up.contains(Input.Keys.NUM_5)){
+            p.m_selected_item=5;
+            update_selected_item=5;
+        }else if(input.key_up.contains(Input.Keys.NUM_6)){
+            p.m_selected_item=6;
+            update_selected_item=6;
+        }else if(input.key_up.contains(Input.Keys.NUM_7)){
+            p.m_selected_item=7;
+            update_selected_item=7;
+        }else if(input.key_up.contains(Input.Keys.NUM_8)){
+            p.m_selected_item=8;
+            update_selected_item=8;
+        }else if(input.key_up.contains(Input.Keys.NUM_9)){
+            p.m_selected_item=9;
+            update_selected_item=9;
         }
+
+        if(input.scroll_up){
+            p.m_selected_item++;
+            if(p.m_selected_item>9){
+                p.m_selected_item=0;
+            }
+            update_selected_item=p.m_selected_item;
+        }else if(input.scroll_down){
+            p.m_selected_item--;
+            if(p.m_selected_item<0){
+                p.m_selected_item=9;
+            }
+            update_selected_item=p.m_selected_item;
+        }
+
         if(update_selected_item>-1){
+            if(update_selected_item>inv.m_items.size()-1){
+                update_selected_item=0;
+                p.m_selected_item=update_selected_item;
+            }else if(update_selected_item<0){
+                update_selected_item=inv.m_items.size()-1;
+                p.m_selected_item=update_selected_item;
+            }
             p.m_holding_item.getComponent(RenderComponent.class).texture=new TextureRegion(RenderSystem.get(inv.m_items.get(update_selected_item).items().get(0).m_texture));
         }
 

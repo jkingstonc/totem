@@ -35,14 +35,11 @@ public class Player extends Prefab {
 
 
         InventoryComponent i = new InventoryComponent();
+        i.put(Item.registry.instantiate("water_tank").spawn(game));
+        i.put(Item.registry.instantiate("water_bucket").spawn(game));
         i.put(Item.registry.instantiate("lead").spawn(game));
-        i.put(Item.registry.instantiate("spawn_chicken").spawn(game));
         i.put(Item.registry.instantiate("spawn_cow").spawn(game));
         i.put(Item.registry.instantiate("spawn_hay").spawn(game));
-        i.put(Item.registry.instantiate("spawn_tree").spawn(game));
-        i.put(Item.registry.instantiate("speed_totem").spawn(game));
-        i.put(Item.registry.instantiate("pickaxe").spawn(game));
-        i.put(Item.registry.instantiate("chair").spawn(game));
         e.add(i);
 
         TransformComponent t = new TransformComponent();

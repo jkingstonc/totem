@@ -17,6 +17,8 @@ public class InputSystem extends EntitySystem implements InputProcessor {
     public int mouse_down = -1;
     public int mouse_up = -1;
     public int mouse_held = -1;
+    public boolean scroll_up = false;
+    public boolean scroll_down = false;
 
     public ArrayList<Integer> key_down = new ArrayList<>();
     public ArrayList<Integer> key_up = new ArrayList<>();
@@ -30,6 +32,8 @@ public class InputSystem extends EntitySystem implements InputProcessor {
     public void update(float dt){
         mouse_up=-1;
         mouse_down=-1;
+        scroll_down = false;
+        scroll_up = false;
         key_up.clear();
         key_down.clear();
     }
@@ -83,6 +87,11 @@ public class InputSystem extends EntitySystem implements InputProcessor {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
+        if(amountY>0){
+            scroll_up=true;
+        }else if(amountY<0){
+            scroll_down=true;
+        }
         return false;
     }
 }

@@ -10,12 +10,12 @@ import com.kingstonops.totem.world.animals.AnimalComponent;
 import com.kingstonops.totem.world.guys.AIComponent;
 
 
-public class LeadItem extends Item{
+public class Lead extends Item{
 
 
     private Entity being_lead = null;
 
-    public LeadItem(){
+    public Lead(){
         super("lead_item", "lead.png", Rarity.COMMON);
     }
 

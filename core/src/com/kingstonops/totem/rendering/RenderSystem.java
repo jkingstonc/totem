@@ -33,6 +33,9 @@ public class RenderSystem extends EntitySystem {
     public static HashMap<String, Texture> texture_registry = new HashMap<>();
 
     public static void register_all(Totem game){
+        RenderSystem.register("water_tank_empty.png");
+        RenderSystem.register("water_tank_full.png");
+        RenderSystem.register("water_bucket.png");
         RenderSystem.register("lead.png");
         RenderSystem.register("tree_trunk.png");
         RenderSystem.register("tree_top.png");
