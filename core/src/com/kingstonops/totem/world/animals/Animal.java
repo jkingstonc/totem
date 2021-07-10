@@ -9,6 +9,7 @@ import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
+import com.kingstonops.totem.rendering.AnimationComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.guys.AIComponent;
@@ -44,6 +45,8 @@ public class Animal {
         c.m_solid = true;
         c.m_bounds = new Vector2(.5f,.5f);
         e.add(c);
+
+        e.add(new AnimalComponent());
         return e;
     }
 }

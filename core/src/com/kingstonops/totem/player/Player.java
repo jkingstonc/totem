@@ -35,6 +35,7 @@ public class Player extends Prefab {
 
 
         InventoryComponent i = new InventoryComponent();
+        i.put(Item.registry.instantiate("lead").spawn(game));
         i.put(Item.registry.instantiate("spawn_chicken").spawn(game));
         i.put(Item.registry.instantiate("spawn_cow").spawn(game));
         i.put(Item.registry.instantiate("spawn_hay").spawn(game));

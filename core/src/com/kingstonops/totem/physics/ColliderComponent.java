@@ -19,5 +19,4 @@ public class ColliderComponent implements Component {
     public Vector2 m_bounds;
     public boolean m_solid = false;
     public boolean m_dynamic = false;
-
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.0" name="test" tilewidth="900" tileheight="900" tilecount="11" columns="0">
+<tileset version="1.5" tiledversion="1.7.0" name="test" tilewidth="900" tileheight="900" tilecount="13" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="6">
   <properties>
@@ -67,5 +67,17 @@
    <property name="to" value="zone_village_0"/>
   </properties>
   <image width="256" height="256" source="door.png"/>
+ </tile>
+ <tile id="17">
+  <properties>
+   <property name="name" value="tile_tree_trunk"/>
+  </properties>
+  <image width="256" height="512" source="tree_trunk.png"/>
+ </tile>
+ <tile id="18">
+  <properties>
+   <property name="name" value="tile_tree_top"/>
+  </properties>
+  <image width="256" height="512" source="tree_top.png"/>
  </tile>
 </tileset>

@@ -35,7 +35,7 @@
   <object id="5" name="obj_door" x="1396" y="2680">
    <properties>
     <property name="spawn" value="spawn_0"/>
-    <property name="zone" value="zone_sanctuary"/>
+    <property name="zone" value="zone_town_0"/>
    </properties>
   </object>
   <object id="6" name="default_spawn" x="1396" y="1396"/>

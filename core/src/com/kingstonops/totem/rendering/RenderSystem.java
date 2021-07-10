@@ -30,29 +30,12 @@ public class RenderSystem extends EntitySystem {
     public static int PLAYER_LAYER = 5;
     public static int DECOR_LAYER = 15;
 
-
-    private static class ZComparator implements Comparator<Entity>{
-        private ComponentMapper<TransformComponent> m_pos_mapper;
-        public ZComparator(){
-            m_pos_mapper = ComponentMapper.getFor(TransformComponent.class);
-        }
-        @Override
-        public int compare(Entity o1, Entity o2) {
-            TransformComponent p1 = m_pos_mapper.get(o1);
-            TransformComponent p2 = m_pos_mapper.get(o2);
-            int result = 0;
-            if(p1.position.z > p2.position.z)
-                result = 1;
-            else if(p1.position.z < p2.position.z)
-                result = -1;
-            return result;
-        }
-    }
-
-
     public static HashMap<String, Texture> texture_registry = new HashMap<>();
 
     public static void register_all(Totem game){
+        RenderSystem.register("lead.png");
+        RenderSystem.register("tree_trunk.png");
+        RenderSystem.register("tree_top.png");
         RenderSystem.register("barrier.png");
         RenderSystem.register("floor_board.png");
         RenderSystem.register("dog.png");
@@ -111,7 +94,6 @@ public class RenderSystem extends EntitySystem {
 
     public Vector3 un_project(Vector3 coords){
         Vector3 p = m_camera.cam.unproject(coords);
-        System.out.println("unprojected "+coords+" -> "+p);
         p.x = (int)pix_to_unit(p.x - Gdx.graphics.getWidth()/2 + UNIT_SIZE/2);
         p.y = (int)pix_to_unit(p.y - Gdx.graphics.getHeight()/2);
         p.z = (int)pix_to_unit(p.z);
@@ -159,7 +141,7 @@ public class RenderSystem extends EntitySystem {
             }
         }
 
-        m_render_queue.sort(new ZComparator());
+        m_render_queue.sort(new TransformComponent.ZComparator());
 
         m_camera.cam.update();
         m_batch.setProjectionMatrix(m_camera.cam.combined);

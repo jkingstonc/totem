@@ -4,9 +4,12 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.ArrayList;
+
 public class PlayerComponent implements Component {
 
 
+    public ArrayList<Entity> m_pets = new ArrayList<>();
     public Entity m_holding_item = null;
 
     int m_selected_item = 0;
