@@ -53,16 +53,18 @@ public class GameScreen extends ScreenAdapter {
         DialougeComponent.register_all(m_game);
 
 
+        com.kingstonops.totem.player.AnimalLog.AnimalStats.register_all();
+
         Prefab.registry.register("player", (g)->new Player().spawn(g));
         Prefab.registry.register("animal_dog", (g)->new Dog().spawn(g));
         Prefab.registry.register("tile_tree_trunk", (g)->new Tile("tree_trunk", "tree_trunk.png", true).spawn(g));
         Prefab.registry.register("tile_tree_top", (g)->new Tile("tree_top", "tree_top.png", false).spawn(g));
         Prefab.registry.register("tile_barrier", (g)->new Tile("barrier", "barrier.png", true).spawn(g));
         Prefab.registry.register("tile_floor_board", (g)->new Tile("floor_board", "floor_board.png", false).spawn(g));
-        Prefab.registry.register("tile_grass", (g)->new Tile("grass", "grass.png", false).spawn(g));
+        Prefab.registry.register("tile_grass", (g)->new Tile("tile_grass", "grass.png", false).spawn(g));
         Prefab.registry.register("tile_sand", (g)->new Tile("sand", "sand.png", false).spawn(g));
         Prefab.registry.register("tile_water", (g)->new Tile("water", "water.png", true).spawn(g));
-        Prefab.registry.register("tile_path", (g)->new Tile("path", "path.png", false).spawn(g));
+        Prefab.registry.register("tile_path", (g)->new Tile("tile_path", "path.png", false).spawn(g));
         Prefab.registry.register("obj_fence", (g)->new Tile("fence", "fence.png", true).spawn(g));
         Prefab.registry.register("obj_tree", (g)->new Tree().spawn(g));
         Prefab.registry.register("obj_hay", (g)->new Tile("hay", "hay.png", true).spawn(g));
@@ -72,6 +74,7 @@ public class GameScreen extends ScreenAdapter {
         Prefab.registry.register("obj_water_tank_full", (g)->new Tile("obj_water_tank_full", "water_tank_full.png", true).spawn(g));
 
 
+        Item.registry.register("animal_log", (g)->new AnimalLog());
         Item.registry.register("water_tank", (g)->new WaterTank());
         Item.registry.register("water_bucket", (g)->new WaterBucket());
         Item.registry.register("lead", (g)->new Lead());
@@ -94,14 +97,14 @@ public class GameScreen extends ScreenAdapter {
 
 
 
-        Entity player = Prefab.registry.instantiate("player").spawn(m_game);
+        Entity player = Prefab.registry.get("player").spawn(m_game);
         //Zone.from_file(m_game, "zones/test.tmx");
         //m_game.engine().getSystem(WorldSystem.class).to_zone("starting_house_downstairs");
+
         m_game.engine().getSystem(WorldSystem.class).to_zone("zones/zone_town_0_house_0.tmx");
 
 
-
-        Entity dog = Prefab.registry.instantiate("animal_dog").spawn(m_game);
+        Entity dog = Prefab.registry.get("animal_dog").spawn(m_game);
         dog.getComponent(TransformComponent.class).position.set(5,5,1);
         dog.getComponent(AIComponent.class).m_ai_provier = new Pet.PetAIProvider();
 

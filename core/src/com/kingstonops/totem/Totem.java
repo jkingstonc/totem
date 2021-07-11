@@ -20,6 +20,7 @@ import com.kingstonops.totem.world.AISystem;
 import com.kingstonops.totem.world.DoorSystem;
 import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.dialouge.DialougeSystem;
+import com.kingstonops.totem.world.animals.AnimalSystem;
 import com.kingstonops.totem.world.guys.InteractionSystem;
 
 import java.nio.file.Path;
@@ -48,6 +49,7 @@ public class Totem extends Game {
 	public void create(){
 		Box2D.init();
 		m_engine = new Engine();
+		m_engine.addSystem(new AnimalSystem(this));
 		m_engine.addSystem(new PathFindingSystem(this));
 		m_engine.addSystem(new DialougeSystem(this));
 		m_engine.addSystem(new InteractionSystem(this));

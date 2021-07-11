@@ -3,10 +3,7 @@ package com.kingstonops.totem.world.zones;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.*;
-import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.kingstonops.totem.Debug;
 import com.kingstonops.totem.IDComponent;
@@ -15,9 +12,6 @@ import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.DoorComponent;
-import com.kingstonops.totem.world.animals.Animal;
-import com.kingstonops.totem.world.objects.Door;
-import com.kingstonops.totem.world.tiles.Tile;
 
 import java.util.ArrayList;
 
@@ -35,7 +29,6 @@ public class Zone {
 
         ArrayList<com.badlogic.ashley.core.Entity> entities = new ArrayList<>();
 
-        Debug.dbg("layers = "+tiled_map.getLayers().getCount());
 
         // todo move to this system
         for(int layer=0;layer<tiled_map.getLayers().getCount();layer++){
@@ -51,7 +44,7 @@ public class Zone {
                         TiledMapTileLayer.Cell cell = current_layer.getCell(x, y);
                         if (cell != null) {
                             String name = "" + cell.getTile().getProperties().get("name");
-                            Entity e = Prefab.registry.instantiate(name).spawn(game);
+                            Entity e = Prefab.registry.get(name).spawn(game);
                             e.getComponent(TransformComponent.class).position.set(new Vector3(x, y, layer));
                             entities.add(e);
                         }
@@ -62,9 +55,6 @@ public class Zone {
                 MapLayer current_layer = tiled_map.getLayers().get(layer);
                 for (MapObject obj : current_layer.getObjects()) {
 
-                    Debug.dbg("obj name = "+obj.getName());
-
-
                     // todo dynamically get this
                     final float TILE_SIZE = 256f;
 
@@ -74,9 +64,6 @@ public class Zone {
                             (int)(Float.parseFloat(obj.getProperties().get("y").toString()) / TILE_SIZE),
                             layer);
 
-
-
-                    Debug.dbg("pos = "+pos.x+", "+pos.y);
 
                     switch(obj.getName()){
                         case "default_spawn":{
@@ -93,10 +80,9 @@ public class Zone {
                             break;
                         }
                         case "obj_door":{
-                            Entity e = Prefab.registry.instantiate("obj_door").spawn(game);
+                            Entity e = Prefab.registry.get("obj_door").spawn(game);
                             e.getComponent(TransformComponent.class).position.set(pos);
                             DoorComponent d = e.getComponent(DoorComponent.class);
-                            Debug.dbg(""+obj.getProperties().get("zone"));
                             d.m_to = "zones/"+obj.getProperties().get("zone").toString()+".tmx";
 
 

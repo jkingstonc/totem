@@ -5,7 +5,9 @@ import com.badlogic.ashley.core.Entity;
 import com.kingstonops.totem.Totem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class ZoneComponent implements Component {
 
@@ -61,7 +63,11 @@ public class ZoneComponent implements Component {
     }
 
     private ZoneDescriptor m_descriptor;
-    private ArrayList<Entity> m_entities = new ArrayList<>();
+
+
+    public boolean m_entities_queue_dirty = false;
+    public List<Entity> m_entities_queue = Collections.synchronizedList(new ArrayList<>());
+    private List<Entity> m_entities = Collections.synchronizedList(new ArrayList<>());
 
     public String m_name = "default";
 
@@ -74,7 +80,7 @@ public class ZoneComponent implements Component {
     }
 
     public ZoneDescriptor descriptor(){return m_descriptor;}
-    public ArrayList<Entity> entities(){
+    public List<Entity> entities(){
         return m_entities;
     }
 }

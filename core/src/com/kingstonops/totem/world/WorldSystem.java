@@ -8,18 +8,28 @@ import com.kingstonops.totem.world.zones.Zone;
 import com.kingstonops.totem.world.zones.ZoneComponent;
 import imgui.ImGui;
 
+import javax.sound.midi.Track;
+
 public class WorldSystem extends EntitySystem {
 
+    public static Entity entity(Totem game){
+
+        Entity e = game.engine().createEntity();
+        game.engine().addEntity(e);
+
+        if(game.engine().getSystem(WorldSystem.class).m_active_zone!=null) {
+            game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class).m_entities_queue_dirty = true;
+            game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class).m_entities_queue.add(e);
+        }
+        return e;
+    }
 
     public void to_zone(String zone_path){
-        Debug.dbg("to zone "+zone_path);
 
         // first remove the entities of the previous zone
         for(int i = 0;i<m_entities.size();i++){
-            Debug.dbg("removing entity in previous zone!");
             Entity e = m_entities.get(i);
             ZoneComponent z = m_zone_mapper.get(e);
-            Debug.dbg("z = "+z);
             for(int j=0;j<z.entities().size();j++){
                 m_game.engine().removeEntity(z.entities().get(j));
             }
@@ -80,6 +90,15 @@ public class WorldSystem extends EntitySystem {
 
     @Override
     public void update(float dt){
+
+        if(m_active_zone.getComponent(ZoneComponent.class).m_entities_queue_dirty) {
+            for (Entity e : m_active_zone.getComponent(ZoneComponent.class).m_entities_queue) {
+                m_active_zone.getComponent(ZoneComponent.class).entities().add(e);
+            }
+            m_active_zone.getComponent(ZoneComponent.class).m_entities_queue.clear();
+            m_active_zone.getComponent(ZoneComponent.class).m_entities_queue_dirty = false;
+        }
+
         if(Debug.DEBUG){
             ImGui.begin("world info");
             ZoneComponent z = m_active_zone.getComponent(ZoneComponent.class);

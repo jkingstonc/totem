@@ -20,7 +20,7 @@ public class WaterBucket extends Item{
             if(e.getComponent(IDComponent.class).id().equals("obj_water_tank_empty")){
 
 
-                Entity new_e = Prefab.registry.instantiate("obj_water_tank_full").spawn(game);
+                Entity new_e = Prefab.registry.get("obj_water_tank_full").spawn(game);
                 new_e.getComponent(TransformComponent.class).position.set(e.getComponent(TransformComponent.class).position);
                 Debug.dbg("found water tank!");
                 game.engine().removeEntity(e);

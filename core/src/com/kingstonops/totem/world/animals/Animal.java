@@ -12,6 +12,7 @@ import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.AnimationComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
+import com.kingstonops.totem.world.WorldSystem;
 import com.kingstonops.totem.world.guys.AIComponent;
 
 public class Animal {
@@ -27,8 +28,7 @@ public class Animal {
     }
 
     public Entity spawn(Totem game){
-        Entity e = game.engine().createEntity();
-        game.engine().addEntity(e);
+        Entity e = WorldSystem.entity(game);
         TransformComponent p = new TransformComponent();
         p.position.set(new Vector3(0,0,0));
         e.add(p);

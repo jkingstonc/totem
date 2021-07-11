@@ -16,7 +16,11 @@ public class Registry<T> {
         m_registered.put(id, initialiser);
     }
 
-    public T instantiate(String id){
+    public T get(String id){
         return m_registered.get(id);
+    }
+
+    public HashMap<String, T> enumerate(){
+        return m_registered;
     }
 }

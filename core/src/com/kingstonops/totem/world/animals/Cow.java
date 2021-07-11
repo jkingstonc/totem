@@ -27,7 +27,10 @@ public class Cow extends Animal{
         @Override
         public void process(Totem game, Entity e) {
 
-            if(!m_hungry && r.nextDouble()<0.0005){
+
+            final double HUNGER_RATE = 0.005f;
+
+            if(!m_hungry && r.nextDouble()<HUNGER_RATE){
                 m_hungry = true;
             }
 

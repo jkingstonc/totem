@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
@@ -15,9 +16,8 @@ import com.kingstonops.totem.world.guys.InteractionComponent;
 import com.kingstonops.totem.world.objects.Door;
 
 public class DoorComponent implements Component{
-    public static Entity create(Engine engine, Vector3 pos, String to, Vector3 target){
-        Entity e = engine.createEntity();
-        engine.addEntity(e);
+    public static Entity create(Totem game, Vector3 pos, String to, Vector3 target){
+        Entity e = WorldSystem.entity(game);
         TransformComponent p = new TransformComponent();
         p.position = pos;
         e.add(p);

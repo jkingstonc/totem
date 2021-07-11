@@ -44,7 +44,6 @@ public class Utils {
 
 
         if(shortlist.size()>0){
-            Debug.dbg("shortlist = "+shortlist.size());
             shortlist.sort(new TransformComponent.ZComparator());
             return shortlist.get(shortlist.size()-1);
         }

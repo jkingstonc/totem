@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.items.InventoryComponent;
 import com.kingstonops.totem.items.Item;
 import com.kingstonops.totem.physics.ColliderComponent;
@@ -14,9 +15,8 @@ import com.kingstonops.totem.rendering.RenderSystem;
 import com.kingstonops.totem.world.guys.InteractionComponent;
 
 public class Chest {
-    public static Entity create(Engine engine, Vector3 pos, String texture){
-        Entity e = engine.createEntity();
-        engine.addEntity(e);
+    public static Entity create(Totem game, Vector3 pos, String texture){
+        Entity e = WorldSystem.entity(game);
         TransformComponent p = new TransformComponent();
         p.position.set(pos);
         p.scale.set(new Vector3(.5f, .5f, 1));

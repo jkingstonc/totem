@@ -17,7 +17,7 @@ public class WaterTank extends Item{
     public void on_use(Totem game, Vector3 pos) {
         super.on_use(game, pos);
         ZoneComponent z = game.engine().getSystem(WorldSystem.class).m_active_zone.getComponent(ZoneComponent.class);
-        Entity e = Prefab.registry.instantiate("obj_water_tank_empty").spawn(game);
+        Entity e = Prefab.registry.get("obj_water_tank_empty").spawn(game);
         e.getComponent(TransformComponent.class).position.set(pos);
         z.entities().add(e);
     }

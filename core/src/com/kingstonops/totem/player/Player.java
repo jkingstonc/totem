@@ -15,14 +15,14 @@ import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
+import com.kingstonops.totem.world.WorldSystem;
 
 public class Player extends Prefab {
 
     @Override
     public Entity spawn(Totem game) {
         Entity e;
-        e = game.engine().createEntity();
-        game.engine().addEntity(e);
+        e = WorldSystem.entity(game);
 
         e.add(new IDComponent("player"));
 
@@ -35,11 +35,12 @@ public class Player extends Prefab {
 
 
         InventoryComponent i = new InventoryComponent();
-        i.put(Item.registry.instantiate("water_tank").spawn(game));
-        i.put(Item.registry.instantiate("water_bucket").spawn(game));
-        i.put(Item.registry.instantiate("lead").spawn(game));
-        i.put(Item.registry.instantiate("spawn_cow").spawn(game));
-        i.put(Item.registry.instantiate("spawn_hay").spawn(game));
+        i.put(Item.registry.get("animal_log").spawn(game));
+        i.put(Item.registry.get("water_tank").spawn(game));
+        i.put(Item.registry.get("water_bucket").spawn(game));
+        i.put(Item.registry.get("lead").spawn(game));
+        i.put(Item.registry.get("spawn_cow").spawn(game));
+        i.put(Item.registry.get("spawn_hay").spawn(game));
         e.add(i);
 
         TransformComponent t = new TransformComponent();
@@ -60,8 +61,7 @@ public class Player extends Prefab {
 
         // add the item the player is holding
 
-
-        Entity holding_item = game.engine().createEntity();
+        Entity holding_item = WorldSystem.entity(game);
         TransformComponent i_t = new TransformComponent();
         i_t.position = new Vector3(
                 0,
@@ -77,7 +77,6 @@ public class Player extends Prefab {
         RenderComponent i_r = new RenderComponent();
         i_r.texture=new TextureRegion(RenderSystem.get(i.m_items.get(0).items().get(0).m_texture));
         holding_item.add(i_r);
-        game.engine().addEntity(holding_item);
         e.getComponent(PlayerComponent.class).m_holding_item = holding_item;
         return e;
     }

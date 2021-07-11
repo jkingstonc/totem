@@ -13,6 +13,7 @@ import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
+import com.kingstonops.totem.world.WorldSystem;
 
 public class Tile {
 
@@ -36,8 +37,7 @@ public class Tile {
 
 
     public Entity spawn(Totem game){
-        Entity e = game.engine().createEntity();
-        game.engine().addEntity(e);
+        Entity e = WorldSystem.entity(game);
         e.add(new IDComponent(m_name));
         TransformComponent p = new TransformComponent();
         p.position.set(new Vector3(0,0,0));

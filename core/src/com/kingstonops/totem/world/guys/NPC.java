@@ -6,17 +6,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.kingstonops.totem.Totem;
 import com.kingstonops.totem.dialouge.DialougeComponent;
 import com.kingstonops.totem.physics.ColliderComponent;
 import com.kingstonops.totem.physics.MovementComponent;
 import com.kingstonops.totem.physics.TransformComponent;
 import com.kingstonops.totem.rendering.RenderComponent;
 import com.kingstonops.totem.rendering.RenderSystem;
+import com.kingstonops.totem.world.WorldSystem;
 
 public class NPC {
-    public static Entity create(Engine engine, Vector3 pos, String texture, AIComponent.AIProvider ai_provider, String dialouge_part){
-        Entity e = engine.createEntity();
-
+    public static Entity create(Totem game, Vector3 pos, String texture, AIComponent.AIProvider ai_provider, String dialouge_part){
+        Entity e = WorldSystem.entity(game);
 
         e.add(new MovementComponent());
 
@@ -52,7 +53,6 @@ public class NPC {
         });
         e.add(i);
 
-        engine.addEntity(e);
         return e;
     }
 }
